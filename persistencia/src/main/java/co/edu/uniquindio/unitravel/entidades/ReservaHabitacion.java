@@ -29,4 +29,7 @@ public class ReservaHabitacion implements Serializable {
 
     @ManyToOne
     private Habitacion habitacion;
+
+    @ManyToOne
+    private CodigoDescuento codigoDescuento;
 }
