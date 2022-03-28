@@ -1,89 +1,53 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Positive;
+import java.io.Serializable;
+
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Persona implements Serializable {
     @Id
+    @EqualsAndHashCode.Include
+    @Column(length = 11)
     private String cedula;
 
+    @Column(length = 30, nullable = false)
+    @Positive
     private String nombre;
 
+
+    @Column(length = 30, nullable = false)
     private String apellidos;
 
+    @Email
+    @Column(length = 50, unique = true, nullable = false)
     private String email;
 
-    @ElementCollection
-    private Map<String, String> telefono;
 
-    public Persona() {
-        super();
-    }
 
-    public Persona(String cedula, String nombre, String apellidos, String email, Map telefono) {
+
+
+
+    public Persona(String cedula, String nombre, String apellidos, String email) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
-        this.telefono= telefono;
+
     }
 
-    public String getCedula() {
-        return cedula;
-    }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Map<String, String> getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Map<String, String> telefono) {
-        this.telefono = telefono;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Persona persona = (Persona) o;
-        return Objects.equals(cedula, persona.cedula);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cedula);
-    }
 }

@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 
 public enum Genero{
-    TERROR,
-    NOVELAS,
-    ACCIÓN,
-    DRAMA,
-    ROMANTICO
+    FEMENINO,
+    MASCULINO,
+    NO_BINARIO,
+    OTRO
+
 }
