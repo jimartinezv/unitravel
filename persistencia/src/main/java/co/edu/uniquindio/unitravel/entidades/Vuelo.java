@@ -35,8 +35,9 @@ public class Vuelo implements Serializable {
     @OneToMany(mappedBy = "vueloIda")
     private List<Reserva> reservasIda;
 
-    @OneToMany(mappedBy = "vueloRegreso")
-    private List<Reserva> reservasRegreso;
+
+    @ManyToOne
+    private CodigoDescuento codigoDescuento;
 
     public Vuelo(String codigo, String aerolinea) {
         this.codigo = codigo;

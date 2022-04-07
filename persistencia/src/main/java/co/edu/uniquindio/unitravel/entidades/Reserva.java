@@ -56,6 +56,8 @@ public class Reserva implements Serializable {
     @OneToMany(mappedBy = "reserva")
     private List<ReservaHabitacion> reservaHabitaciones;
 
+    @ManyToOne
+    private CodigoDescuento codigoDescuento;
 
     public Reserva(LocalDateTime fechaReserva, LocalDateTime fechaInicio, LocalDateTime fechaFin, double precioTotal, String estado, byte cantidadPersonas) {
         this.fechaReserva = fechaReserva;

@@ -32,4 +32,5 @@ public class Caracteristica implements Serializable {
     @ManyToMany
     private List<Hotel> hotel;
 
+
 }
