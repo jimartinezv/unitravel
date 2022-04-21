@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,19 +12,23 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 public class Hotel implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
+    @ToString.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @ToString.Include
     private String nombre;
 
     @ElementCollection
     private Map<String, String> telefonos;
 
     @Column(name = "estrellas")
+    @ToString.Include
     private Integer numEstrellas;
 
     @OneToMany(mappedBy = "hotel") //forma de construir la llave foranea en sql

@@ -1141,7 +1141,17 @@ INSERT INTO cliente (cedula, apellidos, email, nombre, password, genero, ciudad_
 VALUES
 ("10949","Gutierrez", "guti@gmail.com", "Alvaro", "alajj", "MASCULINO", 66),
 ("10209","Fernandez", "fernanlucho@gmail.com", "Luis", "alajj", "MASCULINO", 66),
+("1094299","Mateo", "Matii@gmail.com", "José", "8837j", "MASCULINO", 50),
 ("109778","Gonzalez", "mariagonza@gmail.com", "Maria", "alajj", "FEMENINO", 66);
+
+INSERT INTO cliente_telefono (cliente_cedula, telefono, telefono_key)
+VALUES
+("10949","7495589","CASA"),
+("10949","7495230","OFICINA"),
+("10949","3217389900","CELULAR"),
+("109778","737567","CASA"),
+("109778","7495230","OFICINA"),
+("109778","3290001199","CELULAR");
 
 INSERT INTO administrador (cedula, apellidos, email, nombre, password)
 VALUES
@@ -1170,7 +1180,7 @@ VALUES
 INSERT INTO hotel (codigo, direccion_codigo, nombre, estrellas)
 VALUES
 (1, 1, "Hotel Armenia", 5),
-(2, 2, "Hotel El descanso", 2),
+(2, 2, "Hotel El descanso", 5),
 (3, 3, "Hotel Duerme bueno", 3);
 
 INSERT INTO habitacion(codigo, capacidad, precio, hotel_codigo)
@@ -1190,5 +1200,6 @@ INSERT INTO reserva (codigo, cantidad_personas, estado, precio_total, cliente_ce
 VALUES
 (1,3,"COMPLETO", 1500000,"10949"),
 (2,1,"COMPLETO", 1200000,"10209"),
-(3,4,"COMPLETO", 2200000,"109778");
+(3,4,"COMPLETO", 2200000,"109778"),
+(4,2,"COMPLETO", 899000,"10949");
 

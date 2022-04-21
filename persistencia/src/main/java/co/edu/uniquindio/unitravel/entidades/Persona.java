@@ -15,24 +15,28 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 public class Persona implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @Column(length = 11)
+    @ToString.Include
     private String cedula;
 
+    @ToString.Include
     @Column(length = 30, nullable = false)
     private String nombre;
 
-
+    @ToString.Include
     @Column(length = 30, nullable = false)
     private String apellidos;
 
+    @ToString.Include
     @Email
     @Column(length = 50, unique = true, nullable = false)
     private String email;
 
+    @ToString.Exclude
     @Column(length = 50, nullable = false)
     private String password;
 

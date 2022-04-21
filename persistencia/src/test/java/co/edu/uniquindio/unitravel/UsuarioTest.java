@@ -1,15 +1,21 @@
 package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.Cliente;
+import co.edu.uniquindio.unitravel.entidades.Reserva;
 import co.edu.uniquindio.unitravel.repositorio.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -98,5 +104,47 @@ public class UsuarioTest {
         List<Cliente> clientes=usuarioRepo.findAll();
         System.out.println(clientes);
         System.out.println("aqui");
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void loginUsuario(){
+        Optional<Cliente> cliente= usuarioRepo.findByPasswordAndEmail("alajj","guti@gmail.com");
+        System.out.println(cliente.orElse(null));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void pageableUsuario(){
+        Page<Cliente> cliente= usuarioRepo.findAll(PageRequest.of(0,3));
+        cliente.get().forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarUsuarioSort(){
+        List<Cliente> clientes= usuarioRepo.findAll(Sort.by(Sort.Direction.DESC,"nombre"));
+        clientes.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void reservaUsuarioEmail(){
+        List<Reserva> reservas = usuarioRepo.reservaCliente("guti@gmail.com");
+        reservas.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void reservasCliente(){
+        List<Object[]> reservas = usuarioRepo.obtenerReservaClientes();
+        reservas.forEach(c-> System.out.println(c[0]+"-"+c[1]));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void clienteByTelefono(){
+        List<Cliente> clientes = usuarioRepo.obtenerUsuarioTelefono("7495230");
+        clientes.forEach(System.out::println);
     }
 }

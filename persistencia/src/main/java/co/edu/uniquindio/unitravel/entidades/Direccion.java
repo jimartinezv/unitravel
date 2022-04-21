@@ -25,6 +25,9 @@ public class Direccion implements Serializable {
     @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
+    @OneToOne
+    private Hotel hotel;
+
     public Direccion(Integer codigo, String direccion) {
         this.codigo = codigo;
         this.direccion = direccion;

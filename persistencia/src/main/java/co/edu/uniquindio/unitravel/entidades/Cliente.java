@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-@ToString(onlyExplicitlyIncluded = true)
+
 @Entity
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class Cliente extends Persona implements Serializable {
     @ElementCollection //Crear una entidad de muchos a muchos
     private Map<String, String> telefono;
 
-    @ToString.Include
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Genero genero;

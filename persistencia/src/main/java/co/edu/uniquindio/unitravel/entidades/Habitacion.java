@@ -41,6 +41,8 @@ public class Habitacion implements Serializable {
     @OneToMany(mappedBy = "habitacion")
     private List<ReservaHabitacion> reservaHabitaciones;
 
+
+
     public Habitacion(String codigo, Hotel hotel, byte capacidad, double precio, List<Caracteristica> caracteristicasHabitacion, List<Foto> fotos) {
         this.codigo = codigo;
         this.hotel = hotel;

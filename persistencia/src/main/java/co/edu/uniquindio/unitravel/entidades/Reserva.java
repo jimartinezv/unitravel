@@ -53,7 +53,7 @@ public class Reserva implements Serializable {
     private Vuelo vueloRegreso;
 
     @OneToMany(mappedBy = "reserva")
-    private List<ReservaHabitacion> reservaHabitaciones;
+    private List<ReservaHabitacion> Habitaciones;
 
     @ManyToOne
     private CodigoDescuento codigoDescuento;
