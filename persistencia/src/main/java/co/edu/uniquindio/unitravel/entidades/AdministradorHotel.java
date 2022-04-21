@@ -16,11 +16,8 @@ import java.util.Map;
 @Setter
 public class AdministradorHotel extends Persona implements Serializable {
 
-    @Column(nullable = false)
-    private String rol;
 
-    public AdministradorHotel(String cedula, String nombre, String apellidos, String email,  String rol) {
-        super(cedula, nombre, apellidos, email);
-        this.rol = rol;
+    public AdministradorHotel(String cedula, String nombre, String apellidos, String password, String email,  String rol) {
+        super(cedula, nombre, apellidos, password, email);
     }
 }

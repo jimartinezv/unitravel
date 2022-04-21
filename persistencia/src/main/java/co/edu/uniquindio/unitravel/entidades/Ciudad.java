@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,17 +11,23 @@ import java.util.Objects;
 @NoArgsConstructor //Crea constructor vacio
 @Getter
 @Setter
+@ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) // Equals and hascode permite hacer comparación entre objetos determinando su clave única o valor comparativo
 public class Ciudad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include // Se determina como valor comparativo
+    @ToString.Include
     private Integer codigo;
 
+    @ToString.Include
     private String nombre;
 
+    @ToString.Include
+    private Integer estado;
+
     @OneToMany(mappedBy = "ciudad")
-    private List<Cliente> Cliente;
+    private List<Cliente> cliente;
 
     @OneToMany(mappedBy = "ciudadOrigen")
     private List<Vuelo> vuelosOrigen;
@@ -32,8 +35,14 @@ public class Ciudad implements Serializable {
     @OneToMany(mappedBy = "ciudadDestino")
     private List<Vuelo> vuelosDestino;
 
-    public Ciudad(String nombre) {
-        this.nombre = nombre;
+    @ManyToOne
+    private Departamento departamento;
+
+    @OneToMany(mappedBy = "ciudad")
+    private List<Direccion> direccion;
+
+    public Ciudad(String nombre, Integer estado,Departamento departamento) {
+        this.nombre = nombre; this.departamento= departamento; this.estado=estado;
     }
 
 

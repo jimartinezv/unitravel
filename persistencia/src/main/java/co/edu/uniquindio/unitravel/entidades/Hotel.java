@@ -24,8 +24,6 @@ public class Hotel implements Serializable {
 
     private String nombre;
 
-    private String direccion;
-
     @ElementCollection
     private Map<String, String> telefonos;
 
@@ -44,7 +42,11 @@ public class Hotel implements Serializable {
     @OneToMany (mappedBy = "hotel")
     private List<Comentario> comentarios;
 
-    public Hotel(Integer codigo, String nombre, String direccion, Map<String, String> telefonos, Integer numEstrellas) {
+    @OneToOne
+    @JoinColumn(nullable = false)
+    private Direccion direccion;
+
+    public Hotel(Integer codigo, String nombre, Direccion direccion, Map<String, String> telefonos, Integer numEstrellas) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.direccion = direccion;

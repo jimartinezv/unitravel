@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -17,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Reserva implements Serializable {
 
     @Id
@@ -45,6 +43,7 @@ public class Reserva implements Serializable {
     private List<ReservaSilla> reservaSillas;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Cliente cliente;
 
     @ManyToOne

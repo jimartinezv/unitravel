@@ -33,18 +33,18 @@ public class CodigoDescuento implements Serializable {
 
     private Integer cantidadDisponible;
 
-    private Boolean activo;
+    private Boolean estado;
 
     @OneToMany(mappedBy = "codigoDescuento")
     private List<Reserva> reservas;
 
-    public CodigoDescuento(String codigo, LocalDateTime fechaCreacion, LocalDateTime fechaVencimiento, double descuento, String descripcion, Integer cantidadDisponible, Boolean activo) {
+    public CodigoDescuento(String codigo, LocalDateTime fechaCreacion, LocalDateTime fechaVencimiento, double descuento, String descripcion, Integer cantidadDisponible, Boolean estado) {
         this.codigo = codigo;
         this.fechaCreacion = fechaCreacion;
         this.fechaVencimiento = fechaVencimiento;
         this.descuento = descuento;
         this.descripcion = descripcion;
         this.cantidadDisponible = cantidadDisponible;
-        this.activo = activo;
+        this.estado = estado;
     }
 }

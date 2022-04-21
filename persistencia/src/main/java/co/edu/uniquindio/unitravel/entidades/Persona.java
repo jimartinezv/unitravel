@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,6 +15,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@ToString
 public class Persona implements Serializable {
     @Id
     @EqualsAndHashCode.Include
@@ -25,7 +23,6 @@ public class Persona implements Serializable {
     private String cedula;
 
     @Column(length = 30, nullable = false)
-    @Positive
     private String nombre;
 
 
@@ -36,16 +33,20 @@ public class Persona implements Serializable {
     @Column(length = 50, unique = true, nullable = false)
     private String email;
 
+    @Column(length = 50, nullable = false)
+    private String password;
 
 
 
 
 
-    public Persona(String cedula, String nombre, String apellidos, String email) {
+
+    public Persona(String cedula, String nombre, String apellidos, String email, String password) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
+        this.password= password;
 
     }
 

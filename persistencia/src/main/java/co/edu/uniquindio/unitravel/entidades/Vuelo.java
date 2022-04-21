@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Vuelo implements Serializable {
 
     @Id
@@ -36,8 +34,8 @@ public class Vuelo implements Serializable {
     private List<Reserva> reservasIda;
 
 
-    @ManyToOne
-    private CodigoDescuento codigoDescuento;
+    //@ManyToOne
+    //private CodigoDescuento codigoDescuento;
 
     public Vuelo(String codigo, String aerolinea) {
         this.codigo = codigo;
