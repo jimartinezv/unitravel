@@ -115,4 +115,10 @@ public class ClienteServicioTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarClientesReservaTest(){
+        clienteServicio.listarClientesReserva().forEach(System.out::println);
+    }
 }

@@ -1198,8 +1198,8 @@ VALUES
 
 INSERT INTO reserva (codigo, cantidad_personas, estado, precio_total, cliente_cedula)
 VALUES
-(1,3,"COMPLETO", 1500000,"10949"),
-(2,1,"COMPLETO", 1200000,"10209"),
-(3,4,"COMPLETO", 2200000,"109778"),
-(4,2,"COMPLETO", 899000,"10949");
+(1,3,"COMPLETO", 1500000,"10949");
+--(2,1,"COMPLETO", 1200000,"10209"),
+--(3,4,"COMPLETO", 2200000,"109778"),
+--(4,2,"COMPLETO", 899000,"10949");
 

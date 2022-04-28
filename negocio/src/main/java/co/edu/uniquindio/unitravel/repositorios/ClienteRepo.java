@@ -29,4 +29,7 @@ public interface ClienteRepo extends JpaRepository<Cliente, String> {
 
     @Query("select c from Cliente c join c.telefono t where t=:telefono")
     List<Cliente> obtenerUsuarioTelefono(String telefono);
+
+    @Query("select c from Cliente c left join c.reservas r")
+    List<Cliente> clientesReservas();
 }

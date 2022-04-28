@@ -69,6 +69,11 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public List<Cliente> listarClientesReserva() {
+        return usuarioRepo.clientesReservas();
+    }
+
+    @Override
     public Cliente validarLogin(String email, String password) throws Exception {
         Optional<Cliente> cliente= usuarioRepo.findByEmailAndPassword(email, password);
         if (cliente.isEmpty()){

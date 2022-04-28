@@ -16,5 +16,7 @@ public interface ClienteServicio {
 
     List<Cliente> listarUsuarios();
 
+    List<Cliente> listarClientesReserva();
+
     Cliente validarLogin(String email, String password) throws Exception;
 }
