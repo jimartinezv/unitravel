@@ -1,7 +1,7 @@
 package co.edu.uniquindio.unitravel.servicios;
 
 
-import co.edu.uniquindio.unitravel.entidades.Cliente;
+import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.ClienteRepo;
 import org.springframework.stereotype.Service;
 
@@ -69,8 +69,33 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public Reserva crearReserva(Reserva reserva) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Reserva> listarReserva() {
+        return null;
+    }
+
+    @Override
+    public Comentario comentarHotel(Comentario comentario) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void recuperarPassword(String id) throws Exception {
+
+    }
+
+    @Override
     public List<Cliente> listarClientesReserva() {
         return usuarioRepo.clientesReservas();
+    }
+
+    @Override
+    public Reserva gestionarReserva(Reserva reserva) throws Exception {
+        return null;
     }
 
     @Override
@@ -80,5 +105,10 @@ public class ClienteServicioImpl implements ClienteServicio{
             throw new Exception("Los datos de autenticación son incorrectos");
         }
         return cliente.get();
+    }
+
+    @Override
+    public List<Hotel> buscarHoteles(Destino destino) {
+        return null;
     }
 }
