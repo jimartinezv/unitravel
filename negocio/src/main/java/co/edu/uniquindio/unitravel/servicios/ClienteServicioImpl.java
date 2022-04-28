@@ -3,10 +3,15 @@ package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.ClienteRepo;
+import co.edu.uniquindio.unitravel.repositorios.ComentarioRepo;
+import co.edu.uniquindio.unitravel.repositorios.ReservaRepo;
+import com.sun.xml.bind.v2.TODO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.ToDoubleBiFunction;
 
 @Service
 public class ClienteServicioImpl implements ClienteServicio{
@@ -17,6 +22,11 @@ public class ClienteServicioImpl implements ClienteServicio{
         this.usuarioRepo=usuarioRepo;
     }
 
+    @Autowired
+    private ComentarioRepo comentarioRepo;
+
+    @Autowired
+    public ReservaRepo reservaRepo;
 
 
     @Override
@@ -29,7 +39,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         if(buscadoEmail!=null){
             throw new Exception("El correo del usuario ya está registrado");
         }
-        System.out.println("Aqui pase y paila");
+
         return usuarioRepo.save(u);
 
     }
@@ -68,9 +78,17 @@ public class ClienteServicioImpl implements ClienteServicio{
         return usuarioRepo.findAll();
     }
 
+    /**
+     * Busca determinada reserva
+     * @param codigo
+     * @return
+     */
+    public Reserva buscarReserva(Integer codigo){
+        return reservaRepo.getById(codigo);
+    }
     @Override
     public Reserva crearReserva(Reserva reserva) throws Exception {
-        return null;
+        return reservaRepo.save(reserva);
     }
 
     @Override
@@ -80,7 +98,7 @@ public class ClienteServicioImpl implements ClienteServicio{
 
     @Override
     public Comentario comentarHotel(Comentario comentario) throws Exception {
-        return null;
+        return comentarioRepo.save(comentario);
     }
 
     @Override

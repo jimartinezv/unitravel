@@ -40,7 +40,7 @@ public interface AdministradorServicio {
      * @param password
      * @throws Exception
      */
-    void loginAdmin(String correo, String password) throws Exception;
+    Administrador loginAdmin(String correo, String password) throws Exception;
 
 
     /**
@@ -74,14 +74,14 @@ public interface AdministradorServicio {
      * @param administradorHotel
      * @return
      */
-    AdministradorHotel gestionarAdminHotel(AdministradorHotel administradorHotel);
+    AdministradorHotel gestionarAdminHotel(AdministradorHotel administradorHotel) throws Exception;
 
     /**
      * EL administrador creará los hoteles y definirá su administrador
      * @param hotel
      * @return
      */
-    Hotel registrarHotel(Hotel hotel);
+    Hotel registrarHotel(Hotel hotel) throws Exception;
 
     /**
      * El administrador podrá crear toures
@@ -96,5 +96,5 @@ public interface AdministradorServicio {
      * @param codigoDescuento
      * @return
      */
-    CodigoDescuento crearCodigoDescuento(CodigoDescuento codigoDescuento);
+    CodigoDescuento crearCodigoDescuento(CodigoDescuento codigoDescuento) throws Exception;
 }

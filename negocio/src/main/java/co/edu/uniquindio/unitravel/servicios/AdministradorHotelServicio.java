@@ -14,11 +14,11 @@ public interface AdministradorHotelServicio {
      * @param password
      * @return
      */
-    AdministradorHotel loginAdminHotel(String correo, String password);
+    AdministradorHotel loginAdminHotel(String correo, String password) throws Exception;
 
     /**
      * Aqui se modifica o gestiona un hotel
      * @return
      */
-    Hotel gestionarHotel(Hotel hotel);
+    Hotel gestionarHotel(Hotel hotel) throws Exception;
 }

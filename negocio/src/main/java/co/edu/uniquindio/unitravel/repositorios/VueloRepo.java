@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VueloRepo extends JpaRepository<Vuelo, String> {
+
+
 }
