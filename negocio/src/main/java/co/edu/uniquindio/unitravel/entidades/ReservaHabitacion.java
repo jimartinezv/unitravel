@@ -22,6 +22,7 @@ public class ReservaHabitacion implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
+    @Column(nullable = false)
     @Positive
     private Double precio;
 
@@ -29,6 +30,7 @@ public class ReservaHabitacion implements Serializable {
     private Reserva reserva;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Habitacion habitacion;
 
 

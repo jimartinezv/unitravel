@@ -63,6 +63,8 @@ public interface ClienteServicio {
      */
     Comentario comentarHotel(Comentario comentario) throws Exception;
 
+    List<Comentario> listarComentarios();
+
     /**
      * El usuario podrá recuperar su contraseña utilizando su correo electronico
      * @param id
@@ -86,6 +88,8 @@ public interface ClienteServicio {
      * @return
      */
     List<Hotel> buscarHoteles(Destino destino);
+
+    Hotel buscarHotelPorCodigo(Integer codigo) throws Exception;
     //Registrarse y loguearse.
     //Buscar destinos y/o hoteles.
     //Crear una reserva (seleccionando el destino, las habitaciones, vuelo).

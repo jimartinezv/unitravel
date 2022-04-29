@@ -1198,8 +1198,31 @@ VALUES
 
 INSERT INTO reserva (codigo, cantidad_personas, estado, precio_total, cliente_cedula)
 VALUES
-(1,3,"COMPLETO", 1500000,"10949");
---(2,1,"COMPLETO", 1200000,"10209"),
---(3,4,"COMPLETO", 2200000,"109778"),
---(4,2,"COMPLETO", 899000,"10949");
+(1,3,"COMPLETO", 1500000,"10949"),
+(2,1,"COMPLETO", 1200000,"10209"),
+(3,4,"COMPLETO", 2200000,"109778"),
+(4,2,"COMPLETO", 899000,"10949");
 
+INSERT INTO comentario (codigo, calificacion, comentario, fecha, cliente_cedula, hotel_codigo )
+VALUES
+(1,5, "El hotel es muy bonito", CURTIME(), "10949", 1),
+(2,1, "Que hotel tan horrible", CURTIME(), "10949", 3),
+(3,4, "Buen servicio del hotel", CURTIME(), "109778", 2),
+(4,2, "No tiene agua caliente", CURTIME(), "10209", 3),
+(5,3, "En el hotel espantan", CURTIME(), "1094299", 1);
+
+INSERT INTO reserva_habitacion (codigo, precio, codigo_descuento_id, habitacion_codigo, reserva_codigo)
+VALUES
+    (1,960000, null, 1,1),
+    (2,320000, null, 1,2),
+    (3,200000, null, 2,3),
+    (4,200000, null, 2,3),
+    (5,80000, null, 3,4);
+
+INSERT INTO caracteristica(codigo, descripcion)
+VALUES
+(1,"Habitacion doble"),
+(2,"Habitacion con television"),
+(3,"Habitacion con television"),
+(4,"Habitacion con cama doble"),
+(5,"Hotel con piscina");

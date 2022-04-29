@@ -14,7 +14,6 @@ public interface AdministradorRepo extends JpaRepository<Administrador, String> 
 
     Administrador findByEmailAndPassword(String correo, String password);
 
-    @Query("select h from Hotel h where h.codigo=:codigo")
-    Hotel buscarHotel(Integer hotel);
+
 
 }

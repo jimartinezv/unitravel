@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
@@ -15,8 +12,10 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString(onlyExplicitlyIncluded = true)
 public class Habitacion implements Serializable {
     @Id
+    @ToString.Include
     @EqualsAndHashCode.Include
     private String codigo;
 
@@ -25,10 +24,12 @@ public class Habitacion implements Serializable {
     private Hotel hotel;
 
     @Positive
+    @ToString.Include
     @Column(nullable = false)
     private byte capacidad;
 
     @Positive
+    @ToString.Include
     @Column(nullable = false)
     private double precio;
 

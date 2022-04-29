@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Comentario implements Serializable {
 
     @Id
@@ -21,10 +19,13 @@ public class Comentario implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
+    @Column(nullable = false)
     private String comentario;
 
+    @Column(nullable = false)
     private Integer calificacion;
 
+    @Column(nullable = false)
     private LocalDateTime fecha;
 
     @ManyToOne

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,10 +26,10 @@ public class Reserva implements Serializable {
     private LocalDateTime fechaReserva;
 
     @Future
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
 
     @Future
-    private LocalDateTime fechaFin;
+    private LocalDate fechaFin;
 
     @Positive
     private double precioTotal;
@@ -58,7 +59,7 @@ public class Reserva implements Serializable {
     @ManyToOne
     private CodigoDescuento codigoDescuento;
 
-    public Reserva(LocalDateTime fechaReserva, LocalDateTime fechaInicio, LocalDateTime fechaFin, double precioTotal, String estado, byte cantidadPersonas) {
+    public Reserva(LocalDateTime fechaReserva, LocalDate fechaInicio, LocalDate fechaFin, double precioTotal, String estado, byte cantidadPersonas) {
         this.fechaReserva = fechaReserva;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;

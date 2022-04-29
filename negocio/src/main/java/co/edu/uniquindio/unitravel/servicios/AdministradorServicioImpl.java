@@ -63,7 +63,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
      * @return
      */
     public Hotel buscarHotel(Integer codigo){
-        return administradorRepo.buscarHotel(codigo);
+        return hotelRepo.getById(codigo);
     }
 
     /**

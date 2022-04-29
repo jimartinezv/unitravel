@@ -4,6 +4,7 @@ package co.edu.uniquindio.unitravel.servicios;
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.ClienteRepo;
 import co.edu.uniquindio.unitravel.repositorios.ComentarioRepo;
+import co.edu.uniquindio.unitravel.repositorios.HotelRepo;
 import co.edu.uniquindio.unitravel.repositorios.ReservaRepo;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,10 @@ public class ClienteServicioImpl implements ClienteServicio{
     private ComentarioRepo comentarioRepo;
 
     @Autowired
-    public ReservaRepo reservaRepo;
+    private ReservaRepo reservaRepo;
 
+    @Autowired
+    private HotelRepo hotelRepo;
 
     @Override
     public Cliente registrarUsuario(Cliente u) throws Exception {
@@ -102,6 +105,11 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public List<Comentario> listarComentarios() {
+        return comentarioRepo.findAll();
+    }
+
+    @Override
     public void recuperarPassword(String id) throws Exception {
 
     }
@@ -128,5 +136,15 @@ public class ClienteServicioImpl implements ClienteServicio{
     @Override
     public List<Hotel> buscarHoteles(Destino destino) {
         return null;
+    }
+
+    @Override
+    public Hotel buscarHotelPorCodigo(Integer codigo) throws Exception{
+
+        Optional<Hotel> hotel= hotelRepo.findById(codigo);
+        if(hotel.isEmpty()){
+            throw new Exception("El hotel no existe");
+        }
+        return hotelRepo.getById(codigo);
     }
 }
