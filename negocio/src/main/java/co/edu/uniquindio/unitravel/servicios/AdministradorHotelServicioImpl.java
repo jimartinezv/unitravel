@@ -51,8 +51,21 @@ public class AdministradorHotelServicioImpl implements AdministradorHotelServici
     }
 
     @Override
-    public Hotel gestionarHotel(Hotel hotel) {
-        return null;
+    public void eliminarHotel(Integer codigo) throws Exception {
+        Hotel buscarHoltel= buscarHotel(codigo);
+        if(buscarHoltel==null){
+            throw new Exception("El hotel no existe");
+        }
+        hotelRepo.delete(buscarHoltel);
+    }
+
+    @Override
+    public Hotel modificarHotel(Hotel hotel) throws Exception {
+        Hotel buscarHoltel= buscarHotel(hotel.getCodigo());
+        if(buscarHoltel==null){
+            throw new Exception("El hotel no existe");
+        }
+        return hotelRepo.save(buscarHoltel);
     }
 
     @Override

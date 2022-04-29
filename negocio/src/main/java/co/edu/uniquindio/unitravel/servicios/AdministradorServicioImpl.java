@@ -57,6 +57,16 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         return administradorHotelRepo.getById(cedula);
     }
 
+    @Override
+    public void eliminarAdminHotel(String cedula) throws Exception {
+
+        AdministradorHotel adminHotel= buscarAdminHotel(cedula);
+        if(adminHotel==null){
+            throw new Exception("El administrador no existe o no se puede eliminar");
+        }
+        administradorHotelRepo.delete(adminHotel);
+    }
+
     /**
      * Determina la existencia de un hotel
      * @param codigo
@@ -151,21 +161,21 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     }
 
     @Override
-    public AdministradorHotel gestionarAdminHotel(AdministradorHotel administradorHotel) throws Exception {
-        AdministradorHotel buscarAdminHotel= buscarAdminHotel(administradorHotel.getCedula());
-        if(buscarAdminHotel==null){
-            throw new Exception("El administrador de hotel no existe");
+    public AdministradorHotel crearAdministradorHotel(AdministradorHotel administradorHotel) throws Exception{
+        AdministradorHotel nuevoAdmin= buscarAdminHotel(administradorHotel.getCedula());
+        if(nuevoAdmin!=null){
+            throw new Exception("Ya existe el administrador");
         }
-        return administradorHotelRepo.save(administradorHotel);
+        return administradorHotelRepo.save(nuevoAdmin);
     }
 
     @Override
-    public Hotel registrarHotel(Hotel hotel) throws Exception{
-        Hotel buscarHotel= buscarHotel(hotel.getCodigo());
-        if(buscarHotel!=null){
-            throw new Exception("El hotel ya existe");
+    public AdministradorHotel modificarAdminHotel(AdministradorHotel administradorHotel) throws Exception {
+        AdministradorHotel buscarAdmin=buscarAdminHotel(administradorHotel.getCedula());
+        if(buscarAdmin==null){
+            throw new Exception("No existe el administrador");
         }
-        return hotelRepo.save(hotel);
+        return administradorHotelRepo.save(buscarAdmin);
     }
 
     @Override

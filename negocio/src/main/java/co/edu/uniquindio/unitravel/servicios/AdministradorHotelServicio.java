@@ -27,11 +27,18 @@ public interface AdministradorHotelServicio {
      */
     Hotel crearHotel(Hotel hotel) throws Exception;
     /**
-     * Aqui se modifica o gestiona un hotel
+     * Metodo para eliminar hotel
      * @return
      */
-    Hotel gestionarHotel(Hotel hotel) throws Exception;
+    void eliminarHotel(Integer codigo) throws Exception;
 
+    /**
+     * Metodo para modificar un hotel
+     * @param hotel
+     * @return
+     * @throws Exception
+     */
+    Hotel modificarHotel(Hotel hotel) throws Exception;
     /**
      * Lista todas las caracteristicas que tiene una habitación
      * @param habitacion

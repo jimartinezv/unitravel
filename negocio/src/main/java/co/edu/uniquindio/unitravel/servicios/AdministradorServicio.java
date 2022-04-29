@@ -68,27 +68,35 @@ public interface AdministradorServicio {
      */
     Vuelo gestionarVuelo(Vuelo vuelo) throws Exception;
 
+
     /**
-     * Cuando se crea un hotel el administrador puede crear uno o varios administradores para
-     * ese hotel
+     * Creacion de administrador de hotel
      * @param administradorHotel
      * @return
      */
-    AdministradorHotel gestionarAdminHotel(AdministradorHotel administradorHotel) throws Exception;
+    AdministradorHotel crearAdministradorHotel(AdministradorHotel administradorHotel) throws Exception;
 
     /**
-     * EL administrador creará los hoteles y definirá su administrador
-     * @param hotel
+     * Metodo para actualizar administrador de hotel
+     * no se puede modificar su codigo
+     * @param administradorHotel
      * @return
      */
-    Hotel registrarHotel(Hotel hotel) throws Exception;
+    AdministradorHotel modificarAdminHotel(AdministradorHotel administradorHotel) throws Exception;
 
     /**
-     * El administrador podrá crear toures
-     * @param tour
+     * Metodo para buscar el administrador del hotel por su cedula
+     * @param cedula
      * @return
-     * @throws Exception
      */
+    AdministradorHotel buscarAdminHotel(String cedula);
+
+    /**
+     * Metodo para eliminar administrador de hotel por su cedula
+     * @param cedula
+     */
+    void eliminarAdminHotel(String cedula) throws Exception;
+
     Tour crearTour(Tour tour) throws Exception;
 
     /**
