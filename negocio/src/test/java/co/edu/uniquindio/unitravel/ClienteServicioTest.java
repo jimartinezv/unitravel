@@ -1,8 +1,10 @@
 package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.*;
+import co.edu.uniquindio.unitravel.servicios.AdministradorServicio;
 import co.edu.uniquindio.unitravel.servicios.CiudadServicio;
 import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
+import co.edu.uniquindio.unitravel.servicios.EmailServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,13 @@ public class ClienteServicioTest {
     @Autowired
     private CiudadServicio ciudadServicio;
 
-    private Cliente crearCliente(){
+    @Autowired
+    private EmailServicio emailServicio;
+
+    @Autowired
+    private AdministradorServicio administradorServicio;
+
+    public Cliente crearCliente(){
         Cliente u = new Cliente("1094900","Jorge Iván", "Vargas", "password", "port@gmail.com",null,null, null);
         Map<String, String> telefono= new HashMap<>();
         telefono.put("3215566772","Trabajo");
@@ -43,7 +51,7 @@ public class ClienteServicioTest {
         return u;
     }
 
-    private Comentario crearComentario(){
+    public Comentario crearComentario(){
         Cliente clienteComentario= crearCliente();
         registrarClienteTest();
         Comentario c= new Comentario();
@@ -73,13 +81,13 @@ public class ClienteServicioTest {
         //return reserv;
     }
     **/
-    private Vuelo crearVuelo(){
+    public Vuelo crearVuelo(){
         return null;
     }
-    private Silla crearSillas(){
+    public Silla crearSillas(){
         return null;
     }
-    private Hotel crearHotel(){
+    public Hotel crearHotel(){
         Hotel hotel= new Hotel();
         hotel.setNombre("Hotel el paraiso");
         hotel.setNumEstrellas(5);
@@ -87,17 +95,17 @@ public class ClienteServicioTest {
         return hotel;
     }
 
-    private Direccion crearDireccion(){
+    public Direccion crearDireccion(){
         Direccion dir= new Direccion();
         dir.setDireccion("Calle del mar 356");
         dir.setCiudad(BuscarCiudad());
 
         return dir;
     }
-    private Ciudad BuscarCiudad(){
+    public Ciudad BuscarCiudad(){
         return ciudadServicio.obtenerCiudad(66);
     }
-    private Habitacion crearHabitacion(){
+    public Habitacion crearHabitacion(){
         Habitacion hab= new Habitacion();
         hab.setHotel(crearHotel());
         hab.setCapacidad((byte)2);
@@ -107,7 +115,7 @@ public class ClienteServicioTest {
         return hab;
     }
 
-    private List<ReservaHabitacion> crearReservaHabitaciones(){
+    public List<ReservaHabitacion> crearReservaHabitaciones(){
         ReservaHabitacion reservaHabitacion= new ReservaHabitacion();
         reservaHabitacion.setHabitacion(crearHabitacion());
         reservaHabitacion.setPrecio(600000.0);
@@ -115,6 +123,8 @@ public class ClienteServicioTest {
         reservaHabitacions.add(reservaHabitacion);
         return reservaHabitacions;
     }
+
+
     @Test
     @Sql("classpath:dataset.sql")
     public void registrarClienteTest(){
@@ -175,6 +185,11 @@ public class ClienteServicioTest {
     }
 
     @Test
+    public void recuperarPassword(){
+        emailServicio.enviarEmail("Hola esto es un ensayo","Correo ensayo", "jimv9200@gmail.com");
+    }
+
+    @Test
     @Sql("classpath:dataset.sql")
     public void listarClientesTest(){
         Cliente c= crearCliente();
@@ -192,7 +207,8 @@ public class ClienteServicioTest {
     @Test
     @Sql("classpath:dataset.sql")
     public void listarClientesReservaTest(){
-        clienteServicio.listarClientesReserva().forEach(System.out::println);
+
+        clienteServicio.listarClientesReserva("").forEach(System.out::println);
     }
 
     @Test

@@ -43,15 +43,50 @@ public interface AdministradorServicio {
     Administrador loginAdmin(String correo, String password) throws Exception;
 
 
+
     /**
-     * Los administradores gestionan los destinos ya que ciertas regiones o ciudades
-     * pueden estar invocadas en un solo destino ejemplo:
-     * puedo tomar un avion a pereira y hospedarme en un hotel de armenia
-     * @param destino
+     * COnsulta la ciudad por su codigo
+     * @param codigo
      * @return
      */
-    Destino gestionarDestino(Destino destino) throws Exception;
+    Ciudad consultarCiudad(Integer codigo);
 
+    /**
+     * Crear ciudad
+     * @param ciudad
+     * @return
+     * @throws Exception
+     */
+    Ciudad crearCiudad(Ciudad ciudad) throws Exception;
+
+    /**
+     * Modifica las ciudades
+     * @param ciudad
+     * @return
+     * @throws Exception
+     */
+    Ciudad modificarCiudad(Ciudad ciudad) throws Exception;
+
+    /**
+     * Elimina la ciudad por codigo
+     * @param codigo
+     * @return
+     * @throws Exception
+     */
+    void eliminarCiudad(Integer codigo) throws Exception;
+
+    /**
+     * Lista las ciudades
+     * @return
+     */
+    List<Ciudad> listarCiudades();
+
+    /**
+     * Lista las ciudades por departamento
+     * @param dep
+     * @return
+     */
+    List<Ciudad> listarCiudadByDepartamento(Departamento dep);
     /**
      * El administrador podrá crear los vuelos
      * @param vuelo
@@ -61,13 +96,32 @@ public interface AdministradorServicio {
     Vuelo crearVuelo(Vuelo vuelo) throws Exception;
 
     /**
-     * El administrador puede hacer modificaciones de vuelo como fecha y hora de salida
+     * Metodo para modificar vuelos
      * @param vuelo
      * @return
      * @throws Exception
      */
-    Vuelo gestionarVuelo(Vuelo vuelo) throws Exception;
+    Vuelo actualizarVuelo(Vuelo vuelo) throws Exception;
 
+    /**
+     * Metodo para eliminar vuelo por su codigo
+     * @param codigo
+     * @throws Exception
+     */
+    void eliminarVuelo(String codigo) throws Exception;
+
+    /**
+     * Lista todos los vuelos
+     * @return
+     */
+    List<Vuelo> listarVuelo();
+
+    /**
+     * Lista vuelos por ciudad
+     * @param ciudad
+     * @return
+     */
+    List<Vuelo> listarVueloByCiudad(Ciudad ciudad);
 
     /**
      * Creacion de administrador de hotel
@@ -92,11 +146,21 @@ public interface AdministradorServicio {
     AdministradorHotel buscarAdminHotel(String cedula);
 
     /**
+     * Se busca el administrador de hotel por su email que es unico
+     * @param email
+     * @return
+     */
+    AdministradorHotel buscarAdminHotelByEmail(String email);
+
+    /**
      * Metodo para eliminar administrador de hotel por su cedula
      * @param cedula
      */
     void eliminarAdminHotel(String cedula) throws Exception;
 
+    Departamento crearDepartamento(Departamento d) throws Exception;
+
+    Departamento consultarDepartamento(Integer codigo) throws Exception;
     Tour crearTour(Tour tour) throws Exception;
 
     /**

@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface AdministradorHotelRepo extends JpaRepository<AdministradorHotel, String> {
     Optional<AdministradorHotel> findByEmailAndPassword(String correo, String password);
-
+    Optional<AdministradorHotel> findByEmail(String correo);
 
 }

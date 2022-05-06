@@ -8,6 +8,7 @@ public interface ClienteServicio {
 
     /**
      * Metodo para registrar un nuevo cliente
+     *
      * @param u
      * @return
      * @throws Exception
@@ -16,6 +17,7 @@ public interface ClienteServicio {
 
     /**
      * El cliente podrá actualizar todos sus datos excepto su id
+     *
      * @param u
      * @return
      * @throws Exception
@@ -24,6 +26,7 @@ public interface ClienteServicio {
 
     /**
      * Muestra un usuario por su cedula
+     *
      * @param cedula
      * @return
      */
@@ -31,6 +34,7 @@ public interface ClienteServicio {
 
     /**
      * Elimina usuario por su cedula
+     *
      * @param cedula
      * @throws Exception
      */
@@ -38,26 +42,48 @@ public interface ClienteServicio {
 
     /**
      * Lista todos los clientes
+     *
      * @return
      */
     List<Cliente> listarUsuarios();
 
+    Reserva buscarReserva (Integer codigo) throws Exception;
     /**
      * Cliente crea una reserva (seleccionando el destino, las habitaciones, vuelo)
+     *
      * @param reserva
      * @return
      */
     Reserva crearReserva(Reserva reserva) throws Exception;
 
     /**
+     * Se modifica reserva por su codigo
+     * @param reserva
+     * @return
+     * @throws Exception
+     */
+    Reserva modificarReserva(Integer reserva) throws Exception;
+
+    /**
+     * Se elimina reserva por su codigo
+     * @param codigo
+     * @return
+     * @throws Exception
+     */
+    void eliminarReserva(Integer codigo) throws Exception;
+
+    /**
      * Aquí el cliente podra listar sus reservas
+     *
      * @param
      * @return
      */
-    List<Reserva> listarReserva();
+    List<Reserva> listarReserva(Cliente cliente);
+
 
     /**
      * El cliente podrá comentar y calificar hotel
+     *
      * @param comentario
      * @return
      */
@@ -65,31 +91,49 @@ public interface ClienteServicio {
 
     List<Comentario> listarComentarios();
 
-    /**
-     * El usuario podrá recuperar su contraseña utilizando su correo electronico
-     * @param id
-     */
-    void recuperarPassword(String id) throws Exception;
 
-    List<Cliente> listarClientesReserva();
+
+    List<Cliente> listarClientesReserva(String correo);
+
+
 
     /**
-     * El cliente podrá gestionar sus propias reservas
-     * @param reserva
+     * Login del cliente
+     * @param email
+     * @param password
      * @return
+     * @throws Exception
      */
-    Reserva gestionarReserva(Reserva reserva) throws Exception;
-
-    Cliente validarLogin(String email, String password) throws Exception;
+    Cliente login(String email, String password) throws Exception;
 
     /**
      * El cliente podrá buscar hoteles y vuelos por determinado destino
-     * @param destino
+     *
+     * @param ciudad
      * @return
      */
-    List<Hotel> buscarHoteles(Destino destino);
+    List<Hotel> buscarHotelesByCiudad(Ciudad ciudad);
 
     Hotel buscarHotelPorCodigo(Integer codigo) throws Exception;
+
+    /**
+     * existen hoteles que tienen el mismo nombre usualmente estan en diferentes ciudades
+     * este devuelve una lista de todos los hoteles que contengan ese nombre
+     * @param nombre
+     * @return
+     * @throws Exception
+     */
+    List<Hotel> buscarHotelesPorNombre(String nombre) throws Exception;
+
+    /**
+     * Metodo para recuperar contraseña utilizando el correo electronico del usuario
+     * @param correo
+     * @return
+     * @throws Exception
+     */
+    String recuperarContrasena(String correo) throws Exception;
+
+    void enviarCorreo(Cliente email) throws Exception;
     //Registrarse y loguearse.
     //Buscar destinos y/o hoteles.
     //Crear una reserva (seleccionando el destino, las habitaciones, vuelo).

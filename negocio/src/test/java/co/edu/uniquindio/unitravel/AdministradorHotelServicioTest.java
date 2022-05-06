@@ -2,6 +2,7 @@ package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.Caracteristica;
 import co.edu.uniquindio.unitravel.entidades.Habitacion;
+import co.edu.uniquindio.unitravel.entidades.Hotel;
 import co.edu.uniquindio.unitravel.servicios.AdministradorHotelServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,18 @@ public class AdministradorHotelServicioTest {
     @Autowired
     AdministradorHotelServicio adminHotelSer;
 
+    public Hotel crearHotel(){
+        Hotel h= new Hotel();
+        h.setNombre("Hotel el paraiso");
+        h.setNumEstrellas(4);
+
+        return h;
+    }
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void crearHotelTest(){
+
+    }
     @Test
     @Sql("classpath:dataset.sql")
     public void crearHabitacionTest(){

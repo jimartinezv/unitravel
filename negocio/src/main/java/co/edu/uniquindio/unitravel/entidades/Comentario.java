@@ -38,6 +38,6 @@ public class Comentario implements Serializable {
         this.codigo = codigo;
         this.comentario = comentario;
         this.calificacion = calificacion;
-        this.fecha = fecha;
+        this.fecha = LocalDateTime.now();
     }
 }

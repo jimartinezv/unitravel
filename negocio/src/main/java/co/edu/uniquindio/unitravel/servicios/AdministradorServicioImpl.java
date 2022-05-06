@@ -6,25 +6,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdministradorServicioImpl implements AdministradorServicio{
 
-    @Autowired
+
     private AdministradorRepo administradorRepo;
 
-    @Autowired
+
     private VueloRepo vueloRepo;
 
-    @Autowired
+
     private AdministradorHotelRepo administradorHotelRepo;
 
-    @Autowired
+
     private HotelRepo hotelRepo;
 
-    @Autowired
+
     private CodigoDescuentoRepo codigoDescuentoRepo;
 
+    private CiudadRepo ciudadRepo;
+
+    @Autowired
+    private DepartamentoRepo departamentoRepo;
+
+    public AdministradorServicioImpl(AdministradorRepo administradorRepo, VueloRepo vueloRepo, AdministradorHotelRepo administradorHotelRepo,
+                                HotelRepo hotelRepo,CodigoDescuentoRepo codigoDescuentoRepo,
+                                     CiudadRepo ciudadRepo){
+        this.administradorRepo=administradorRepo;
+        this.vueloRepo=vueloRepo;
+        this.administradorHotelRepo=administradorHotelRepo;
+        this.hotelRepo=hotelRepo;
+        this.codigoDescuentoRepo=codigoDescuentoRepo;
+        this.ciudadRepo= ciudadRepo;
+
+    }
     /**
      * Busca la existencia del administrador
      * @param id
@@ -44,7 +61,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
      * @param codigo
      * @return
      */
-    public Vuelo buscarBuelo(String codigo){
+    public Vuelo buscarVuelo(String codigo){
         return vueloRepo.getById(codigo);
     }
 
@@ -54,7 +71,12 @@ public class AdministradorServicioImpl implements AdministradorServicio{
      * @return
      */
     public AdministradorHotel buscarAdminHotel(String cedula){
-        return administradorHotelRepo.getById(cedula);
+        return administradorHotelRepo.findById(cedula).orElse(null);
+    }
+
+    @Override
+    public AdministradorHotel buscarAdminHotelByEmail(String email) {
+        return administradorHotelRepo.findByEmail(email).orElse(null);
     }
 
     @Override
@@ -65,6 +87,21 @@ public class AdministradorServicioImpl implements AdministradorServicio{
             throw new Exception("El administrador no existe o no se puede eliminar");
         }
         administradorHotelRepo.delete(adminHotel);
+    }
+
+    @Override
+    public Departamento crearDepartamento(Departamento d) throws Exception{
+
+        return departamentoRepo.save(d);
+    }
+
+    @Override
+    public Departamento consultarDepartamento(Integer codigo) throws Exception{
+        Departamento buscado=departamentoRepo.findById(codigo).orElse(null);
+        if(buscado==null){
+            throw new Exception("Departamento no existe");
+        }
+        return buscado;
     }
 
     /**
@@ -137,14 +174,57 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         return loginAdmin;
     }
 
+
+
     @Override
-    public Destino gestionarDestino(Destino destino) throws Exception {
-        return null;
+    public Ciudad consultarCiudad(Integer codigo){
+        System.out.println("buscando ciudad");
+        Ciudad buscada= ciudadRepo.findById(codigo).orElse(null);
+
+        return buscada;
+    }
+
+    @Override
+    public Ciudad crearCiudad(Ciudad ciudad) throws Exception {
+
+        System.out.println("ya se va"+ciudad.getNombre()+"nombre");
+        return ciudadRepo.save(ciudad);
+    }
+
+    @Override
+    public Ciudad modificarCiudad(Ciudad ciudad) throws Exception {
+        Ciudad buscar= consultarCiudad(ciudad.getCodigo());
+        if(buscar==null){
+            throw new Exception("La ciudad no existe");
+        }
+        return ciudadRepo.save(ciudad);
+    }
+
+    @Override
+    public void eliminarCiudad(Integer codigo) throws Exception {
+
+        Ciudad buscar= consultarCiudad(codigo);
+
+        if(buscar==null){
+            throw new Exception("La ciudad no existe");
+        }
+        System.out.println("eliminando ciudad"+ buscar.getNombre());
+        ciudadRepo.delete(buscar);
+    }
+
+    @Override
+    public List<Ciudad> listarCiudades() {
+        return ciudadRepo.findAll();
+    }
+
+    @Override
+    public List<Ciudad> listarCiudadByDepartamento(Departamento dep) {
+        return ciudadRepo.listarCiudadByDepartamento(dep.getNombre());
     }
 
     @Override
     public Vuelo crearVuelo(Vuelo vuelo) throws Exception {
-        Vuelo vueloBuscado = buscarBuelo(vuelo.getCodigo());
+        Vuelo vueloBuscado = buscarVuelo(vuelo.getCodigo());
         if(vueloBuscado!=null){
             throw new Exception("El vuelo ya existe");
         }
@@ -152,8 +232,8 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     }
 
     @Override
-    public Vuelo gestionarVuelo(Vuelo vuelo) throws Exception {
-        Vuelo vueloBuscado= buscarBuelo(vuelo.getCodigo());
+    public Vuelo actualizarVuelo(Vuelo vuelo) throws Exception {
+        Vuelo vueloBuscado= buscarVuelo(vuelo.getCodigo());
         if(vueloBuscado==null){
             throw new Exception("El vuelo no existe");
         }
@@ -161,21 +241,55 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     }
 
     @Override
+    public void eliminarVuelo(String codigo) throws Exception {
+        Vuelo buscarVuelo= buscarVuelo(codigo);
+        if(buscarVuelo== null){
+            throw new Exception("El vuelo no existe");
+        }
+        vueloRepo.delete(buscarVuelo);
+
+    }
+
+    @Override
+    public List<Vuelo> listarVuelo() {
+        return vueloRepo.findAll();
+    }
+
+    @Override
+    public List<Vuelo> listarVueloByCiudad(Ciudad ciudad) {
+        return vueloRepo.findByCiudadOrigen(ciudad);
+    }
+
+
+
+    @Override
     public AdministradorHotel crearAdministradorHotel(AdministradorHotel administradorHotel) throws Exception{
         AdministradorHotel nuevoAdmin= buscarAdminHotel(administradorHotel.getCedula());
         if(nuevoAdmin!=null){
             throw new Exception("Ya existe el administrador");
         }
-        return administradorHotelRepo.save(nuevoAdmin);
+        nuevoAdmin=buscarAdminHotelByEmail(administradorHotel.getEmail());
+
+        if(nuevoAdmin!=null){
+            throw new Exception("El correo del usuario ya está registrado");
+        }
+        System.out.println("el admin hotel se guarda");
+        return administradorHotelRepo.save(administradorHotel);
+
+
+
     }
 
     @Override
     public AdministradorHotel modificarAdminHotel(AdministradorHotel administradorHotel) throws Exception {
         AdministradorHotel buscarAdmin=buscarAdminHotel(administradorHotel.getCedula());
         if(buscarAdmin==null){
-            throw new Exception("No existe el administrador");
+            throw new Exception("No existe el administrador de hotel");
         }
-        return administradorHotelRepo.save(buscarAdmin);
+        System.out.println("admin actualizado");
+        return administradorHotelRepo.save(administradorHotel);
+
+
     }
 
     @Override

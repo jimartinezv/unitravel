@@ -4,6 +4,7 @@ import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
 import co.edu.uniquindio.unitravel.entidades.Caracteristica;
 import co.edu.uniquindio.unitravel.entidades.Habitacion;
 import co.edu.uniquindio.unitravel.entidades.Hotel;
+import co.edu.uniquindio.unitravel.repositorios.AdministradorHotelRepo;
 
 import java.util.List;
 
@@ -39,6 +40,33 @@ public interface AdministradorHotelServicio {
      * @throws Exception
      */
     Hotel modificarHotel(Hotel hotel) throws Exception;
+
+    /**
+     * Obtiene el administrador del hotel por su codigo
+     * @param codigo
+     * @return
+     */
+    AdministradorHotel obtenerAdminHotel(String codigo);
+
+    /**
+     * COnsult
+     * @param email
+     * @return
+     */
+    AdministradorHotel buscarAdminHotelByEmail(String email);
+
+
+
+    /**
+     * Metodo para modificar el administrador de hotel segun su codigo
+     * @param adminHotel
+     * @return
+     * @throws Exception
+     */
+    AdministradorHotel modificarAdminHotel(AdministradorHotel adminHotel) throws Exception;
+
+
+    List<AdministradorHotel> listarAdminHoteles();
     /**
      * Lista todas las caracteristicas que tiene una habitación
      * @param habitacion
@@ -78,6 +106,7 @@ public interface AdministradorHotelServicio {
     Hotel buscarHotel(Integer codigo) throws Exception;
 
     List<Caracteristica> listarCaracteristicas();
+
 
 
 }

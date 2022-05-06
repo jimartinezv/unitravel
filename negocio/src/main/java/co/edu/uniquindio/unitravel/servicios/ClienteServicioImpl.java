@@ -18,19 +18,19 @@ import java.util.function.ToDoubleBiFunction;
 public class ClienteServicioImpl implements ClienteServicio{
 
     private ClienteRepo usuarioRepo;
+    private ComentarioRepo comentarioRepo;
+    private ReservaRepo reservaRepo;
+    private HotelRepo hotelRepo;
+    private EmailServicio emailServicio;
 
-    public ClienteServicioImpl (ClienteRepo usuarioRepo){
+    public ClienteServicioImpl (ClienteRepo usuarioRepo, ComentarioRepo comentarioRepo,
+                                ReservaRepo reservaRepo, HotelRepo hotelRepo){
         this.usuarioRepo=usuarioRepo;
+        this.comentarioRepo=comentarioRepo;
+        this.reservaRepo=reservaRepo;
+        this.hotelRepo=hotelRepo;
     }
 
-    @Autowired
-    private ComentarioRepo comentarioRepo;
-
-    @Autowired
-    private ReservaRepo reservaRepo;
-
-    @Autowired
-    private HotelRepo hotelRepo;
 
     @Override
     public Cliente registrarUsuario(Cliente u) throws Exception {
@@ -91,16 +91,40 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
     @Override
     public Reserva crearReserva(Reserva reserva) throws Exception {
+        List<ReservaHabitacion> habitacions= reserva.getHabitaciones();
+        for(ReservaHabitacion rh: habitacions){
+            if(rh.getReserva().getFechaInicio().compareTo(reserva.getFechaInicio())>=0
+            && rh.getReserva().getFechaFin().compareTo(reserva.getFechaInicio())<=0
+            || rh.getReserva().getFechaInicio().compareTo(reserva.getFechaFin())>=0
+            && rh.getReserva().getFechaFin().compareTo(reserva.getFechaFin())<=0){
+                throw new Exception("La habitación no está disponible para esa fecha");
+            }
+        }
+
+
+        //Validar vuelos dispoibles
+        //Validar silla random
         return reservaRepo.save(reserva);
     }
 
     @Override
-    public List<Reserva> listarReserva() {
-        return null;
+    public List<Reserva> listarReserva(Cliente cliente) {
+
+        return reservaRepo.reservasByCliente(cliente.getEmail());
     }
 
     @Override
     public Comentario comentarHotel(Comentario comentario) throws Exception {
+        //Validar hotel y usuario
+        Cliente buscarCliente= comentario.getCliente();
+        if(buscarCliente==null){
+            throw new Exception("No existe el cliente");
+
+        }
+        Hotel hotelBuscar= comentario.getHotel();
+        if(hotelBuscar==null){
+            throw new Exception("No existe el hotel");
+        }
         return comentarioRepo.save(comentario);
     }
 
@@ -109,23 +133,36 @@ public class ClienteServicioImpl implements ClienteServicio{
         return comentarioRepo.findAll();
     }
 
-    @Override
-    public void recuperarPassword(String id) throws Exception {
 
-    }
 
     @Override
-    public List<Cliente> listarClientesReserva() {
+    public List<Cliente> listarClientesReserva(String correo) {
         return usuarioRepo.clientesReservas();
     }
 
+
+
     @Override
-    public Reserva gestionarReserva(Reserva reserva) throws Exception {
-        return null;
+    public Reserva modificarReserva(Integer codigo) throws Exception {
+        Reserva buscarRes= buscarReserva(codigo);
+        if(buscarRes==null){
+            throw new Exception("La reserva no existe");
+        }
+        return reservaRepo.save(buscarRes);
     }
 
     @Override
-    public Cliente validarLogin(String email, String password) throws Exception {
+    public void  eliminarReserva(Integer codigo) throws Exception {
+        Optional<Reserva> reserva1= reservaRepo.findById(codigo);
+        if(reserva1==null){
+            throw new Exception("La reserva no existe");
+        }
+        reservaRepo.delete(reserva1.get());
+
+    }
+
+    @Override
+    public Cliente login(String email, String password) throws Exception {
         Optional<Cliente> cliente= usuarioRepo.findByEmailAndPassword(email, password);
         if (cliente.isEmpty()){
             throw new Exception("Los datos de autenticación son incorrectos");
@@ -134,8 +171,8 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public List<Hotel> buscarHoteles(Destino destino) {
-        return null;
+    public List<Hotel> buscarHotelesByCiudad(Ciudad ciudad) {
+        return hotelRepo.obtenerHotelByCodigoCiudad(ciudad.getCodigo());
     }
 
     @Override
@@ -146,5 +183,33 @@ public class ClienteServicioImpl implements ClienteServicio{
             throw new Exception("El hotel no existe");
         }
         return hotelRepo.getById(codigo);
+    }
+
+
+    @Override
+    public List<Hotel> buscarHotelesPorNombre(String nombre) throws Exception {
+        return hotelRepo.obtenerHotelesByNombre("%"+nombre+"%");
+    }
+
+    @Override
+    public String recuperarContrasena(String correo) throws Exception {
+        Cliente buscarCliente= buscarClienteEmail(correo);
+        if(buscarCliente==null){
+            throw new Exception("El usuario no existe");
+        }
+        enviarCorreo(buscarCliente);
+         return "Correo enviado";
+    }
+
+    @Override
+    public void enviarCorreo(Cliente c) throws Exception {
+        try {
+            emailServicio.enviarEmail("Recuperacion de contraseña",
+                    "Su contraseña es: "+c.getPassword(),c.getEmail() );
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 }

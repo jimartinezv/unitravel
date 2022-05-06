@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.servicios;
 
-import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
-import co.edu.uniquindio.unitravel.entidades.Caracteristica;
-import co.edu.uniquindio.unitravel.entidades.Habitacion;
-import co.edu.uniquindio.unitravel.entidades.Hotel;
+import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.AdministradorHotelRepo;
 import co.edu.uniquindio.unitravel.repositorios.CaracteristicaRepo;
 import co.edu.uniquindio.unitravel.repositorios.HabitacionRepo;
@@ -66,6 +63,36 @@ public class AdministradorHotelServicioImpl implements AdministradorHotelServici
             throw new Exception("El hotel no existe");
         }
         return hotelRepo.save(buscarHoltel);
+    }
+
+    @Override
+    public AdministradorHotel obtenerAdminHotel(String codigo) {
+        return administradorHotelRepo.findById(codigo).orElse(null);
+
+    }
+
+    @Override
+    public AdministradorHotel buscarAdminHotelByEmail(String email) {
+        return administradorHotelRepo.findByEmail(email).orElse(null);
+
+    }
+
+
+    @Override
+    public AdministradorHotel modificarAdminHotel(AdministradorHotel adminHotel) throws Exception {
+        AdministradorHotel buscado= obtenerAdminHotel(adminHotel.getCedula());
+
+        if(buscado==null){
+            throw new Exception("El usuario no existe en la base de datos");
+        }
+
+        return administradorHotelRepo.save(adminHotel);
+    }
+
+
+    @Override
+    public List<AdministradorHotel> listarAdminHoteles() {
+        return administradorHotelRepo.findAll();
     }
 
     @Override

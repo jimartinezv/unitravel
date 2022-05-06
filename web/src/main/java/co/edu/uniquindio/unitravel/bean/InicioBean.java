@@ -15,5 +15,5 @@ import java.io.Serializable;
 public class InicioBean implements Serializable {
 
     private String texto="mi primera pagina";
-    private Button boton= new Button("este es un boton");
+
 }

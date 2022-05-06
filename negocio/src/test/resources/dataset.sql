@@ -1157,13 +1157,17 @@ INSERT INTO administrador (cedula, apellidos, email, nombre, password)
 VALUES
 ("10887", "Martinez", "jimv9200@gmail.com", "Jorge Iván", "019992"),
 ("109927", "Morales", "sebasmorales@gmail.com", "Sebastian", "iisio"),
-("12887", "Martinez", "santiagomari112@gmail.com", "Santiago", "Kjjsh8!");
+("12887", "Martinez", "santiagomari112@gmail.com", "Santiago", "Kjjsh8!"),
+("1000", "Betancour", "betan@gmail.com", "Mariano", "poq@jqu"),
+("733", "Alzate", "csalz@gmail.com", "Olga", "berto92");
 
 INSERT INTO administrador_hotel (cedula, apellidos, email, nombre, password)
 VALUES
-("10887", "Martinez", "jimv9200@gmail.com", "Jorge Iván", "019992"),
-("109927", "Morales", "sebasmorales@gmail.com", "Sebastian", "iisio"),
-("12887", "Martinez", "santiagomari112@gmail.com", "Santiago", "Kjjsh8!");
+    ("10887", "Martinez", "jimv9200@gmail.com", "Jorge Iván", "019992"),
+    ("109927", "Morales", "sebasmorales@gmail.com", "Sebastian", "iisio"),
+    ("12887", "Martinez", "santiagomari112@gmail.com", "Santiago", "Kjjsh8!"),
+    ("1000", "Betancour", "betan@gmail.com", "Mariano", "poq@jqu"),
+    ("733", "Alzate", "csalz@gmail.com", "Olga", "berto92");
 
 INSERT INTO codigo_descuento (id, estado, cantidad_disponible, codigo, descripcion, descuento, fecha_creacion, fecha_vencimiento )
 VALUES
@@ -1175,13 +1179,30 @@ INSERT INTO direccion (codigo, direccion, ciudad_codigo)
 VALUES
 (1,"Calle 36n 40-22", 66),
 (2,"Cra 22 #9-00", 66),
-(3,"Calle 3 8-32", 66);
+(3,"Calle 3 8-32", 66),
+(4,"Calle 7 #38-13", 66);
 
 INSERT INTO hotel (codigo, direccion_codigo, nombre, estrellas)
 VALUES
 (1, 1, "Hotel Armenia", 5),
 (2, 2, "Hotel El descanso", 5),
-(3, 3, "Hotel Duerme bueno", 3);
+(3, 3, "Hotel Duerme bueno", 3),
+(4, 4, "Hotel Descansa en paz", 1);
+
+INSERT INTO hotel_telefonos ( hotel_codigo, telefonos, telefonos_key)
+VALUES
+(1,"7495589","RECEPCION"),
+(1,"7495230","GERENCIA"),
+(2,"3217389900","CELULAR"),
+(3,"737567","RECEPCION"),
+(3,"7495230","OFICINA"),
+(4,"3290001199","RECEPCION");
+
+INSERT INTO metodo_pago (codigo, descripcion)
+VALUES
+(1, "PSE"),
+(2,"Tarjeta de credito"),
+(3, "Tarjeta debito");
 
 INSERT INTO habitacion(codigo, capacidad, precio, hotel_codigo)
 VALUES
@@ -1219,10 +1240,65 @@ VALUES
     (4,200000, null, 2,3),
     (5,80000, null, 3,4);
 
+INSERT INTO silla(codigo, posicion, precio, vuelo_codigo)
+VALUES
+(1,"ventana A1",50000, "A340"),
+(2,"ventana B1",55000, "A340"),
+(3,"ventana C1",60000, "A340"),
+(4,"PASILLO A2",50000, "A340"),
+(5,"PASILLO B2",55000, "A340"),
+(6,"PASILLO C2",60000, "A340"),
+(7,"ventana A1",50000, "L378"),
+(8,"ventana B1",55000, "L378"),
+(9,"ventana C1",60000, "L378"),
+(10,"PASILLO A2",50000, "L378"),
+(11,"PASILLO B2",55000, "L378"),
+(12,"PASILLO C2",60000, "L378"),
+(13,"ventana A1",50000, "S33884"),
+(14,"ventana B1",55000, "S33884"),
+(15,"ventana C1",60000, "S33884"),
+(16,"PASILLO A2",50000, "S33884"),
+(17,"PASILLO B2",55000, "S33884"),
+(18,"PASILLO C2",60000, "S33884");
+
+INSERT INTO reserva_silla (codigo, precio, reserva_codigo, silla_codigo)
+VALUES
+(1,50000,1,1),
+(2,50000,1,2),
+(3,100000,2,3),
+(4,100000,3,4),
+(5,120000,3,5),
+(6,120000,3,6);
+
 INSERT INTO caracteristica(codigo, descripcion)
 VALUES
 (1,"Habitacion doble"),
 (2,"Habitacion con television"),
-(3,"Habitacion con television"),
+(3,"Habitacion con caja fuerte"),
 (4,"Habitacion con cama doble"),
-(5,"Hotel con piscina");
+(5,"Hotel con piscina"),
+(6,"Hotel con desayuno"),
+(7,"Hotel con alimentos incluidos");
+
+INSERT INTO caracteristica_habitacion(caracteristicas_habitacion_codigo, habitacion_codigo)
+VALUES
+(1,1),
+(2,1),
+(1,2),
+(3,2),
+(4,3);
+
+INSERT INTO caracteristica_hotel(caracteristicas_codigo, hotel_codigo)
+VALUES
+(5,1),
+(5,2),
+(6,1),
+(7,3),
+(5,3);
+
+INSERT INTO cama (codigo, tipo)
+VALUES
+(1, "Doble"),
+(2, "Sencilla"),
+(3, "Queen"),
+(4, "triple");
