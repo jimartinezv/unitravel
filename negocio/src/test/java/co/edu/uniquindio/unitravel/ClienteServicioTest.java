@@ -185,8 +185,17 @@ public class ClienteServicioTest {
     }
 
     @Test
-    public void recuperarPassword(){
-        emailServicio.enviarEmail("Hola esto es un ensayo","Correo ensayo", "jimv9200@gmail.com");
+    @Sql("classpath:dataset.sql")
+    public void recuperarPasswordTest(){
+        try {
+            Cliente c= clienteServicio.obtenerUsuario("1");
+            System.out.println(c);
+            emailServicio.enviarEmail("correo de recuperacion para: "+c.getNombre(),"Su contraseña es: "+ c.getPassword(), c.getEmail());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
     @Test
@@ -206,13 +215,56 @@ public class ClienteServicioTest {
 
     @Test
     @Sql("classpath:dataset.sql")
-    public void listarClientesReservaTest(){
+    public void loginClientesTest(){
+        Cliente c= crearCliente();
 
-        clienteServicio.listarClientesReserva("").forEach(System.out::println);
+        try {
+            clienteServicio.registrarUsuario(c);
+            Cliente login=clienteServicio.login(c.getEmail(),c.getPassword());
+            Assertions.assertEquals(login.getNombre(),"Jorge Iván");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     @Sql("classpath:dataset.sql")
+    public void listarClientesReservaTest(){
+
+        clienteServicio.listarClientesReserva().forEach(System.out::println);
+    }
+
+    @Test
+    //@Sql("classpath:dataset.sql")
+    public void listarReservaByEmailTest(){
+
+        try {
+            List<Reserva> rc=clienteServicio.listarReservasByCliente("guti@gmail.com");
+            rc.forEach(System.out::println);
+
+            Assertions.assertEquals(rc.size(),2);
+        }catch (Exception e){
+
+        }
+
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void buscarHotelesByCiudadTest(){
+        try {
+            Ciudad c= clienteServicio.buscarCiudad(66);
+            List<Hotel> hotels= clienteServicio.buscarHotelesByCiudad(c);
+            Assertions.assertEquals(hotels.size(), 4);
+        }catch (Exception e){
+            System.out.println(e.getMessage()+"error");
+        }
+
+
+    }
+
+    @Test
+    //@Sql("classpath:dataset.sql")
     public void crearComentarioTest(){
 
         Comentario c= crearComentario();

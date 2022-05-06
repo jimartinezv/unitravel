@@ -22,12 +22,13 @@ public class Hotel implements Serializable {
     private Integer codigo;
 
     @ToString.Include
+    @Column(nullable = false)
     private String nombre;
 
     @ElementCollection
     private Map<String, String> telefonos;
 
-    @Column(name = "estrellas")
+    @Column(name = "estrellas", nullable = false)
     @ToString.Include
     private Integer numEstrellas;
 

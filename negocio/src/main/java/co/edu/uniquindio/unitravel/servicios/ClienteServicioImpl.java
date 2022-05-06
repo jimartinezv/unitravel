@@ -2,10 +2,7 @@ package co.edu.uniquindio.unitravel.servicios;
 
 
 import co.edu.uniquindio.unitravel.entidades.*;
-import co.edu.uniquindio.unitravel.repositorios.ClienteRepo;
-import co.edu.uniquindio.unitravel.repositorios.ComentarioRepo;
-import co.edu.uniquindio.unitravel.repositorios.HotelRepo;
-import co.edu.uniquindio.unitravel.repositorios.ReservaRepo;
+import co.edu.uniquindio.unitravel.repositorios.*;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +19,17 @@ public class ClienteServicioImpl implements ClienteServicio{
     private ReservaRepo reservaRepo;
     private HotelRepo hotelRepo;
     private EmailServicio emailServicio;
+    private CiudadRepo ciudadRepo;
 
     public ClienteServicioImpl (ClienteRepo usuarioRepo, ComentarioRepo comentarioRepo,
-                                ReservaRepo reservaRepo, HotelRepo hotelRepo){
+                                ReservaRepo reservaRepo, HotelRepo hotelRepo, EmailServicio emailServicio,
+                                CiudadRepo ciudadRepo){
         this.usuarioRepo=usuarioRepo;
         this.comentarioRepo=comentarioRepo;
         this.reservaRepo=reservaRepo;
         this.hotelRepo=hotelRepo;
+        this.emailServicio= emailServicio;
+        this.ciudadRepo= ciudadRepo;
     }
 
 
@@ -136,10 +137,14 @@ public class ClienteServicioImpl implements ClienteServicio{
 
 
     @Override
-    public List<Cliente> listarClientesReserva(String correo) {
+    public List<Cliente> listarClientesReserva() {
         return usuarioRepo.clientesReservas();
     }
 
+    @Override
+    public List<Reserva> listarReservasByCliente(String correo) throws Exception {
+        return reservaRepo.reservasByCliente(correo);
+    }
 
 
     @Override
@@ -173,6 +178,17 @@ public class ClienteServicioImpl implements ClienteServicio{
     @Override
     public List<Hotel> buscarHotelesByCiudad(Ciudad ciudad) {
         return hotelRepo.obtenerHotelByCodigoCiudad(ciudad.getCodigo());
+
+    }
+
+    @Override
+    public List<Ciudad> listarCiudades() {
+        return ciudadRepo.findAll();
+    }
+
+    @Override
+    public Ciudad buscarCiudad(Integer codigo) throws Exception {
+        return ciudadRepo.findById(codigo).orElse(null);
     }
 
     @Override
@@ -199,6 +215,11 @@ public class ClienteServicioImpl implements ClienteServicio{
         }
         enviarCorreo(buscarCliente);
          return "Correo enviado";
+    }
+
+    @Override
+    public Cliente buscarCliente(String cedula) throws Exception {
+        return usuarioRepo.findById(cedula).orElse(null);
     }
 
     @Override

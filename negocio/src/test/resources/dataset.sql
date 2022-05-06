@@ -1142,7 +1142,8 @@ VALUES
 ("10949","Gutierrez", "guti@gmail.com", "Alvaro", "alajj", "MASCULINO", 66),
 ("10209","Fernandez", "fernanlucho@gmail.com", "Luis", "alajj", "MASCULINO", 66),
 ("1094299","Mateo", "Matii@gmail.com", "José", "8837j", "MASCULINO", 50),
-("109778","Gonzalez", "mariagonza@gmail.com", "Maria", "alajj", "FEMENINO", 66);
+("109778","Gonzalez", "mariagonza@gmail.com", "Maria", "alajj", "FEMENINO", 66),
+("1", "Martinez", "jimv9200@gmail.com", "Jorge", "clave", "MASCULINO", 66);
 
 INSERT INTO cliente_telefono (cliente_cedula, telefono, telefono_key)
 VALUES
@@ -1175,12 +1176,12 @@ VALUES
 (2, true,100, "ESTRELLACLIENTE","Descuento por ser vendedor estrella", 0.15,null,null),
 (3, true,33, "LANZADESC","Descuento por lanzamiento de página", 0.3,null,null);
 
-INSERT INTO direccion (codigo, direccion, ciudad_codigo)
+INSERT INTO direccion (codigo, direccion, ciudad_codigo, hotel_codigo)
 VALUES
-(1,"Calle 36n 40-22", 66),
-(2,"Cra 22 #9-00", 66),
-(3,"Calle 3 8-32", 66),
-(4,"Calle 7 #38-13", 66);
+    (1,"Calle 36n 40-22", 66,null),
+    (2,"Cra 22 #9-00", 66,null),
+    (3,"Calle 3 8-32", 66,null),
+    (4,"Calle 7 #38-13", 66,null);
 
 INSERT INTO hotel (codigo, direccion_codigo, nombre, estrellas)
 VALUES
@@ -1188,6 +1189,20 @@ VALUES
 (2, 2, "Hotel El descanso", 5),
 (3, 3, "Hotel Duerme bueno", 3),
 (4, 4, "Hotel Descansa en paz", 1);
+
+UPDATE direccion
+SET hotel_codigo=1
+    WHERE codigo=1;
+UPDATE direccion
+SET hotel_codigo=2
+WHERE codigo=2;
+UPDATE direccion
+SET hotel_codigo=3
+WHERE codigo=3;
+UPDATE direccion
+SET hotel_codigo=4
+WHERE codigo=4;
+
 
 INSERT INTO hotel_telefonos ( hotel_codigo, telefonos, telefonos_key)
 VALUES

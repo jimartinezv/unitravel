@@ -93,7 +93,9 @@ public interface ClienteServicio {
 
 
 
-    List<Cliente> listarClientesReserva(String correo);
+    List<Cliente> listarClientesReserva();
+
+    List<Reserva> listarReservasByCliente(String correo) throws Exception;
 
 
 
@@ -114,6 +116,20 @@ public interface ClienteServicio {
      */
     List<Hotel> buscarHotelesByCiudad(Ciudad ciudad);
 
+    /**
+     * Lista todos las ciudades
+     * @return
+     */
+    List<Ciudad> listarCiudades();
+
+    /**
+     * Busca la ciudad por codigo
+     * @param codigo
+     * @return
+     * @throws Exception
+     */
+    Ciudad buscarCiudad(Integer codigo) throws Exception;
+
     Hotel buscarHotelPorCodigo(Integer codigo) throws Exception;
 
     /**
@@ -132,6 +148,8 @@ public interface ClienteServicio {
      * @throws Exception
      */
     String recuperarContrasena(String correo) throws Exception;
+
+    Cliente buscarCliente(String cedula) throws Exception;
 
     void enviarCorreo(Cliente email) throws Exception;
     //Registrarse y loguearse.

@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.servicios;
 
-import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
-import co.edu.uniquindio.unitravel.entidades.Caracteristica;
-import co.edu.uniquindio.unitravel.entidades.Habitacion;
-import co.edu.uniquindio.unitravel.entidades.Hotel;
+import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.AdministradorHotelRepo;
 
 import java.util.List;
@@ -103,10 +100,54 @@ public interface AdministradorHotelServicio {
     List<Habitacion> listarHabitaciones();
 
 
+    /**
+     * Busca hotel por su codigo
+     * @param codigo
+     * @return
+     * @throws Exception
+     */
     Hotel buscarHotel(Integer codigo) throws Exception;
 
+    /**
+     * Lista las carecteristicas del hotel y sus habitaciones
+     * @return
+     */
     List<Caracteristica> listarCaracteristicas();
 
+    /**
+     * Busca ciudad por codigo
+     * @param codigo
+     * @return
+     * @throws Exception
+     */
+    Ciudad buscarCiudad(Integer codigo);
+
+    /**
+     * Lista las ciudades
+     * @return
+     */
+    List<Ciudad> listarCiudades();
+
+    /**
+     * Crea direccion
+     * @param d
+     * @return
+     * @throws Exception
+     */
+    Direccion crearDireccion(Direccion d) throws Exception;
+
+    /**
+     * Actualiza direccion
+     * @param d
+     * @return
+     * @throws Exception
+     */
+    Direccion actualizarDireccion(Direccion d)throws Exception;
+
+    /**
+     * Elimina direccion
+     */
+    void eliminarDireccion(Integer codigo) throws Exception;
 
 
 }
