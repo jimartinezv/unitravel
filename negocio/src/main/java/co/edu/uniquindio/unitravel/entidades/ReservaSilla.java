@@ -17,9 +17,9 @@ import java.util.List;
 @EqualsAndHashCode
 public class ReservaSilla implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(length = 10)
-    private String codigo;
+    private Integer codigo;
 
     @Positive
     private double precio;
@@ -31,7 +31,7 @@ public class ReservaSilla implements Serializable {
     private Silla silla;
 
 
-    public ReservaSilla(String codigo, double precio) {
+    public ReservaSilla(Integer codigo, double precio) {
         this.codigo = codigo;
         this.precio = precio;
     }

@@ -29,6 +29,35 @@ public interface AdministradorServicio {
     void eliminarAdministraor(String id) throws Exception;
 
     /**
+     * Crea habitaciones
+     * @param h
+     * @return
+     */
+    Habitacion crearHabitacion(Habitacion h);
+
+    Habitacion buscarHabitacion(String codigo);
+
+    /**
+     * Actualiza habitaciones
+     * @param h
+     * @return
+     * @throws Exception
+     */
+    Habitacion actualizarHabitacion(Habitacion h) throws Exception;
+
+    /**
+     * Muestra las habitaciones de un hotel
+     * @param hotel
+     * @return
+     */
+    List<Habitacion> habitacionByHotel(Hotel hotel);
+
+    /**
+     * Elimina habitaciones
+     */
+    void eliminarHabitacion(String codigo)throws Exception;
+
+    /**
      * Se podrán ver todos los administradores
      * @return
      */
@@ -110,6 +139,8 @@ public interface AdministradorServicio {
      */
     void eliminarVuelo(String codigo) throws Exception;
 
+    Vuelo buscarVuelo(String codigo);
+
     /**
      * Lista todos los vuelos
      * @return
@@ -138,6 +169,7 @@ public interface AdministradorServicio {
      */
     AdministradorHotel modificarAdminHotel(AdministradorHotel administradorHotel) throws Exception;
 
+    Silla crearSilla(Silla s);
     /**
      * Metodo para buscar el administrador del hotel por su cedula
      * @param cedula

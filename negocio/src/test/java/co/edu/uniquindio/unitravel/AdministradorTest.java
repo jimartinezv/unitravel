@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel;
 
-import co.edu.uniquindio.unitravel.entidades.Administrador;
-import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
-import co.edu.uniquindio.unitravel.entidades.Ciudad;
-import co.edu.uniquindio.unitravel.entidades.Departamento;
+import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.servicios.AdministradorServicio;
 import co.edu.uniquindio.unitravel.servicios.AdministradorServicioImpl;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 @Transactional //Garantiza que los datos no sean persistentes en la base de datos
@@ -32,6 +31,59 @@ public class AdministradorTest {
         ah.setCedula("1098773");
         ah.setPassword("clave");
         return ah;
+    }
+
+    public Vuelo crearVuelo(){
+        Vuelo v= new Vuelo();
+        v.setAerolinea("AVIANCA");
+        v.setCodigo("A4738");
+
+        return v;
+    }
+    public List<Silla> crearSillas(){
+        List<Silla> sillas= new ArrayList<>();
+        Silla silla1, silla2, silla3, silla4, silla5, silla6;
+        silla1=new Silla();
+        silla1.setPrecio(50000);
+        silla1.setPosicion("A1");
+        administradorServicio.crearSilla(silla1);
+
+        silla2=new Silla();
+        silla2.setPrecio(60000);
+        silla2.setPosicion("B1");
+        administradorServicio.crearSilla(silla1);
+
+        silla3=new Silla();
+        silla3.setPrecio(70000);
+        silla3.setPosicion("C1");
+        administradorServicio.crearSilla(silla1);
+
+        silla4=new Silla();
+        silla4.setPrecio(50000);
+        silla4.setPosicion("A2");
+        administradorServicio.crearSilla(silla1);
+
+        silla5=new Silla();
+        silla5.setPrecio(60000);
+        silla5.setPosicion("B2");
+
+        administradorServicio.crearSilla(silla1);
+
+        silla6=new Silla();
+        silla6.setPrecio(70000);
+        silla6.setPosicion("C2");
+        administradorServicio.crearSilla(silla1);
+
+        sillas.add(silla1);
+        sillas.add(silla2);
+        sillas.add(silla3);
+        sillas.add(silla4);
+        sillas.add(silla5);
+        sillas.add(silla6);
+
+
+
+        return sillas;
     }
 
     public Ciudad crearCiudad(){
@@ -194,5 +246,47 @@ public class AdministradorTest {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    @Test
+    //@Sql("classpath:dataset.sql")
+    public void crearVueloTest(){
+        Vuelo v= crearVuelo();
+        try {
+            administradorServicio.crearVuelo(v);
+            Assertions.assertEquals(administradorServicio.buscarVuelo("A4738").getAerolinea(),"AVIANCA");
+        }catch (Exception e){
+            System.out.println(e.getMessage()+" error");
+        }
+
+    }
+
+    @Test
+    //@Sql("classpath:dataset.sql")
+    public void actualizarVueloTest(){
+        Vuelo v= crearVuelo();
+        try {
+            administradorServicio.crearVuelo(v);
+            v.setAerolinea("AIRES");
+            administradorServicio.actualizarVuelo(v);
+            Assertions.assertEquals(administradorServicio.buscarVuelo("A4738").getAerolinea(),"AIRES");
+        }catch (Exception e){
+            System.out.println(e.getMessage()+" error");
+        }
+
+    }
+
+    @Test
+    //@Sql("classpath:dataset.sql")
+    public void eliminarVueloTest(){
+        Vuelo v= crearVuelo();
+        try {
+            administradorServicio.crearVuelo(v);
+            administradorServicio.eliminarVuelo("A4738");
+            Assertions.assertNull(administradorServicio.buscarVuelo("A4738"));
+        }catch (Exception e){
+            System.out.println(e.getMessage()+" error");
+        }
+
     }
 }

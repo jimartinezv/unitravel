@@ -33,6 +33,31 @@ public interface ClienteServicio {
     Cliente obtenerUsuario(String cedula) throws Exception;
 
     /**
+     * Se crea las reservas de habitacion
+     * @param rh
+     * @return
+     */
+    ReservaHabitacion crearReservaHabitacion(ReservaHabitacion rh);
+
+    /**
+     * actualiza reserva de habitacion
+     * @param rh
+     * @return
+     * @throws Exception
+     */
+    ReservaHabitacion actualizarReservaHabitacion(ReservaHabitacion rh) throws Exception;
+
+    ReservaHabitacion buscarReservaHabitacion(Integer codigo) throws Exception;
+    /**
+     * Lista las reservas de habitacion por reserva
+     * @param codigoReserva
+     * @return
+     * @throws Exception
+     */
+    List<ReservaHabitacion> reservaHabitacionByReserva(Integer codigoReserva) throws Exception;
+
+
+    /**
      * Elimina usuario por su cedula
      *
      * @param cedula
@@ -56,6 +81,36 @@ public interface ClienteServicio {
      */
     Reserva crearReserva(Reserva reserva) throws Exception;
 
+    /**
+     * Discrimina si el vuelo existe o no
+     * @param v
+     * @return
+     * @throws Exception
+     */
+    Boolean vuelosDisponibles(Vuelo v) throws Exception;
+
+    /**
+     * Envia correo con detalles de reserva
+     * @param reserva
+     * @throws Exception
+     */
+    Reserva enviarCorreoReserva(Reserva reserva)throws Exception;
+
+    /**
+     * calcula el costo de las reservas de los vuelos
+     * @param reserva
+     * @return
+     * @throws Exception
+     */
+    double calcularCostoReservaSilla(Reserva reserva) throws Exception;
+
+    /**
+     * Calcula el costo de las habitaciones
+     * @param reserva
+     * @return
+     * @throws Exception
+     */
+    double calcularCostoReservaHabitacion(Reserva reserva)throws Exception;
     /**
      * Se modifica reserva por su codigo
      * @param reserva
@@ -151,7 +206,8 @@ public interface ClienteServicio {
 
     Cliente buscarCliente(String cedula) throws Exception;
 
-    void enviarCorreo(Cliente email) throws Exception;
+    ReservaSilla crearReservaSilla(Integer sillas, Vuelo vuelo) throws Exception;
+    void enviarCorreoRecovery(Cliente email) throws Exception;
     //Registrarse y loguearse.
     //Buscar destinos y/o hoteles.
     //Crear una reserva (seleccionando el destino, las habitaciones, vuelo).

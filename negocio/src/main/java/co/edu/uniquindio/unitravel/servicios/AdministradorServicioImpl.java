@@ -31,6 +31,10 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     @Autowired
     private DepartamentoRepo departamentoRepo;
 
+    @Autowired
+    private SillaRepo sillaRepo;
+
+    @Autowired HabitacionRepo habitacionRepo;
     public AdministradorServicioImpl(AdministradorRepo administradorRepo, VueloRepo vueloRepo, AdministradorHotelRepo administradorHotelRepo,
                                 HotelRepo hotelRepo,CodigoDescuentoRepo codigoDescuentoRepo,
                                      CiudadRepo ciudadRepo){
@@ -62,7 +66,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
      * @return
      */
     public Vuelo buscarVuelo(String codigo){
-        return vueloRepo.getById(codigo);
+        return vueloRepo.findById(codigo).orElse(null);
     }
 
     /**
@@ -158,6 +162,39 @@ public class AdministradorServicioImpl implements AdministradorServicio{
             throw new Exception("El administrador no existe");
         }
         administradorRepo.delete(admin);
+    }
+
+    @Override
+    public Habitacion crearHabitacion(Habitacion h) {
+        return habitacionRepo.save(h);
+    }
+
+    @Override
+    public Habitacion buscarHabitacion(String codigo) {
+        return habitacionRepo.findById(codigo).orElse(null);
+    }
+
+    @Override
+    public Habitacion actualizarHabitacion(Habitacion h) throws Exception {
+        Habitacion hb= buscarHabitacion(h.getCodigo());
+        if(hb==null){
+            throw new Exception("La habitación no existe");
+        }
+        return h;
+    }
+
+    @Override
+    public List<Habitacion> habitacionByHotel(Hotel hotel) {
+        return habitacionRepo.findByHotel(hotel);
+    }
+
+    @Override
+    public void eliminarHabitacion(String codigo) throws Exception{
+        Habitacion h= buscarHabitacion(codigo);
+        if(h==null){
+            throw new Exception("No se puede eliminar la habitacion");
+        }
+        habitacionRepo.delete(h);
     }
 
     @Override
@@ -290,6 +327,11 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         return administradorHotelRepo.save(administradorHotel);
 
 
+    }
+
+    @Override
+    public Silla crearSilla(Silla s) {
+        return sillaRepo.save(s);
     }
 
     @Override

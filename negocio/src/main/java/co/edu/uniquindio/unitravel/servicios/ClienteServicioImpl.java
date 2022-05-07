@@ -21,6 +21,15 @@ public class ClienteServicioImpl implements ClienteServicio{
     private EmailServicio emailServicio;
     private CiudadRepo ciudadRepo;
 
+    @Autowired
+    private ReservaHabitacionRepo reservaHabitacionRepo;
+
+    @Autowired
+    private ReservaSilla reservaSilla;
+
+    @Autowired
+    private VueloRepo vueloRepo;
+
     public ClienteServicioImpl (ClienteRepo usuarioRepo, ComentarioRepo comentarioRepo,
                                 ReservaRepo reservaRepo, HotelRepo hotelRepo, EmailServicio emailServicio,
                                 CiudadRepo ciudadRepo){
@@ -68,6 +77,32 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public ReservaHabitacion crearReservaHabitacion(ReservaHabitacion rh) {
+        return reservaHabitacionRepo.save(rh);
+    }
+
+    @Override
+    public ReservaHabitacion actualizarReservaHabitacion(ReservaHabitacion rh) throws Exception {
+
+        ReservaHabitacion buscar= reservaHabitacionRepo.findById(rh.getCodigo()).orElse(null);
+        if(buscar==null){
+            throw new Exception("La habitacion no existe");
+        }
+        return reservaHabitacionRepo.save(rh);
+    }
+
+    @Override
+    public ReservaHabitacion buscarReservaHabitacion(Integer codigo) throws Exception {
+
+        return reservaHabitacionRepo.findById(codigo).orElse(null);
+    }
+
+    @Override
+    public List<ReservaHabitacion> reservaHabitacionByReserva(Integer codigoReserva) throws Exception {
+        return reservaHabitacionRepo.reservaHabitacionByReserva(codigoReserva);
+    }
+
+    @Override
     public void eliminarUsuario(String cedula) throws Exception {
         Cliente cliente = obtenerUsuario(cedula);
         if(cliente==null){
@@ -92,20 +127,73 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
     @Override
     public Reserva crearReserva(Reserva reserva) throws Exception {
+        //@TODO
+        // para realizar la validacion de las fechas de las habitaciones
+        // hacemos una consulta donde se traiga las reservas que contiene la habitacion
+        // y que la fechas de reserva sean mayores o igual que las de a reserva actual
+
         List<ReservaHabitacion> habitacions= reserva.getHabitaciones();
-        for(ReservaHabitacion rh: habitacions){
+        /**for(ReservaHabitacion rh: habitacions){
             if(rh.getReserva().getFechaInicio().compareTo(reserva.getFechaInicio())>=0
             && rh.getReserva().getFechaFin().compareTo(reserva.getFechaInicio())<=0
             || rh.getReserva().getFechaInicio().compareTo(reserva.getFechaFin())>=0
             && rh.getReserva().getFechaFin().compareTo(reserva.getFechaFin())<=0){
-                throw new Exception("La habitación no está disponible para esa fecha");
+                //throw new Exception("La habitación no está disponible para esa fecha");
             }
-        }
+        }**/
 
+        vuelosDisponibles(reserva.getVueloIda());
+        vuelosDisponibles(reserva.getVueloRegreso());
 
+        reserva.setPrecioTotal(calcularCostoReservaHabitacion(reserva)+ calcularCostoReservaSilla(reserva));
         //Validar vuelos dispoibles
         //Validar silla random
+        //return reservaRepo.save(reserva);
+        return enviarCorreoReserva(reserva);
+    }
+
+    @Override
+    public Boolean vuelosDisponibles(Vuelo v) throws Exception{
+        Vuelo buscar= vueloRepo.findById(v.getCodigo()).orElse(null);
+        if(buscar==null)
+            throw new Exception("El vuelo no existe");
+        return true;
+    }
+
+    @Override
+    public Reserva enviarCorreoReserva(Reserva reserva) throws Exception {
+        System.out.println("se enviará correo a: "+ reserva.getCliente().getEmail());
+        try {
+            emailServicio.enviarEmail("Reserva realizada",
+                    "Felicidades por su reserva #: "+reserva.getCodigo()+ " por el valor de" +
+                            ": "+reserva.getPrecioTotal()+ " con vuelos: "+ reserva.getVueloIda().getCodigo()+
+                    " y "+ reserva.getVueloRegreso().getCodigo(), reserva.getCliente().getEmail());
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
         return reservaRepo.save(reserva);
+    }
+
+    @Override
+    public double calcularCostoReservaSilla(Reserva reserva) throws Exception {
+        List<ReservaSilla> reservaSillas= reserva.getReservaSillas();
+        double costo=0;
+        for (ReservaSilla rs: reservaSillas  ) {
+            costo+= rs.getPrecio();
+        }
+        return costo;
+    }
+
+    @Override
+    public double calcularCostoReservaHabitacion(Reserva reserva) throws Exception {
+        List<ReservaHabitacion> reservaHabitacions= reserva.getHabitaciones();
+        double costo=0;
+        for (ReservaHabitacion rh: reservaHabitacions ) {
+            costo+=rh.getPrecio();
+        }
+        return costo;
     }
 
     @Override
@@ -213,7 +301,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         if(buscarCliente==null){
             throw new Exception("El usuario no existe");
         }
-        enviarCorreo(buscarCliente);
+        enviarCorreoRecovery(buscarCliente);
          return "Correo enviado";
     }
 
@@ -223,7 +311,13 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public void enviarCorreo(Cliente c) throws Exception {
+    public ReservaSilla crearReservaSilla(Integer sillas, Vuelo vuelo) throws Exception {
+        //@TODO
+        return null;
+    }
+
+    @Override
+    public void enviarCorreoRecovery(Cliente c) throws Exception {
         try {
             emailServicio.enviarEmail("Recuperacion de contraseña",
                     "Su contraseña es: "+c.getPassword(),c.getEmail() );

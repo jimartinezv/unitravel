@@ -1255,26 +1255,26 @@ VALUES
     (4,200000, null, 2,3),
     (5,80000, null, 3,4);
 
-INSERT INTO silla(codigo, posicion, precio, vuelo_codigo)
+INSERT INTO silla(codigo, posicion, precio, vuelo_codigo, disponible)
 VALUES
-(1,"ventana A1",50000, "A340"),
-(2,"ventana B1",55000, "A340"),
-(3,"ventana C1",60000, "A340"),
-(4,"PASILLO A2",50000, "A340"),
-(5,"PASILLO B2",55000, "A340"),
-(6,"PASILLO C2",60000, "A340"),
-(7,"ventana A1",50000, "L378"),
-(8,"ventana B1",55000, "L378"),
-(9,"ventana C1",60000, "L378"),
-(10,"PASILLO A2",50000, "L378"),
-(11,"PASILLO B2",55000, "L378"),
-(12,"PASILLO C2",60000, "L378"),
-(13,"ventana A1",50000, "S33884"),
-(14,"ventana B1",55000, "S33884"),
-(15,"ventana C1",60000, "S33884"),
-(16,"PASILLO A2",50000, "S33884"),
-(17,"PASILLO B2",55000, "S33884"),
-(18,"PASILLO C2",60000, "S33884");
+(1,"ventana A1",50000, "A340",true),
+(2,"ventana B1",55000, "A340", true),
+(3,"ventana C1",60000, "A340", true),
+(4,"PASILLO A2",50000, "A340", true),
+(5,"PASILLO B2",55000, "A340", true),
+(6,"PASILLO C2",60000, "A340",true),
+(7,"ventana A1",50000, "L378",true),
+(8,"ventana B1",55000, "L378",true),
+(9,"ventana C1",60000, "L378",true ),
+(10,"PASILLO A2",50000, "L378",true),
+(11,"PASILLO B2",55000, "L378",true),
+(12,"PASILLO C2",60000, "L378",true),
+(13,"ventana A1",50000, "S33884",true),
+(14,"ventana B1",55000, "S33884",true),
+(15,"ventana C1",60000, "S33884",true),
+(16,"PASILLO A2",50000, "S33884",true),
+(17,"PASILLO B2",55000, "S33884",true),
+(18,"PASILLO C2",60000, "S33884",true);
 
 INSERT INTO reserva_silla (codigo, precio, reserva_codigo, silla_codigo)
 VALUES
