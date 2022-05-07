@@ -3,15 +3,16 @@ package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.*;
-import com.sun.xml.bind.v2.TODO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.ToDoubleBiFunction;
+
 
 @Service
 public class ClienteServicioImpl implements ClienteServicio{
@@ -87,24 +88,32 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public ReservaSilla asignarSillas(Silla silla) {
-        ReservaSilla rs= new ReservaSilla();
-        rs.setSilla(silla);
-        rs.setPrecio(silla.getPrecio());
+    public List<ReservaSilla> asignarSillas(List<Silla> silla, Reserva reserva) throws Exception {
+        List<ReservaSilla> rs= new ArrayList<>();
+        int disponibles=0;
+        for (Silla s:silla) {
+            if(s.getDisponible())
+                disponibles++;
+        }
+        if(disponibles<reserva.getCantidadPersonas()){
+            throw new Exception("La cantidad de personas excede sillas disponibles");
+        }
+        for(int i=0;i<reserva.getCantidadPersonas();i++)
+            if(silla.get(i).getDisponible()) {
+                silla.get(i).setDisponible(false);
+                rs.add(crearReservaSilla(silla.get(i),reserva));
+            }
+
         return rs;
     }
 
     @Override
     public ReservaSilla crearReservaSilla(Silla silla, Reserva reserva) throws Exception {
         ReservaSilla rs= new ReservaSilla();
-        if(silla.getDisponible()){
-            rs.setSilla(silla);
-            rs.setPrecio(silla.getPrecio());
-            rs.setReserva(reserva);
-            silla.setDisponible(false);
-        }else{
-            throw new Exception("La silla no está disponible");
-        }
+        rs.setReserva(reserva);
+        rs.setSilla(silla);
+        rs.setPrecio(silla.getPrecio());
+
 
         return reservaSillaRepo.save(rs);
     }
@@ -251,11 +260,6 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
 
-
-    @Override
-    public List<Cliente> listarClientesReserva() {
-        return usuarioRepo.clientesReservas();
-    }
 
     @Override
     public List<Reserva> listarReservasByCliente(String correo) throws Exception {

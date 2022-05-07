@@ -111,20 +111,28 @@ public class ClienteServicioTest {
 
 
 
-        nr.setHabitaciones(crearReservaHabitaciones());
+
         try {
             nr.setCliente(clienteServicio.obtenerUsuario("1"));
             nr.setEstado("FINALIZADO");
-            Vuelo v=crearVuelo();
+            nr.setHabitaciones(crearReservaHabitaciones());
+            Vuelo v=crearVuelo("A4738");
 
             administradorServicio.crearVuelo(v);
+
+            clienteServicio.asignarSillas(v.getSilla(),nr);
             //v.setSilla(crearSillasVuelo(v));
             //administradorServicio.actualizarVuelo(v);
             nr.setVueloIda(v);
-            Vuelo v2=crearVuelo();
+            Vuelo v2=crearVuelo("A4536");
 
-            v2.setCodigo("A4536");
+
+            v2.setCiudadOrigen(clienteServicio.buscarCiudad(66));
+            v2.setCiudadOrigen(clienteServicio.buscarCiudad(50));
             administradorServicio.crearVuelo(v2);
+            v2.setCiudadOrigen(clienteServicio.buscarCiudad(66));
+            v2.setCiudadOrigen(clienteServicio.buscarCiudad(50));
+            clienteServicio.asignarSillas(v2.getSilla(),nr);
             //v2.setSilla(crearSillasVuelo(v2));
             //administradorServicio.actualizarVuelo(v2);
             nr.setVueloRegreso(v2);
@@ -136,10 +144,17 @@ public class ClienteServicioTest {
 
     }
 
-    public Vuelo crearVuelo(){
+    public Vuelo crearVuelo(String codigo){
         Vuelo v= new Vuelo();
         v.setAerolinea("AVIANCA");
-        v.setCodigo("A4738");
+        v.setCodigo(codigo);
+        v.setSilla(crearSillasVuelo(v));
+        try {
+            v.setCiudadOrigen(clienteServicio.buscarCiudad(50));
+            v.setCiudadDestino(clienteServicio.buscarCiudad(66));
+        }catch (Exception e){
+
+        }
 
         return v;
 
@@ -319,12 +334,7 @@ public class ClienteServicioTest {
         }
     }
 
-    @Test
-    @Sql("classpath:dataset.sql")
-    public void listarClientesReservaTest(){
 
-        clienteServicio.listarClientesReserva().forEach(System.out::println);
-    }
 
     @Test
     @Sql("classpath:dataset.sql")

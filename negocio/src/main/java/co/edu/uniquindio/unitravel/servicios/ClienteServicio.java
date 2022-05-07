@@ -145,7 +145,7 @@ public interface ClienteServicio {
      * @param silla
      * @return
      */
-    ReservaSilla asignarSillas(Silla silla);
+    List<ReservaSilla> asignarSillas(List<Silla> silla, Reserva reserva) throws Exception;
 
     /**
      * Crea la reserva de la silla del avion
@@ -239,11 +239,12 @@ public interface ClienteServicio {
      */
     Comentario comentarHotel(Comentario comentario) throws Exception;
 
+    /**
+     * el cliente puede ver todos los comentarios realizados a un hotel
+     * @return
+     */
     List<Comentario> listarComentarios();
 
-
-
-    List<Cliente> listarClientesReserva();
 
 
 }
