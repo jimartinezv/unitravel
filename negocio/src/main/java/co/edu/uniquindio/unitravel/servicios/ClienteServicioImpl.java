@@ -7,6 +7,7 @@ import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.ToDoubleBiFunction;
@@ -25,10 +26,13 @@ public class ClienteServicioImpl implements ClienteServicio{
     private ReservaHabitacionRepo reservaHabitacionRepo;
 
     @Autowired
-    private ReservaSilla reservaSilla;
+    private ReservaSillaRepo reservaSillaRepo;
 
     @Autowired
     private VueloRepo vueloRepo;
+
+    @Autowired
+    private  CodigoDescuentoRepo codigoDescuentoRepo;
 
     public ClienteServicioImpl (ClienteRepo usuarioRepo, ComentarioRepo comentarioRepo,
                                 ReservaRepo reservaRepo, HotelRepo hotelRepo, EmailServicio emailServicio,
@@ -82,6 +86,14 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public ReservaSilla asignarSillas(Silla silla) {
+        ReservaSilla rs= new ReservaSilla();
+        rs.setSilla(silla);
+        rs.setPrecio(silla.getPrecio());
+        return rs;
+    }
+
+    @Override
     public ReservaHabitacion actualizarReservaHabitacion(ReservaHabitacion rh) throws Exception {
 
         ReservaHabitacion buscar= reservaHabitacionRepo.findById(rh.getCodigo()).orElse(null);
@@ -89,6 +101,18 @@ public class ClienteServicioImpl implements ClienteServicio{
             throw new Exception("La habitacion no existe");
         }
         return reservaHabitacionRepo.save(rh);
+    }
+
+    @Override
+    public double aplicarCodigoDescuento(CodigoDescuento codigoDescuento) throws Exception {
+        CodigoDescuento cd= codigoDescuentoRepo.findById(codigoDescuento.getCodigo()).orElse(null);
+        if(cd==null){
+            throw new Exception("No existe el codigo de descuento");
+        }
+        if(codigoDescuento.getFechaVencimiento().isBefore(LocalDateTime.now())){
+            throw new Exception("Codigo de descuento caducado");
+        }
+        return codigoDescuento.getDescuento();
     }
 
     @Override
@@ -145,7 +169,10 @@ public class ClienteServicioImpl implements ClienteServicio{
         vuelosDisponibles(reserva.getVueloIda());
         vuelosDisponibles(reserva.getVueloRegreso());
 
-        reserva.setPrecioTotal(calcularCostoReservaHabitacion(reserva)+ calcularCostoReservaSilla(reserva));
+        reserva.setPrecioTotal((calcularCostoReservaHabitacion(reserva)+ calcularCostoReservaSilla(reserva)));
+        if(reserva.getCodigoDescuento()!=null){
+            reserva.setPrecioTotal(reserva.getPrecioTotal()*aplicarCodigoDescuento(reserva.getCodigoDescuento()));
+        }
         //Validar vuelos dispoibles
         //Validar silla random
         //return reservaRepo.save(reserva);

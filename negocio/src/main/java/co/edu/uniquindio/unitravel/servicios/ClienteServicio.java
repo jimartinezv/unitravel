@@ -40,12 +40,21 @@ public interface ClienteServicio {
     ReservaHabitacion crearReservaHabitacion(ReservaHabitacion rh);
 
     /**
+     * Metodo para asignar sillas
+     * @param reserva
+     * @return
+     */
+    ReservaSilla asignarSillas(Silla silla);
+
+    /**
      * actualiza reserva de habitacion
      * @param rh
      * @return
      * @throws Exception
      */
     ReservaHabitacion actualizarReservaHabitacion(ReservaHabitacion rh) throws Exception;
+
+    double aplicarCodigoDescuento(CodigoDescuento codigoDescuento) throws Exception;
 
     ReservaHabitacion buscarReservaHabitacion(Integer codigo) throws Exception;
     /**

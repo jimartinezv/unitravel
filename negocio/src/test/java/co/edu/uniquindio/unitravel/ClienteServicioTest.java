@@ -109,7 +109,7 @@ public class ClienteServicioTest {
         nr.setFechaFin(LocalDate.parse("2022-10-10"));
         nr.setFechaReserva(LocalDateTime.now());
 
-        nr.setPrecioTotal(1200000);
+
 
         nr.setHabitaciones(crearReservaHabitaciones());
         try {
