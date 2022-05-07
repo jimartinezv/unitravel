@@ -119,7 +119,11 @@ public class ClienteServicioTest {
             Vuelo v=crearVuelo("A4738");
 
             administradorServicio.crearVuelo(v);
+            List<ReservaSilla> rs= new ArrayList<>();
+            nr.setReservaSillas(rs);
             clienteServicio.asignarSillas(v.getSilla(),nr);
+
+
 
             //v.setSilla(crearSillasVuelo(v));
             //administradorServicio.actualizarVuelo(v);
@@ -132,7 +136,7 @@ public class ClienteServicioTest {
             administradorServicio.crearVuelo(v2);
             v2.setCiudadOrigen(clienteServicio.buscarCiudad(66));
             v2.setCiudadOrigen(clienteServicio.buscarCiudad(50));
-            clienteServicio.asignarSillas(v2.getSilla(),nr);
+            //nr.getReservaSillas().addAll(clienteServicio.asignarSillas(v2.getSilla(),nr));
             //v2.setSilla(crearSillasVuelo(v2));
             //administradorServicio.actualizarVuelo(v2);
             nr.setVueloRegreso(v2);

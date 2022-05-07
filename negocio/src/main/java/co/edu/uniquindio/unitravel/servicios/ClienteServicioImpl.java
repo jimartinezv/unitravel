@@ -101,11 +101,13 @@ public class ClienteServicioImpl implements ClienteServicio{
         for(int i=0;i<reserva.getCantidadPersonas();i++)
             if(silla.get(i).getDisponible()) {
                 silla.get(i).setDisponible(false);
+                ReservaSilla s=crearReservaSilla(silla.get(i),reserva);
+
                 reserva.getReservaSillas().add(crearReservaSilla(silla.get(i),reserva));
 
 
             }
-
+        
         return reserva.getReservaSillas();
     }
 

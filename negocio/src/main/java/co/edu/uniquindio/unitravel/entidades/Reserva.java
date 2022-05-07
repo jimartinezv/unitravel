@@ -8,6 +8,7 @@ import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -66,5 +67,6 @@ public class Reserva implements Serializable {
         this.precioTotal = precioTotal;
         this.estado = estado;
         this.cantidadPersonas = cantidadPersonas;
+
     }
 }
