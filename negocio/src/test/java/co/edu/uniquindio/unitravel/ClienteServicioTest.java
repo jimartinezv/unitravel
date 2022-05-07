@@ -113,7 +113,7 @@ public class ClienteServicioTest {
 
         nr.setHabitaciones(crearReservaHabitaciones());
         try {
-            nr.setCliente(clienteServicio.buscarCliente("1"));
+            nr.setCliente(clienteServicio.obtenerUsuario("1"));
             nr.setEstado("FINALIZADO");
             Vuelo v=crearVuelo();
 

@@ -7,6 +7,7 @@ import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -94,14 +95,21 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public ReservaHabitacion actualizarReservaHabitacion(ReservaHabitacion rh) throws Exception {
-
-        ReservaHabitacion buscar= reservaHabitacionRepo.findById(rh.getCodigo()).orElse(null);
-        if(buscar==null){
-            throw new Exception("La habitacion no existe");
+    public ReservaSilla crearReservaSilla(Silla silla, Reserva reserva) throws Exception {
+        ReservaSilla rs= new ReservaSilla();
+        if(silla.getDisponible()){
+            rs.setSilla(silla);
+            rs.setPrecio(silla.getPrecio());
+            rs.setReserva(reserva);
+            silla.setDisponible(false);
+        }else{
+            throw new Exception("La silla no está disponible");
         }
-        return reservaHabitacionRepo.save(rh);
+
+        return reservaSillaRepo.save(rs);
     }
+
+
 
     @Override
     public double aplicarCodigoDescuento(CodigoDescuento codigoDescuento) throws Exception {
@@ -121,10 +129,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         return reservaHabitacionRepo.findById(codigo).orElse(null);
     }
 
-    @Override
-    public List<ReservaHabitacion> reservaHabitacionByReserva(Integer codigoReserva) throws Exception {
-        return reservaHabitacionRepo.reservaHabitacionByReserva(codigoReserva);
-    }
+
 
     @Override
     public void eliminarUsuario(String cedula) throws Exception {
@@ -316,6 +321,11 @@ public class ClienteServicioImpl implements ClienteServicio{
         return hotelRepo.getById(codigo);
     }
 
+    @Override
+    public Vuelo buscarVuelos(Ciudad ciudad, LocalDate localDate) {
+        return null;
+    }
+
 
     @Override
     public List<Hotel> buscarHotelesPorNombre(String nombre) throws Exception {
@@ -332,16 +342,6 @@ public class ClienteServicioImpl implements ClienteServicio{
          return "Correo enviado";
     }
 
-    @Override
-    public Cliente buscarCliente(String cedula) throws Exception {
-        return usuarioRepo.findById(cedula).orElse(null);
-    }
-
-    @Override
-    public ReservaSilla crearReservaSilla(Integer sillas, Vuelo vuelo) throws Exception {
-        //@TODO
-        return null;
-    }
 
     @Override
     public void enviarCorreoRecovery(Cliente c) throws Exception {
