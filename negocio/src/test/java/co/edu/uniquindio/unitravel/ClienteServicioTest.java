@@ -119,8 +119,8 @@ public class ClienteServicioTest {
             Vuelo v=crearVuelo("A4738");
 
             administradorServicio.crearVuelo(v);
-
             clienteServicio.asignarSillas(v.getSilla(),nr);
+
             //v.setSilla(crearSillasVuelo(v));
             //administradorServicio.actualizarVuelo(v);
             nr.setVueloIda(v);

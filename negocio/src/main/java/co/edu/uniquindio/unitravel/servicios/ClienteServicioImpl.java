@@ -89,7 +89,7 @@ public class ClienteServicioImpl implements ClienteServicio{
 
     @Override
     public List<ReservaSilla> asignarSillas(List<Silla> silla, Reserva reserva) throws Exception {
-        List<ReservaSilla> rs= new ArrayList<>();
+
         int disponibles=0;
         for (Silla s:silla) {
             if(s.getDisponible())
@@ -101,10 +101,12 @@ public class ClienteServicioImpl implements ClienteServicio{
         for(int i=0;i<reserva.getCantidadPersonas();i++)
             if(silla.get(i).getDisponible()) {
                 silla.get(i).setDisponible(false);
-                rs.add(crearReservaSilla(silla.get(i),reserva));
+                reserva.getReservaSillas().add(crearReservaSilla(silla.get(i),reserva));
+
+
             }
 
-        return rs;
+        return reserva.getReservaSillas();
     }
 
     @Override
@@ -183,7 +185,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         vuelosDisponibles(reserva.getVueloIda());
         vuelosDisponibles(reserva.getVueloRegreso());
 
-        reserva.setPrecioTotal((calcularCostoReservaHabitacion(reserva)+ calcularCostoReservaSilla(reserva)));
+        reserva.setPrecioTotal((calcularCostoReservaHabitacion(reserva)+ calcularCostoReservaSilla(reserva.getReservaSillas())));
         if(reserva.getCodigoDescuento()!=null){
             reserva.setPrecioTotal(reserva.getPrecioTotal()*aplicarCodigoDescuento(reserva.getCodigoDescuento()));
         }
@@ -218,8 +220,8 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public double calcularCostoReservaSilla(Reserva reserva) throws Exception {
-        List<ReservaSilla> reservaSillas= reserva.getReservaSillas();
+    public double calcularCostoReservaSilla(List<ReservaSilla> reserva) throws Exception {
+        List<ReservaSilla> reservaSillas= reserva;
         double costo=0;
         for (ReservaSilla rs: reservaSillas  ) {
             costo+= rs.getPrecio();

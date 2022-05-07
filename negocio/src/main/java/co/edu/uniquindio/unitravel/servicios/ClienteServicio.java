@@ -162,7 +162,7 @@ public interface ClienteServicio {
      * @return
      * @throws Exception
      */
-    double calcularCostoReservaSilla(Reserva reserva) throws Exception;
+    double calcularCostoReservaSilla(List<ReservaSilla> reserva) throws Exception;
 
     /**
      * Cliente crea una reserva (seleccionando el destino, las habitaciones, vuelo)
