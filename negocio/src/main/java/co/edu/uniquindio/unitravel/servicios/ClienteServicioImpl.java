@@ -228,11 +228,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         return costo;
     }
 
-    @Override
-    public List<Reserva> listarReserva(Cliente cliente) {
 
-        return reservaRepo.reservasByCliente(cliente.getEmail());
-    }
 
     @Override
     public Comentario comentarHotel(Comentario comentario) throws Exception {
