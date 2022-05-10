@@ -107,7 +107,7 @@ public class ClienteServicioImpl implements ClienteServicio{
 
 
             }
-        
+
         return reserva.getReservaSillas();
     }
 
@@ -194,7 +194,8 @@ public class ClienteServicioImpl implements ClienteServicio{
         //Validar vuelos dispoibles
         //Validar silla random
         //return reservaRepo.save(reserva);
-        return enviarCorreoReserva(reserva);
+        //return enviarCorreoReserva(reserva);
+        return reservaRepo.save(reserva);
     }
 
     @Override

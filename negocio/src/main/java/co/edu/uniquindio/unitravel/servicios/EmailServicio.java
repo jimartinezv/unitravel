@@ -1,8 +1,10 @@
 package co.edu.uniquindio.unitravel.servicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.context.annotation.Bean;
+
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailServicio {
 
-    @Autowired
+    //@Autowired
     private JavaMailSender sender;
 
     public Boolean enviarEmail(String asunto, String contenido, String destinatario){

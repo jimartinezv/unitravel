@@ -14,10 +14,8 @@ import org.springframework.test.context.jdbc.Sql;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 
 @SpringBootTest
 @Transactional //Garantiza que los datos no sean persistentes en la base de datos
@@ -128,17 +126,14 @@ public class ClienteServicioTest {
             //v.setSilla(crearSillasVuelo(v));
             //administradorServicio.actualizarVuelo(v);
             nr.setVueloIda(v);
-            Vuelo v2=crearVuelo("A4536");
-
-
-            v2.setCiudadOrigen(clienteServicio.buscarCiudad(66));
-            v2.setCiudadOrigen(clienteServicio.buscarCiudad(50));
+            Vuelo v2=crearVuelo2("A4536");
             administradorServicio.crearVuelo(v2);
             v2.setCiudadOrigen(clienteServicio.buscarCiudad(66));
             v2.setCiudadOrigen(clienteServicio.buscarCiudad(50));
             //nr.getReservaSillas().addAll(clienteServicio.asignarSillas(v2.getSilla(),nr));
             //v2.setSilla(crearSillasVuelo(v2));
-            //administradorServicio.actualizarVuelo(v2);
+            administradorServicio.actualizarVuelo(v2);
+            clienteServicio.asignarSillas(v2.getSilla(), nr);
             nr.setVueloRegreso(v2);
         }catch (Exception e){
             System.out.println(e.getMessage()+ " error");
@@ -157,12 +152,45 @@ public class ClienteServicioTest {
             v.setCiudadOrigen(clienteServicio.buscarCiudad(50));
             v.setCiudadDestino(clienteServicio.buscarCiudad(66));
         }catch (Exception e){
-
         }
-
         return v;
-
     }
+    public Vuelo crearVuelo2(String codigo){
+        Vuelo v= new Vuelo();
+        v.setAerolinea("AVIANCA");
+        v.setCodigo(codigo);
+        v.setSilla(crearSillasVuelo2(v));
+        try {
+            v.setCiudadOrigen(clienteServicio.buscarCiudad(66));
+            v.setCiudadDestino(clienteServicio.buscarCiudad(50));
+        }catch (Exception e){
+        }
+        return v;
+    }
+
+    public List<Silla> crearSillasVuelo2(Vuelo v){
+        List<Silla> sillas=new ArrayList<>();
+        Silla a= new Silla();
+
+        a.setPosicion("A1");
+        a.setDisponible(true);
+        a.setPrecio(20000);
+        a.setVuelo(v);
+        administradorServicio.crearSilla(a);
+
+        Silla b= new Silla();
+
+        b.setPosicion("B1");
+        b.setDisponible(true);
+        b.setPrecio(20000);
+        b.setVuelo(v);
+        administradorServicio.crearSilla(b);
+
+        sillas.add(a);
+        sillas.add(b);
+        return sillas;
+    }
+
 
     public List<Silla> crearSillasVuelo(Vuelo v){
         List<Silla> sillas=new ArrayList<>();
@@ -174,14 +202,6 @@ public class ClienteServicioTest {
         a.setVuelo(v);
         administradorServicio.crearSilla(a);
 
-        Silla d= new Silla();
-
-        d.setPosicion("A1");
-        d.setDisponible(true);
-        d.setPrecio(20000);
-        d.setVuelo(v);
-        administradorServicio.crearSilla(d);
-
         Silla b= new Silla();
 
         b.setPosicion("B1");
@@ -190,18 +210,8 @@ public class ClienteServicioTest {
         b.setVuelo(v);
         administradorServicio.crearSilla(b);
 
-        Silla c= new Silla();
-
-        c.setPosicion("A1");
-        c.setDisponible(true);
-        c.setPrecio(20000);
-        c.setVuelo(v);
-        administradorServicio.crearSilla(c);
-
         sillas.add(a);
         sillas.add(b);
-        sillas.add(c);
-        sillas.add(d);
         return sillas;
     }
     public Silla crearSillas(){
@@ -389,17 +399,18 @@ public class ClienteServicioTest {
     }
 
     @Test
-    //@Sql("classpath:dataset.sql")
+    @Sql("classpath:dataset.sql")
     public void crearReservaTest(){
         Reserva r= crearReserva();
         try {
             clienteServicio.crearReserva(r);
-            System.out.println(r);
+            System.out.println(r+" reserva creada");
         }catch (Exception e){
             System.out.println(e.getMessage()+ "error creando reserva");
         }
 
     }
+
 
 
 }
