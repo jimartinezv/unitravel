@@ -13,6 +13,7 @@ public interface HabitacionRepo extends JpaRepository<Habitacion, String> {
 
     List<Habitacion> findByHotel(Hotel hotel);
 
+
     //@Query("select h from Habitacion h join h.hotel ho where ho.codigo=:codigo ")
     //List<Habitacion>
 }

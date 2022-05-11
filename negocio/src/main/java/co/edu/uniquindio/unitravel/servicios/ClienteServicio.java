@@ -101,13 +101,14 @@ public interface ClienteServicio {
     Hotel buscarHotelPorCodigo(Integer codigo) throws Exception;
 
     /**
-     * Busca si la habitación que va a reservar esté disponible para las fechas seleccionadas
+     * Busca la reserva de habitacion
      * @param codigo
      * @return
      * @throws Exception
      */
     ReservaHabitacion buscarReservaHabitacion(Integer codigo) throws Exception;
 
+    Habitacion buscarHabitacion(String codigo) throws Exception;
     /**
      * Calcula el costo de las habitaciones
      * @param reserva
@@ -133,6 +134,13 @@ public interface ClienteServicio {
     Vuelo buscarVuelos(Ciudad ciudad, LocalDate localDate);
 
     /**
+     * Busca vuelo por su codigo
+     * @param codigo
+     * @return
+     */
+    Vuelo buscarVueloByCodigo(String codigo);
+
+    /**
      * Discrimina si el vuelo existe o no
      * @param v
      * @return
@@ -147,6 +155,8 @@ public interface ClienteServicio {
      */
     List<ReservaSilla> asignarSillas(List<Silla> silla, Reserva reserva) throws Exception;
 
+    List<Silla> buscarSillasByVuelo(String codigo) throws Exception;
+
     /**
      * Crea la reserva de la silla del avion
      * @param silla
@@ -155,6 +165,14 @@ public interface ClienteServicio {
      * @throws Exception
      */
     ReservaSilla crearReservaSilla(Silla silla, Reserva reserva) throws Exception;
+
+    /**
+     *
+     * @param reserva
+     * @return
+     * @throws Exception
+     */
+    ReservaSilla actualizarReservaSilla(ReservaSilla rs,Reserva reserva) throws Exception;
 
     /**
      * calcula el costo de las reservas de los vuelos
@@ -171,6 +189,8 @@ public interface ClienteServicio {
      * @return
      */
     Reserva crearReserva(Reserva reserva) throws Exception;
+
+    boolean habitacionDisponible(Habitacion h, Reserva r)throws Exception;
 
     /**
      * Se modifica reserva por su codigo

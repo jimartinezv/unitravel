@@ -55,7 +55,7 @@ public class Reserva implements Serializable {
     private Vuelo vueloRegreso;
 
     @OneToMany(mappedBy = "reserva")
-    private List<ReservaHabitacion> Habitaciones;
+    private List<ReservaHabitacion> reservaHabitacions;
 
     @ManyToOne
     private CodigoDescuento codigoDescuento;
@@ -67,6 +67,8 @@ public class Reserva implements Serializable {
         this.precioTotal = precioTotal;
         this.estado = estado;
         this.cantidadPersonas = cantidadPersonas;
+        this.reservaSillas= new ArrayList<>();
+        this.reservaHabitacions= new ArrayList<>();
 
     }
 }

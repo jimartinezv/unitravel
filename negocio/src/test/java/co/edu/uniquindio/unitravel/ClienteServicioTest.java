@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.function.Function;
 
 @SpringBootTest
-@Transactional //Garantiza que los datos no sean persistentes en la base de datos
+//@Transactional //Garantiza que los datos no sean persistentes en la base de datos
 public class ClienteServicioTest {
 
 
@@ -80,9 +80,14 @@ public class ClienteServicioTest {
     }
     public ReservaHabitacion crearReservaHabitacion(){
         ReservaHabitacion rh= new ReservaHabitacion();
+        try {
+            rh.setHabitacion(clienteServicio.buscarHabitacion("3"));
+        }catch (Exception e){
 
-        rh.setHabitacion(crearHabitacion());
-        rh.setPrecio(1200000d);
+        }
+
+        //rh.setHabitacion(crearHabitacion());
+        rh.setPrecio(rh.getHabitacion().getPrecio());
 
 
         clienteServicio.crearReservaHabitacion(rh);
@@ -104,7 +109,7 @@ public class ClienteServicioTest {
         nr.setCantidadPersonas((byte)(2));
 
         nr.setFechaInicio(LocalDate.parse("2022-10-09"));
-        nr.setFechaFin(LocalDate.parse("2022-10-10"));
+        nr.setFechaFin(LocalDate.parse("2022-10-13"));
         nr.setFechaReserva(LocalDateTime.now());
 
 
@@ -113,27 +118,29 @@ public class ClienteServicioTest {
         try {
             nr.setCliente(clienteServicio.obtenerUsuario("1"));
             nr.setEstado("FINALIZADO");
-            nr.setHabitaciones(crearReservaHabitaciones());
-            Vuelo v=crearVuelo("A4738");
 
-            administradorServicio.crearVuelo(v);
+            nr.setReservaHabitacions(crearReservaHabitaciones());
+            //Vuelo v=crearVuelo("A4738");
+            Vuelo v= clienteServicio.buscarVueloByCodigo("A4738");
+            //administradorServicio.crearVuelo(v);
             List<ReservaSilla> rs= new ArrayList<>();
             nr.setReservaSillas(rs);
-            clienteServicio.asignarSillas(v.getSilla(),nr);
+
+            clienteServicio.asignarSillas(clienteServicio.buscarSillasByVuelo(v.getCodigo()),nr);
 
 
 
             //v.setSilla(crearSillasVuelo(v));
             //administradorServicio.actualizarVuelo(v);
             nr.setVueloIda(v);
-            Vuelo v2=crearVuelo2("A4536");
-            administradorServicio.crearVuelo(v2);
-            v2.setCiudadOrigen(clienteServicio.buscarCiudad(66));
-            v2.setCiudadOrigen(clienteServicio.buscarCiudad(50));
+            //Vuelo v2=crearVuelo2("A4536");
+            Vuelo v2= clienteServicio.buscarVueloByCodigo("A4536");
+            //administradorServicio.crearVuelo(v2);
+
             //nr.getReservaSillas().addAll(clienteServicio.asignarSillas(v2.getSilla(),nr));
             //v2.setSilla(crearSillasVuelo(v2));
-            administradorServicio.actualizarVuelo(v2);
-            clienteServicio.asignarSillas(v2.getSilla(), nr);
+            //administradorServicio.actualizarVuelo(v2);
+            clienteServicio.asignarSillas(clienteServicio.buscarSillasByVuelo(v2.getCodigo()), nr);
             nr.setVueloRegreso(v2);
         }catch (Exception e){
             System.out.println(e.getMessage()+ " error");
@@ -214,9 +221,7 @@ public class ClienteServicioTest {
         sillas.add(b);
         return sillas;
     }
-    public Silla crearSillas(){
-        return null;
-    }
+
     public Hotel crearHotel(){
         Hotel hotel= new Hotel();
         hotel.setNombre("Hotel el paraiso");
@@ -241,6 +246,7 @@ public class ClienteServicioTest {
 
         List<ReservaHabitacion> reservaHabitacions= new ArrayList<>();
         reservaHabitacions.add(crearReservaHabitacion());
+
 
         return reservaHabitacions;
     }
@@ -399,14 +405,31 @@ public class ClienteServicioTest {
     }
 
     @Test
-    @Sql("classpath:dataset.sql")
+    //@Sql("classpath:dataset.sql")
     public void crearReservaTest(){
+
         Reserva r= crearReserva();
+
         try {
+
+
+
             clienteServicio.crearReserva(r);
+
             System.out.println(r+" reserva creada");
         }catch (Exception e){
             System.out.println(e.getMessage()+ "error creando reserva");
+        }
+
+    }
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void llenarSql(){
+        Departamento d= new Departamento("Popo");
+        try {
+            administradorServicio.crearDepartamento(d);
+        }catch (Exception e){
+
         }
 
     }

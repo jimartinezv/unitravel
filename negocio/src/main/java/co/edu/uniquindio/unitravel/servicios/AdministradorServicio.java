@@ -124,6 +124,17 @@ public interface AdministradorServicio {
      */
     Vuelo crearVuelo(Vuelo vuelo) throws Exception;
 
+
+
+    /**
+     * Busca la ciudad por codigo
+     * @param codigo
+     * @return
+     * @throws Exception
+     */
+    Ciudad buscarCiudad(Integer codigo) throws Exception;
+
+
     /**
      * Metodo para modificar vuelos
      * @param vuelo

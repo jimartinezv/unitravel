@@ -9,31 +9,32 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Página de Inicio</title>
+    <title>Registro usuario</title>
 </h:head>
 <h:body>
     <h3>Registro de usuario</h3>
     <h5>Todos los clientes son de la ciudad de #{clienteBean.cliente.ciudad.nombre}</h5>
-    <h:form>
-        <h:panelGrid cellpadding="5" columns="2">
-            <p:outputLabel value="Número de cedula" for="cedula_c"/>
-            <p:inputText id="cedula_c" value="#{clienteBean.cliente.cedula}" required="true"/>
-            <p:outputLabel value="Nombre" for="nombre_c"/>
-            <p:inputText id="nombre_c" value="#{clienteBean.cliente.nombre}" required="true"/>
-            <p:outputLabel value="Apellido" for="apellido_c"/>
-            <p:inputText id="apellido_c" value="#{clienteBean.cliente.apellidos}" required="true"/>
-            <p:outputLabel value="Correo" for="correo_c"/>
-            <p:inputText id="correo_c" value="#{clienteBean.cliente.email}" type="email" required="true"/>
-            <p:outputLabel value="Password" for="password_c"/>
-            <p:inputText id="password_c" value="#{clienteBean.cliente.password}" type="password" required="true"/>
-            <p:outputLabel value="Genero" for="genero_c"/>
-            <p:inputText id="genero_c" value="#{clienteBean.cliente.genero}" required="true"/>
+    <p:panel header="Registrar Usuario">
+        <h:form>
+            <h:panelGrid cellpadding="5" columns="2">
+                <p:outputLabel value="Número de cedula" for="cedula_c"/>
+                <p:inputText id="cedula_c" value="#{clienteBean.cliente.cedula}" required="true"/>
+                <p:outputLabel value="Nombre" for="nombre_c"/>
+                <p:inputText id="nombre_c" value="#{clienteBean.cliente.nombre}" required="true"/>
+                <p:outputLabel value="Apellido" for="apellido_c"/>
+                <p:inputText id="apellido_c" value="#{clienteBean.cliente.apellidos}" required="true"/>
+                <p:outputLabel value="Correo" for="correo_c"/>
+                <p:inputText id="correo_c" value="#{clienteBean.cliente.email}" type="email" required="true"/>
+                <p:outputLabel value="Password" for="password_c"/>
+                <p:inputText id="password_c" value="#{clienteBean.cliente.password}" type="password" required="true"/>
+                <p:outputLabel value="Genero" for="genero_c"/>
+                <p:inputText id="genero_c" value="#{clienteBean.cliente.genero}" required="true"/>
 
-        </h:panelGrid>
-        <p:commandButton value="Registrarse" action="#{clienteBean.registrarUsuario}" update="@form"/>
-        <p:growl showDetail="true"/>
-    </h:form>
-
+            </h:panelGrid>
+            <p:commandButton value="Registrarse" action="#{clienteBean.registrarUsuario}" update="@form"/>
+            <p:growl showDetail="true"/>
+        </h:form>
+    </p:panel>
 
 </h:body>
 </html>

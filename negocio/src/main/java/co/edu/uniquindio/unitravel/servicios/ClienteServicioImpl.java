@@ -31,10 +31,16 @@ public class ClienteServicioImpl implements ClienteServicio{
     private ReservaSillaRepo reservaSillaRepo;
 
     @Autowired
+    private SillaRepo sillaRepo;
+
+    @Autowired
     private VueloRepo vueloRepo;
 
     @Autowired
     private  CodigoDescuentoRepo codigoDescuentoRepo;
+
+    @Autowired
+    private HabitacionRepo habitacionRepo;
 
     public ClienteServicioImpl (ClienteRepo usuarioRepo, ComentarioRepo comentarioRepo,
                                 ReservaRepo reservaRepo, HotelRepo hotelRepo, EmailServicio emailServicio,
@@ -112,6 +118,12 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public List<Silla> buscarSillasByVuelo(String codigo) throws Exception {
+
+        return reservaSillaRepo.sillasByVuelo(codigo);
+    }
+
+    @Override
     public ReservaSilla crearReservaSilla(Silla silla, Reserva reserva) throws Exception {
         ReservaSilla rs= new ReservaSilla();
         rs.setReserva(reserva);
@@ -122,6 +134,11 @@ public class ClienteServicioImpl implements ClienteServicio{
         return reservaSillaRepo.save(rs);
     }
 
+    @Override
+    public ReservaSilla actualizarReservaSilla(ReservaSilla rs,Reserva reserva) throws Exception {
+        rs.setReserva(reserva);
+        return reservaSillaRepo.save(rs);
+    }
 
 
     @Override
@@ -142,6 +159,10 @@ public class ClienteServicioImpl implements ClienteServicio{
         return reservaHabitacionRepo.findById(codigo).orElse(null);
     }
 
+    @Override
+    public Habitacion buscarHabitacion(String codigo) throws Exception {
+        return habitacionRepo.findById(codigo).orElse(null);
+    }
 
 
     @Override
@@ -169,21 +190,10 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
     @Override
     public Reserva crearReserva(Reserva reserva) throws Exception {
-        //@TODO
-        // para realizar la validacion de las fechas de las habitaciones
-        // hacemos una consulta donde se traiga las reservas que contiene la habitacion
-        // y que la fechas de reserva sean mayores o igual que las de a reserva actual
 
-        List<ReservaHabitacion> habitacions= reserva.getHabitaciones();
-        /**for(ReservaHabitacion rh: habitacions){
-            if(rh.getReserva().getFechaInicio().compareTo(reserva.getFechaInicio())>=0
-            && rh.getReserva().getFechaFin().compareTo(reserva.getFechaInicio())<=0
-            || rh.getReserva().getFechaInicio().compareTo(reserva.getFechaFin())>=0
-            && rh.getReserva().getFechaFin().compareTo(reserva.getFechaFin())<=0){
-                //throw new Exception("La habitación no está disponible para esa fecha");
-            }
-        }**/
-
+        for (ReservaHabitacion rh:reserva.getReservaHabitacions()) {
+            habitacionDisponible(rh.getHabitacion(),reserva);
+        }
         vuelosDisponibles(reserva.getVueloIda());
         vuelosDisponibles(reserva.getVueloRegreso());
 
@@ -196,6 +206,14 @@ public class ClienteServicioImpl implements ClienteServicio{
         //return reservaRepo.save(reserva);
         //return enviarCorreoReserva(reserva);
         return reservaRepo.save(reserva);
+    }
+
+    @Override
+    public boolean habitacionDisponible(Habitacion h, Reserva r) throws Exception {
+        if(reservaHabitacionRepo.habitaciones(h.getCodigo(),r.getFechaInicio(),r.getFechaFin())!=null){
+            throw new Exception("La habitación no está disponible para la fecha seleccionada");
+        };
+        return true;
     }
 
     @Override
@@ -234,9 +252,12 @@ public class ClienteServicioImpl implements ClienteServicio{
 
     @Override
     public double calcularCostoReservaHabitacion(Reserva reserva) throws Exception {
-        List<ReservaHabitacion> reservaHabitacions= reserva.getHabitaciones();
+        List<ReservaHabitacion> reservaHabitacions= reserva.getReservaHabitacions();
         double costo=0;
         for (ReservaHabitacion rh: reservaHabitacions ) {
+           // if(reservaHabitacionRepo.buscarReservaPorFecha(rh.getCodigo(),reserva.getFechaInicio(),reserva.getFechaFin())!=null){
+           //     throw new Exception("La habitación no está disponible para la fecha seleccionada");
+           // }
             costo+=rh.getPrecio();
         }
         return costo;
@@ -329,6 +350,11 @@ public class ClienteServicioImpl implements ClienteServicio{
     @Override
     public Vuelo buscarVuelos(Ciudad ciudad, LocalDate localDate) {
         return null;
+    }
+
+    @Override
+    public Vuelo buscarVueloByCodigo(String codigo) {
+        return vueloRepo.findById(codigo).orElse(null);
     }
 
 

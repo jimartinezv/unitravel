@@ -1,13 +1,11 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Tour implements Serializable {
 
     @Id
@@ -26,5 +25,15 @@ public class Tour implements Serializable {
     @Column(nullable = false)
     private String descripcion;
 
+    @Column(nullable = false)
+    private double precio;
+
     private List<Foto> fotos;
+
+    public Tour(Integer id, String descripcion, double precio) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.fotos= new ArrayList<>();
+    }
 }

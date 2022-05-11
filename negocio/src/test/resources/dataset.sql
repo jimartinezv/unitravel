@@ -1230,7 +1230,9 @@ INSERT INTO vuelo(codigo, aerolinea, ciudad_destino_codigo, ciudad_origen_codigo
 VALUES
 ("A340","AVIANCA", 66, 107),
 ("L378","LATAM", 107, 66),
-("S33884","SPIRIT", 547, 107);
+("S33884","SPIRIT", 547, 107),
+("A4738","AVIANCA", 50,66),
+("A4536","AVIANCA",66,50);
 
 INSERT INTO reserva (codigo, cantidad_personas, estado, precio_total, cliente_cedula)
 VALUES
@@ -1274,7 +1276,21 @@ VALUES
 (15,"ventana C1",60000, "S33884",true),
 (16,"PASILLO A2",50000, "S33884",true),
 (17,"PASILLO B2",55000, "S33884",true),
-(18,"PASILLO C2",60000, "S33884",true);
+(18,"PASILLO C2",60000, "S33884",true),
+(19,"A1", 20000,"A4738", true ),
+(20,"A2", 20000,"A4738", true ),
+(21,"B1", 20000,"A4738", true ),
+(22,"B2", 20000,"A4738", true ),
+(23,"C1", 20000,"A4738", true ),
+(24,"C2", 20000,"A4738", true ),
+(25,"A1", 20000,"A4536", true ),
+(26,"A2", 20000,"A4536", true ),
+(27,"B1", 20000,"A4536", true ),
+(28,"B2", 20000,"A4536", true ),
+(29,"C1", 20000,"A4536", true ),
+(30,"C2", 20000,"A4536", true );
+
+
 
 INSERT INTO reserva_silla (codigo, precio, reserva_codigo, silla_codigo)
 VALUES

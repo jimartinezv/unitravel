@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registro Vuelo</title>
+</h:head>
+<h:body>
+    <p:panel header="Registrar Departamento">
+        <h:form>
+            <h:panelGrid cellpadding="5" columns="2">
+                <p:outputLabel value="Código vuelo" for="codigo_v"/>
+                <p:inputText id="codigo_v" value="#{vueloBean.v.codigo}" required="true"/>
+                <p:outputLabel value="Aerolinea" for="aerolinea"/>
+                <p:inputText id="aerolinea" value="#{vueloBean.v.aerolinea}" required="true"/>
+                <p:outputLabel value="Ciudad de origen" for="ciudadO_v"/>
+                <p:inputText id="ciudadO_v" value="" required="true" disabled="true"/>
+                <p:outputLabel value="Ciudad de destino" for="destino"/>
+                <p:inputText id="destino" value="" required="true" disabled="true"/>
+            </h:panelGrid>
+            <p:commandButton value="Registrar vuelo" action="#{vueloBean.crearVuelo}" update="@form"/>
+            <p:messages showDetail="true"/>
+        </h:form>
+    </p:panel>
+
+
+</h:body>
+</html>

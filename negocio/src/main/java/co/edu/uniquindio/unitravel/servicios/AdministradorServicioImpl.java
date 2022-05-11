@@ -261,11 +261,17 @@ public class AdministradorServicioImpl implements AdministradorServicio{
 
     @Override
     public Vuelo crearVuelo(Vuelo vuelo) throws Exception {
+
         Vuelo vueloBuscado = buscarVuelo(vuelo.getCodigo());
         if(vueloBuscado!=null){
             throw new Exception("El vuelo ya existe");
         }
         return vueloRepo.save(vuelo);
+    }
+
+    @Override
+    public Ciudad buscarCiudad(Integer codigo) throws Exception {
+        return ciudadRepo.findById(codigo).orElse(null);
     }
 
     @Override
@@ -303,7 +309,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     public AdministradorHotel crearAdministradorHotel(AdministradorHotel administradorHotel) throws Exception{
         AdministradorHotel nuevoAdmin= buscarAdminHotel(administradorHotel.getCedula());
         if(nuevoAdmin!=null){
-            throw new Exception("Ya existe el administrador");
+            throw new Exception("Ya existe administrador registrado con ese código");
         }
         nuevoAdmin=buscarAdminHotelByEmail(administradorHotel.getEmail());
 
