@@ -8,8 +8,8 @@ import java.util.List;
 public interface AdministradorHotelServicio {
 
     //Loguearse
-    //Gestionar Hoteles
 
+    //Gestionar Hoteles
     /**
      * Login del administrador del hotel
      * @param correo
@@ -18,12 +18,29 @@ public interface AdministradorHotelServicio {
      */
     AdministradorHotel loginAdminHotel(String correo, String password) throws Exception;
 
+    void eliminarHabitacion(Integer codigo) throws Exception;
+
+    /**
+     * Metodo para modificar el administrador de hotel segun su codigo
+     * @param adminHotel
+     * @return
+     * @throws Exception
+     */
+    AdministradorHotel modificarAdminHotel(AdministradorHotel adminHotel) throws Exception;
+    /**
+     * Obtiene el administrador del hotel por su codigo
+     * @param codigo
+     * @return
+     */
+    AdministradorHotel obtenerAdminHotel(String codigo);
+
     /**
      * AdministradorHotel tiene tarea de crear hotel y administrarlo
      * @param hotel
      * @return
      */
     Hotel crearHotel(Hotel hotel) throws Exception;
+
     /**
      * Metodo para eliminar hotel
      * @return
@@ -39,28 +56,31 @@ public interface AdministradorHotelServicio {
     Hotel modificarHotel(Hotel hotel) throws Exception;
 
     /**
-     * Obtiene el administrador del hotel por su codigo
-     * @param codigo
-     * @return
-     */
-    AdministradorHotel obtenerAdminHotel(String codigo);
-
-    /**
      * COnsult
      * @param email
      * @return
      */
     AdministradorHotel buscarAdminHotelByEmail(String email);
 
-
+    Habitacion buscarHabitacion(Integer codigo);
 
     /**
-     * Metodo para modificar el administrador de hotel segun su codigo
-     * @param adminHotel
+     * Actualiza habitaciones
+     * @param h
      * @return
      * @throws Exception
      */
-    AdministradorHotel modificarAdminHotel(AdministradorHotel adminHotel) throws Exception;
+    Habitacion actualizarHabitacion(Habitacion h) throws Exception;
+
+    /**
+     * Muestra las habitaciones de un hotel
+     * @param hotel
+     * @return
+     */
+    List<Habitacion> habitacionByHotel(Hotel hotel);
+
+
+
 
 
     List<AdministradorHotel> listarAdminHoteles();
@@ -114,19 +134,7 @@ public interface AdministradorHotelServicio {
      */
     List<Caracteristica> listarCaracteristicas();
 
-    /**
-     * Busca ciudad por codigo
-     * @param codigo
-     * @return
-     * @throws Exception
-     */
-    Ciudad buscarCiudad(Integer codigo);
 
-    /**
-     * Lista las ciudades
-     * @return
-     */
-    List<Ciudad> listarCiudades();
 
     /**
      * Crea direccion

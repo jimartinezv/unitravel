@@ -14,6 +14,4 @@ public interface CiudadRepo extends JpaRepository<Ciudad, Integer> {
     @Query("select h from Direccion d inner join d.hotel h where d.ciudad.nombre=:ciudad")
     List<Hotel> hotelesCiudad(String ciudad);
 
-    @Query("select c from Ciudad c where c.departamento.nombre=:departamento")
-    List<Ciudad> listarCiudadByDepartamento(String departamento);
 }

@@ -30,8 +30,8 @@ public class Vuelo implements Serializable {
     @OneToMany(mappedBy = "vuelo")
     private List<Silla> silla;
 
-    @OneToMany(mappedBy = "vueloIda")
-    private List<Reserva> reservasIda;
+    //@OneToMany(mappedBy = "vueloIda")
+    //private List<Reserva> reservasIda;
 
 
     //@ManyToOne

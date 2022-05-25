@@ -23,8 +23,6 @@ public class Ciudad implements Serializable {
     @ToString.Include
     private String nombre;
 
-    @ToString.Include
-    private Integer estado;
 
     @OneToMany(mappedBy = "ciudad")
     private List<Cliente> cliente;
@@ -35,14 +33,12 @@ public class Ciudad implements Serializable {
     @OneToMany(mappedBy = "ciudadDestino")
     private List<Vuelo> vuelosDestino;
 
-    @ManyToOne
-    private Departamento departamento;
 
     @OneToMany(mappedBy = "ciudad")
     private List<Direccion> direccion;
 
-    public Ciudad(String nombre, Integer estado,Departamento departamento) {
-        this.nombre = nombre; this.departamento= departamento; this.estado=estado;
+    public Ciudad(String nombre) {
+        this.nombre = nombre;
     }
 
 

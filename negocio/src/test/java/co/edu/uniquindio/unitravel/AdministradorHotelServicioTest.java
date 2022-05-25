@@ -2,6 +2,7 @@ package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.servicios.AdministradorHotelServicio;
+import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ public class AdministradorHotelServicioTest {
     @Autowired
     private AdministradorHotelServicio adminHotelSer;
 
+    @Autowired
+    private ServiciosGenerales serviciosGenerales;
+
     public Direccion crearDireccion(){
         Direccion d= new Direccion();
         d.setDireccion("Calle las palmitas #10-20");
 
-        d.setCiudad(adminHotelSer.buscarCiudad(66));
+
         try {
+            d.setCiudad(serviciosGenerales.buscarCiudad(66));
             adminHotelSer.crearDireccion(d);
         }catch (Exception e){
 

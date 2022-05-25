@@ -12,8 +12,51 @@
     <title>Página de Inicio</title>
 </h:head>
 <h:body>
-    <h1>Hola Mundo</h1>
-    <h1>#{inicioBean.texto}</h1>
+    <h:form>
+    <p:dataView id="lista_h" value="#{inicioBean.hotelList}" var="hotel" listIcon="pi pi-bars" gridIcon="pi pi-th-large">
+        <p:dataViewListItem>
+            <p:card style="width: 25em">
+                <f:facet name="header">
+                    <img alt="user header" src="/uploads/#{hotel.imagenPrincipal}" id="imagen-hotel-index"/>
+                    <p>#{hotel.imagenPrincipal} la imagen principal</p>
+                </f:facet>
+                <f:facet name="title">
+                    #{hotel.nombre}
+                </f:facet>
+                <f:facet name="subtitle">
+
+                    <div class="p-d-flex p-ai-center p-flex-wrap">
+                <p:repeat value="#{hotel.caracteristicas}" var="car" >
+                        <p:chip label="#{car.descripcion}" styleClass="mr-2"/>
+                </p:repeat>
+                    </div>
+
+
+                </f:facet>
+
+                <p>#{hotel.descripcion}</p>
+
+                <f:facet name="footer">
+                    <p:commandButton icon="pi pi-check" update="@form " value="Ver detalle ->" action="#{inicioBean.irDetalleHotel(hotel.codigo)}"/>
+                    <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
+                </f:facet>
+            </p:card>
+        </p:dataViewListItem>
+        <p:dataViewGridItem>
+            <div>
+                <h1>#{hotel.nombre}</h1>
+            </div>
+        </p:dataViewGridItem>
+    </p:dataView>
+    </h:form>
+    <h:form>
+    <div class="input-search ui-inputgroup">
+        <p:inputText placeholder="¿Qué Hotel está buscando?"
+                     required="true" value="#{busquedaBean.busqueda}" />
+        <p:commandButton update="@form" icon="pi pi-search"
+                         action="#{busquedaBean.buscar}" />
+    </div>
+</h:form>
 
 </h:body>
 </html>

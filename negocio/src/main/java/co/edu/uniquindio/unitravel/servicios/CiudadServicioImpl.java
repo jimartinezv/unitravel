@@ -1,7 +1,6 @@
 package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.Ciudad;
-import co.edu.uniquindio.unitravel.entidades.Departamento;
 import co.edu.uniquindio.unitravel.repositorios.CiudadRepo;
 import org.springframework.stereotype.Service;
 
@@ -44,28 +43,12 @@ public class CiudadServicioImpl implements CiudadServicio{
         return null;
     }
 
-    @Override
-    public Departamento registrarDepartamento(Departamento d) throws Exception {
-        return null;
-    }
 
-    @Override
-    public Departamento obtenerDepartamento(Integer codigoDepto) {
-        return null;
-    }
 
-    @Override
-    public Departamento actualizarDepto(Integer codigoDepto) {
-        return null;
-    }
 
     @Override
     public void eliminarDepto(Integer codigoDepto) {
 
     }
 
-    @Override
-    public List<Departamento> listarDepartamentos() {
-        return null;
-    }
 }

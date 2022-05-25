@@ -11,7 +11,7 @@ import java.util.List;
  * y de los hoteles
  */
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Getter
 @Setter
@@ -29,7 +29,8 @@ public class Caracteristica implements Serializable {
     @ManyToMany
     private List<Habitacion> habitacion;
 
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "caracteristicas")
     private List<Hotel> hotel;
 
 

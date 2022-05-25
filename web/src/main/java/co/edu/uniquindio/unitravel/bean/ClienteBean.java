@@ -1,7 +1,10 @@
 package co.edu.uniquindio.unitravel.bean;
 
+import co.edu.uniquindio.unitravel.entidades.Ciudad;
 import co.edu.uniquindio.unitravel.entidades.Cliente;
+import co.edu.uniquindio.unitravel.entidades.Genero;
 import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
+import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.util.List;
 
 @Component
 @ViewScoped
@@ -20,19 +24,23 @@ public class ClienteBean implements Serializable {
     @Autowired
     private ClienteServicio clienteServicio;
 
+    @Autowired
+    private ServiciosGenerales serviciosGenerales;
+
     @Getter @Setter
     private Cliente cliente;
+
+    @Getter
+    private List<Ciudad> ciudadList;
+
+
 
     @PostConstruct
     public void init(){
         cliente=new Cliente();
-        try {
-            cliente.setCiudad(clienteServicio.buscarCiudad(1));
+        ciudadList=serviciosGenerales.listarCiudades();
 
-        }catch (Exception e){
-            FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null,msj);
-        }
+
 
     }
 

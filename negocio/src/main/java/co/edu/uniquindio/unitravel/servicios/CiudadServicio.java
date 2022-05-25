@@ -2,7 +2,6 @@ package co.edu.uniquindio.unitravel.servicios;
 
 
 import co.edu.uniquindio.unitravel.entidades.Ciudad;
-import co.edu.uniquindio.unitravel.entidades.Departamento;
 
 import java.util.List;
 
@@ -18,13 +17,7 @@ public interface CiudadServicio {
 
     List<Ciudad> listaCiudades();
 
-    Departamento registrarDepartamento(Departamento d) throws Exception;
-
-    Departamento obtenerDepartamento(Integer codigoDepto);
-
-    Departamento actualizarDepto(Integer codigoDepto);
-
     void eliminarDepto(Integer codigoDepto);
 
-    List<Departamento> listarDepartamentos();
+
 }

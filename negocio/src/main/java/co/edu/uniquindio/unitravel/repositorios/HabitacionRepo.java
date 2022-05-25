@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface HabitacionRepo extends JpaRepository<Habitacion, String> {
+public interface HabitacionRepo extends JpaRepository<Habitacion, Integer> {
 
     List<Habitacion> findByHotel(Hotel hotel);
 

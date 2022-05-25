@@ -9,48 +9,38 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="resources/css/style.css" rel="stylesheet"/>
     <title>Página de Inicio</title>
 </h:head>
 <h:body>
-    <h1>Hola Mundo #{ejemploBean.t}</h1>
-    <h:form>
-        <h:outputLabel value="Escriba primera palabra"/>
-        <h:inputText value="#{ejemploBean.at1}"/>
-        <h:outputLabel value="Escriba segunda palabra"/>
-        <h:inputText value="#{ejemploBean.at2}"/>
-        <h:commandButton value="Cambiar" action="#{ejemploBean.cambiar}"/>
 
-    </h:form>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">Navbar</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <h:form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </h:form>
+            </div>
+        </div>
+    </nav>
 
-    <h:form>
-        <h:panelGrid cellpadding="5" columns="2">
-            <p:outputLabel value="Escriba primera palabra"/>
-            <p:inputText value="#{ejemploBean.at1}"/>
-            <p:outputLabel value="Escriba segunda palabra"/>
-            <p:inputText value="#{ejemploBean.at2}"/>
-            <p:commandButton value="Cambiar" action="#{ejemploBean.cambiar}"/>
-        </h:panelGrid>
-    </h:form>
-
-    <h:form>
-        <h:panelGrid cellpadding="5" columns="2">
-            <p:outputLabel value="Escriba primera palabra"/>
-            <p:inputText value="#{ejemploBean.at1}"/>
-            <p:outputLabel value="Escriba segunda palabra"/>
-            <p:inputText value="#{ejemploBean.at2}"/>
-            <p:commandButton value="Cambiar" action="#{ejemploBean.cambiar}" update="@form"/>
-        </h:panelGrid>
-    </h:form>
-
-    <h:form>
-        <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel value="Escriba primera palabra"/>
-            <h:inputText value="#{ejemploBean.at1}"/>
-            <h:outputLabel value="Escriba segunda palabra"/>
-            <h:inputText value="#{ejemploBean.at2}"/>
-            <h:commandButton value="Cambiar" action="#{ejemploBean.cambiar}"/>
-        </h:panelGrid>
-    </h:form>
 
 </h:body>
 </html>

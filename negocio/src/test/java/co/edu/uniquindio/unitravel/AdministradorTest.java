@@ -89,12 +89,12 @@ public class AdministradorTest {
     public Ciudad crearCiudad(){
         Ciudad c= new Ciudad();
         c.setNombre("Nueva Armenia");
-        c.setEstado(1);
+
 
         try {
-            c.setDepartamento(administradorServicio.consultarDepartamento(63));
 
-            System.out.println(c.getNombre()+c.getDepartamento().getNombre());
+
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

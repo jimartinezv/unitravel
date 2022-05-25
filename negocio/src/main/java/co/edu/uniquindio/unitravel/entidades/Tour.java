@@ -3,6 +3,7 @@ package co.edu.uniquindio.unitravel.entidades;
 import lombok.*;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class Tour implements Serializable {
     @Column(nullable = false)
     private double precio;
 
-    private List<Foto> fotos;
+    @ElementCollection
+    private List<String> fotos;
 
     public Tour(Integer id, String descripcion, double precio) {
         this.id = id;

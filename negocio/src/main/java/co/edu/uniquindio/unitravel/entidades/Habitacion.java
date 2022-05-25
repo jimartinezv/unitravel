@@ -1,6 +1,8 @@
 package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
@@ -17,10 +19,12 @@ public class Habitacion implements Serializable {
     @Id
     @ToString.Include
     @EqualsAndHashCode.Include
-    private String codigo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer codigo;
+
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private Hotel hotel;
 
     @Positive
@@ -28,6 +32,9 @@ public class Habitacion implements Serializable {
     @Column(nullable = false)
     private byte capacidad;
 
+    @ToString.Include
+    @Column(nullable = false)
+    private String nombre;
     @Positive
     @ToString.Include
     @Column(nullable = false)
@@ -36,16 +43,17 @@ public class Habitacion implements Serializable {
     @ManyToMany(mappedBy = "habitacion")
     private List<Caracteristica> caracteristicasHabitacion;
 
-    @OneToMany(mappedBy = "habitacion")
-    private List<Foto> fotos;
+    @ElementCollection
+    private List<String> fotos;
 
     @OneToMany(mappedBy = "habitacion")
     private List<ReservaHabitacion> reservaHabitaciones;
 
 
 
-    public Habitacion(String codigo, Hotel hotel, byte capacidad, double precio, List<Caracteristica> caracteristicasHabitacion, List<Foto> fotos) {
+    public Habitacion(Integer codigo,String nombre, Hotel hotel, byte capacidad, double precio, List<Caracteristica> caracteristicasHabitacion, List<String> fotos) {
         this.codigo = codigo;
+        this.nombre= nombre;
         this.hotel = hotel;
         this.capacidad = capacidad;
         this.precio = precio;

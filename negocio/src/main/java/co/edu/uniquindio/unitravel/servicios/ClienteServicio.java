@@ -44,6 +44,8 @@ public interface ClienteServicio {
      */
     Cliente actualizarUsuario(Cliente u) throws Exception;
 
+    Habitacion buscarHabitacion(Integer codigo) throws Exception;
+
     /**
      * Elimina usuario por su cedula
      *
@@ -61,19 +63,8 @@ public interface ClienteServicio {
     Cliente obtenerUsuario(String cedula) throws Exception;
 
 
-    /**
-     * Lista todos las ciudades
-     * @return
-     */
-    List<Ciudad> listarCiudades();
 
-    /**
-     * Busca la ciudad por codigo
-     * @param codigo
-     * @return
-     * @throws Exception
-     */
-    Ciudad buscarCiudad(Integer codigo) throws Exception;
+
 
     /**
      * El cliente podrá buscar hoteles y vuelos por determinado destino
@@ -83,6 +74,8 @@ public interface ClienteServicio {
      */
     List<Hotel> buscarHotelesByCiudad(Ciudad ciudad);
 
+    List<Hotel> listarHoteles();
+
     /**
      * existen hoteles que tienen el mismo nombre usualmente estan en diferentes ciudades
      * este devuelve una lista de todos los hoteles que contengan ese nombre
@@ -90,7 +83,7 @@ public interface ClienteServicio {
      * @return
      * @throws Exception
      */
-    List<Hotel> buscarHotelesPorNombre(String nombre) throws Exception;
+    List<Hotel> buscarHotelesPorNombre(String nombre);
 
     /**
      * Encuentra el hotel por su codigo
@@ -108,7 +101,7 @@ public interface ClienteServicio {
      */
     ReservaHabitacion buscarReservaHabitacion(Integer codigo) throws Exception;
 
-    Habitacion buscarHabitacion(String codigo) throws Exception;
+
     /**
      * Calcula el costo de las habitaciones
      * @param reserva

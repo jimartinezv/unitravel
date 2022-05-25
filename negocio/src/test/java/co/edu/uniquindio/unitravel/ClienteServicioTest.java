@@ -1,10 +1,7 @@
 package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.*;
-import co.edu.uniquindio.unitravel.servicios.AdministradorServicio;
-import co.edu.uniquindio.unitravel.servicios.CiudadServicio;
-import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
-import co.edu.uniquindio.unitravel.servicios.EmailServicio;
+import co.edu.uniquindio.unitravel.servicios.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,7 @@ import java.util.*;
 import java.util.function.Function;
 
 @SpringBootTest
-//@Transactional //Garantiza que los datos no sean persistentes en la base de datos
+@Transactional //Garantiza que los datos no sean persistentes en la base de datos
 public class ClienteServicioTest {
 
 
@@ -34,6 +31,9 @@ public class ClienteServicioTest {
 
     @Autowired
     private AdministradorServicio administradorServicio;
+
+    @Autowired
+    private ServiciosGenerales serviciosGenerales;
 
     public Cliente crearCliente(){
         Cliente u = new Cliente("1094900","Jorge Iván", "Vargas", "password", "port@gmail.com",null,null, null);
@@ -66,11 +66,12 @@ public class ClienteServicioTest {
         Habitacion h= new Habitacion();
         h.setCapacidad((byte) 2);
         h.setPrecio(20000);
-        h.setCodigo("H1");
+
+        h.setNombre("H1");
         try{
             h.setHotel(clienteServicio.buscarHotelPorCodigo(1));
-            administradorServicio.crearHabitacion(h);
-            administradorServicio.buscarHabitacion(h.getCodigo());
+            //administradorServicio.crearHabitacion(h);
+            //administradorServicio.buscarHabitacion(h.getCodigo());
 
         }catch (Exception e){
             System.out.println(e.getMessage()+" error");
@@ -81,7 +82,7 @@ public class ClienteServicioTest {
     public ReservaHabitacion crearReservaHabitacion(){
         ReservaHabitacion rh= new ReservaHabitacion();
         try {
-            rh.setHabitacion(clienteServicio.buscarHabitacion("3"));
+            rh.setHabitacion(clienteServicio.buscarHabitacion(1));
         }catch (Exception e){
 
         }
@@ -89,7 +90,7 @@ public class ClienteServicioTest {
         //rh.setHabitacion(crearHabitacion());
         rh.setPrecio(rh.getHabitacion().getPrecio());
 
-
+        //clienteServicio.habitacionDisponible(rh.getHabitacion(),r)
         clienteServicio.crearReservaHabitacion(rh);
         return rh;
     }
@@ -132,7 +133,7 @@ public class ClienteServicioTest {
 
             //v.setSilla(crearSillasVuelo(v));
             //administradorServicio.actualizarVuelo(v);
-            nr.setVueloIda(v);
+            //nr.setVueloIda(v);
             //Vuelo v2=crearVuelo2("A4536");
             Vuelo v2= clienteServicio.buscarVueloByCodigo("A4536");
             //administradorServicio.crearVuelo(v2);
@@ -141,7 +142,7 @@ public class ClienteServicioTest {
             //v2.setSilla(crearSillasVuelo(v2));
             //administradorServicio.actualizarVuelo(v2);
             clienteServicio.asignarSillas(clienteServicio.buscarSillasByVuelo(v2.getCodigo()), nr);
-            nr.setVueloRegreso(v2);
+            //nr.setVueloRegreso(v2);
         }catch (Exception e){
             System.out.println(e.getMessage()+ " error");
         }
@@ -156,8 +157,8 @@ public class ClienteServicioTest {
         v.setCodigo(codigo);
         v.setSilla(crearSillasVuelo(v));
         try {
-            v.setCiudadOrigen(clienteServicio.buscarCiudad(50));
-            v.setCiudadDestino(clienteServicio.buscarCiudad(66));
+            v.setCiudadOrigen(serviciosGenerales.buscarCiudad(50));
+            v.setCiudadDestino(serviciosGenerales.buscarCiudad(66));
         }catch (Exception e){
         }
         return v;
@@ -168,8 +169,8 @@ public class ClienteServicioTest {
         v.setCodigo(codigo);
         v.setSilla(crearSillasVuelo2(v));
         try {
-            v.setCiudadOrigen(clienteServicio.buscarCiudad(66));
-            v.setCiudadDestino(clienteServicio.buscarCiudad(50));
+            v.setCiudadOrigen(serviciosGenerales.buscarCiudad(66));
+            v.setCiudadDestino(serviciosGenerales.buscarCiudad(50));
         }catch (Exception e){
         }
         return v;
@@ -180,7 +181,7 @@ public class ClienteServicioTest {
         Silla a= new Silla();
 
         a.setPosicion("A1");
-        a.setDisponible(true);
+
         a.setPrecio(20000);
         a.setVuelo(v);
         administradorServicio.crearSilla(a);
@@ -188,7 +189,7 @@ public class ClienteServicioTest {
         Silla b= new Silla();
 
         b.setPosicion("B1");
-        b.setDisponible(true);
+
         b.setPrecio(20000);
         b.setVuelo(v);
         administradorServicio.crearSilla(b);
@@ -204,7 +205,7 @@ public class ClienteServicioTest {
         Silla a= new Silla();
 
         a.setPosicion("A1");
-        a.setDisponible(true);
+
         a.setPrecio(20000);
         a.setVuelo(v);
         administradorServicio.crearSilla(a);
@@ -212,7 +213,7 @@ public class ClienteServicioTest {
         Silla b= new Silla();
 
         b.setPosicion("B1");
-        b.setDisponible(true);
+
         b.setPrecio(20000);
         b.setVuelo(v);
         administradorServicio.crearSilla(b);
@@ -375,7 +376,7 @@ public class ClienteServicioTest {
     @Sql("classpath:dataset.sql")
     public void buscarHotelesByCiudadTest(){
         try {
-            Ciudad c= clienteServicio.buscarCiudad(66);
+            Ciudad c= serviciosGenerales.buscarCiudad(66);
             List<Hotel> hotels= clienteServicio.buscarHotelesByCiudad(c);
             Assertions.assertEquals(hotels.size(), 4);
         }catch (Exception e){
@@ -419,17 +420,6 @@ public class ClienteServicioTest {
             System.out.println(r+" reserva creada");
         }catch (Exception e){
             System.out.println(e.getMessage()+ "error creando reserva");
-        }
-
-    }
-    @Test
-    @Sql("classpath:dataset.sql")
-    public void llenarSql(){
-        Departamento d= new Departamento("Popo");
-        try {
-            administradorServicio.crearDepartamento(d);
-        }catch (Exception e){
-
         }
 
     }

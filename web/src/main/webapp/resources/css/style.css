@@ -1,0 +1,22 @@
+.ui-menu-mio{
+    margin-right: auto;
+}
+
+.bg-dark-degradado{
+    background: linear-gradient(to top, blue, cornflowerblue);
+}
+.primer-boton{
+    margin-right: 10px;
+}
+body .ui-button{
+    background-color: purple;
+}
+
+.ui-chip.custom-chip {
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+}
+.imagen-hotel-index{
+    width: 100%;
+    height: 100%;
+}

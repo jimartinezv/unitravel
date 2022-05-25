@@ -48,11 +48,11 @@ public class Reserva implements Serializable {
     @JoinColumn(nullable = false)
     private Cliente cliente;
 
-    @ManyToOne
-    private Vuelo vueloIda;
+    //@ManyToOne
+    //private Vuelo vueloIda;
 
-    @ManyToOne
-    private Vuelo vueloRegreso;
+    //@ManyToOne
+    //private Vuelo vueloRegreso;
 
     @OneToMany(mappedBy = "reserva")
     private List<ReservaHabitacion> reservaHabitacions;

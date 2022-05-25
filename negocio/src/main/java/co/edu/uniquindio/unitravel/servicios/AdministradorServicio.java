@@ -28,34 +28,6 @@ public interface AdministradorServicio {
      */
     void eliminarAdministraor(String id) throws Exception;
 
-    /**
-     * Crea habitaciones
-     * @param h
-     * @return
-     */
-    Habitacion crearHabitacion(Habitacion h);
-
-    Habitacion buscarHabitacion(String codigo);
-
-    /**
-     * Actualiza habitaciones
-     * @param h
-     * @return
-     * @throws Exception
-     */
-    Habitacion actualizarHabitacion(Habitacion h) throws Exception;
-
-    /**
-     * Muestra las habitaciones de un hotel
-     * @param hotel
-     * @return
-     */
-    List<Habitacion> habitacionByHotel(Hotel hotel);
-
-    /**
-     * Elimina habitaciones
-     */
-    void eliminarHabitacion(String codigo)throws Exception;
 
     /**
      * Se podrán ver todos los administradores
@@ -110,12 +82,7 @@ public interface AdministradorServicio {
      */
     List<Ciudad> listarCiudades();
 
-    /**
-     * Lista las ciudades por departamento
-     * @param dep
-     * @return
-     */
-    List<Ciudad> listarCiudadByDepartamento(Departamento dep);
+
     /**
      * El administrador podrá crear los vuelos
      * @param vuelo
@@ -201,10 +168,6 @@ public interface AdministradorServicio {
      */
     void eliminarAdminHotel(String cedula) throws Exception;
 
-    Departamento crearDepartamento(Departamento d) throws Exception;
-
-    Departamento consultarDepartamento(Integer codigo) throws Exception;
-    Tour crearTour(Tour tour) throws Exception;
 
     /**
      * El administrador podrá crear codigos de descuento los cuales se aplicarán al valor total de la reserva

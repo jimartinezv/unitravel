@@ -1,7 +1,6 @@
 package co.edu.uniquindio.unitravel.bean;
 
 import co.edu.uniquindio.unitravel.entidades.Ciudad;
-import co.edu.uniquindio.unitravel.entidades.Departamento;
 import co.edu.uniquindio.unitravel.servicios.AdministradorServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,14 +20,13 @@ public class CiudadDepartamentoBean implements Serializable {
     @Autowired
     private AdministradorServicio administradorServicio;
 
-    @Getter @Setter
-    private Departamento d;
+
     @Getter @Setter
     private Ciudad c;
 
     @PostConstruct
     public void inicio(){
-         d= new Departamento();
+
          c= new Ciudad();
     }
 
@@ -44,8 +42,7 @@ public class CiudadDepartamentoBean implements Serializable {
     }
     public void guardarDepartamento(){
         try{
-            administradorServicio.crearDepartamento(d);
-            d=new Departamento();
+
             FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El departamento ha sido creado");
             FacesContext.getCurrentInstance().addMessage(null,msj);
         }catch (Exception e){

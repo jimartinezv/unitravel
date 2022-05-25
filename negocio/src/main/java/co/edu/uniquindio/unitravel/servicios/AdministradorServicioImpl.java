@@ -29,9 +29,6 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     private CiudadRepo ciudadRepo;
 
     @Autowired
-    private DepartamentoRepo departamentoRepo;
-
-    @Autowired
     private SillaRepo sillaRepo;
 
     @Autowired HabitacionRepo habitacionRepo;
@@ -93,20 +90,8 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         administradorHotelRepo.delete(adminHotel);
     }
 
-    @Override
-    public Departamento crearDepartamento(Departamento d) throws Exception{
 
-        return departamentoRepo.save(d);
-    }
 
-    @Override
-    public Departamento consultarDepartamento(Integer codigo) throws Exception{
-        Departamento buscado=departamentoRepo.findById(codigo).orElse(null);
-        if(buscado==null){
-            throw new Exception("Departamento no existe");
-        }
-        return buscado;
-    }
 
     /**
      * Determina la existencia de un hotel
@@ -164,38 +149,6 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         administradorRepo.delete(admin);
     }
 
-    @Override
-    public Habitacion crearHabitacion(Habitacion h) {
-        return habitacionRepo.save(h);
-    }
-
-    @Override
-    public Habitacion buscarHabitacion(String codigo) {
-        return habitacionRepo.findById(codigo).orElse(null);
-    }
-
-    @Override
-    public Habitacion actualizarHabitacion(Habitacion h) throws Exception {
-        Habitacion hb= buscarHabitacion(h.getCodigo());
-        if(hb==null){
-            throw new Exception("La habitación no existe");
-        }
-        return h;
-    }
-
-    @Override
-    public List<Habitacion> habitacionByHotel(Hotel hotel) {
-        return habitacionRepo.findByHotel(hotel);
-    }
-
-    @Override
-    public void eliminarHabitacion(String codigo) throws Exception{
-        Habitacion h= buscarHabitacion(codigo);
-        if(h==null){
-            throw new Exception("No se puede eliminar la habitacion");
-        }
-        habitacionRepo.delete(h);
-    }
 
     @Override
     public List<Administrador> listarAdministradores() {
@@ -254,10 +207,6 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         return ciudadRepo.findAll();
     }
 
-    @Override
-    public List<Ciudad> listarCiudadByDepartamento(Departamento dep) {
-        return ciudadRepo.listarCiudadByDepartamento(dep.getNombre());
-    }
 
     @Override
     public Vuelo crearVuelo(Vuelo vuelo) throws Exception {
@@ -340,10 +289,6 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         return sillaRepo.save(s);
     }
 
-    @Override
-    public Tour crearTour(Tour tour) throws Exception {
-        return null;
-    }
 
     @Override
     public CodigoDescuento crearCodigoDescuento(CodigoDescuento codigoDescuento) throws Exception{

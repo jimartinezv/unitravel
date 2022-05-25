@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,21 +97,21 @@ public class ClienteServicioImpl implements ClienteServicio{
 
         int disponibles=0;
         for (Silla s:silla) {
-            if(s.getDisponible())
+            //if(s.getDisponible())
                 disponibles++;
         }
         if(disponibles<reserva.getCantidadPersonas()){
             throw new Exception("La cantidad de personas excede sillas disponibles");
         }
-        for(int i=0;i<reserva.getCantidadPersonas();i++)
-            if(silla.get(i).getDisponible()) {
+        for(int i=0;i<reserva.getCantidadPersonas();i++){}
+            /**if(silla.get(i).getDisponible()) {
                 silla.get(i).setDisponible(false);
                 ReservaSilla s=crearReservaSilla(silla.get(i),reserva);
 
-                reserva.getReservaSillas().add(crearReservaSilla(silla.get(i),reserva));
+                //reserva.getReservaSillas().add(crearReservaSilla(silla.get(i),reserva));
 
 
-            }
+            }*/
 
         return reserva.getReservaSillas();
     }
@@ -160,7 +159,7 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public Habitacion buscarHabitacion(String codigo) throws Exception {
+    public Habitacion buscarHabitacion(Integer codigo) throws Exception {
         return habitacionRepo.findById(codigo).orElse(null);
     }
 
@@ -194,8 +193,8 @@ public class ClienteServicioImpl implements ClienteServicio{
         for (ReservaHabitacion rh:reserva.getReservaHabitacions()) {
             habitacionDisponible(rh.getHabitacion(),reserva);
         }
-        vuelosDisponibles(reserva.getVueloIda());
-        vuelosDisponibles(reserva.getVueloRegreso());
+        //vuelosDisponibles(reserva.getVueloIda());
+        //vuelosDisponibles(reserva.getVueloRegreso());
 
         reserva.setPrecioTotal((calcularCostoReservaHabitacion(reserva)+ calcularCostoReservaSilla(reserva.getReservaSillas())));
         if(reserva.getCodigoDescuento()!=null){
@@ -228,10 +227,10 @@ public class ClienteServicioImpl implements ClienteServicio{
     public Reserva enviarCorreoReserva(Reserva reserva) throws Exception {
         System.out.println("se enviará correo a: "+ reserva.getCliente().getEmail());
         try {
-            emailServicio.enviarEmail("Reserva realizada",
+            /**emailServicio.enviarEmail("Reserva realizada",
                     "Felicidades por su reserva #: "+reserva.getCodigo()+ " por el valor de" +
                             ": "+reserva.getPrecioTotal()+ " con vuelos: "+ reserva.getVueloIda().getCodigo()+
-                    " y "+ reserva.getVueloRegreso().getCodigo(), reserva.getCliente().getEmail());
+                    " y "+ reserva.getVueloRegreso().getCodigo(), reserva.getCliente().getEmail());*/
 
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -328,14 +327,10 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public List<Ciudad> listarCiudades() {
-        return ciudadRepo.findAll();
+    public List<Hotel> listarHoteles() {
+        return hotelRepo.findAll();
     }
 
-    @Override
-    public Ciudad buscarCiudad(Integer codigo) throws Exception {
-        return ciudadRepo.findById(codigo).orElse(null);
-    }
 
     @Override
     public Hotel buscarHotelPorCodigo(Integer codigo) throws Exception{
@@ -359,8 +354,9 @@ public class ClienteServicioImpl implements ClienteServicio{
 
 
     @Override
-    public List<Hotel> buscarHotelesPorNombre(String nombre) throws Exception {
-        return hotelRepo.obtenerHotelesByNombre("%"+nombre+"%");
+    public List<Hotel> buscarHotelesPorNombre(String nombre) {
+       return hotelRepo.obtenerHotelesByNombre("%"+nombre+"%");
+
     }
 
     @Override

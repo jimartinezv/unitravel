@@ -2,7 +2,6 @@ package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -88,6 +87,36 @@ public class AdministradorHotelServicioImpl implements AdministradorHotelServici
 
 
     @Override
+    public Habitacion buscarHabitacion(Integer codigo) {
+        return habitacionRepo.findById(codigo).orElse(null);
+    }
+
+    @Override
+    public Habitacion actualizarHabitacion(Habitacion h) throws Exception {
+        Habitacion hb= buscarHabitacion(h.getCodigo());
+        if(hb==null){
+            throw new Exception("La habitación no existe");
+        }
+        return h;
+    }
+
+    @Override
+    public List<Habitacion> habitacionByHotel(Hotel hotel) {
+        return habitacionRepo.findByHotel(hotel);
+    }
+
+    @Override
+    public void eliminarHabitacion(Integer codigo) throws Exception{
+        Habitacion h= buscarHabitacion(codigo);
+        if(h==null){
+            throw new Exception("No se puede eliminar la habitacion");
+        }
+        habitacionRepo.delete(h);
+    }
+
+
+
+    @Override
     public AdministradorHotel modificarAdminHotel(AdministradorHotel adminHotel) throws Exception {
         AdministradorHotel buscado= obtenerAdminHotel(adminHotel.getCedula());
 
@@ -141,15 +170,7 @@ public class AdministradorHotelServicioImpl implements AdministradorHotelServici
         return caracteristicaRepo.findAll();
     }
 
-    @Override
-    public Ciudad buscarCiudad(Integer codigo)  {
-        return ciudadRepo.findById(codigo).orElse(null);
-    }
 
-    @Override
-    public List<Ciudad> listarCiudades() {
-        return ciudadRepo.findAll();
-    }
 
     @Override
     public Direccion crearDireccion(Direccion d) throws Exception {

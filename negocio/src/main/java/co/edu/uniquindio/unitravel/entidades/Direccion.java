@@ -22,7 +22,7 @@ public class Direccion implements Serializable {
     private String direccion;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private Ciudad ciudad;
 
     @OneToOne

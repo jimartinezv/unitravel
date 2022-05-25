@@ -21,7 +21,7 @@ public class Cliente extends Persona implements Serializable {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = true)
     @ToString.Include
     private Genero genero;
 

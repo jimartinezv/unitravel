@@ -27,8 +27,14 @@
                 <p:inputText id="correo_c" value="#{clienteBean.cliente.email}" type="email" required="true"/>
                 <p:outputLabel value="Password" for="password_c"/>
                 <p:inputText id="password_c" value="#{clienteBean.cliente.password}" type="password" required="true"/>
-                <p:outputLabel value="Genero" for="genero_c"/>
-                <p:inputText id="genero_c" value="#{clienteBean.cliente.genero}" required="true"/>
+                <p:outputLabel value="Ciudad" for="ciudad_usuario"/>
+
+                <p:selectOneMenu id="ciudad_usuario" value="#{clienteBean.cliente.ciudad}" converter="#{ciudadConverter}"
+                                 required="true" requiredMessage="La ciudad es obligatoria" >
+                    <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true"/>
+                    <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                   value="#{clienteBean.ciudadList}" />
+                </p:selectOneMenu>
 
             </h:panelGrid>
             <p:commandButton value="Registrarse" action="#{clienteBean.registrarUsuario}" update="@form"/>

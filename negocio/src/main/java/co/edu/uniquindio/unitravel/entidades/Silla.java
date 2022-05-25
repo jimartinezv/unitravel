@@ -24,9 +24,6 @@ public class Silla implements Serializable {
     @Column(nullable = false, length = 10)
     private String posicion;
 
-    @Column(nullable = false)
-    private Boolean disponible;
-
     @Positive
     private double precio;
 
@@ -37,10 +34,10 @@ public class Silla implements Serializable {
     @OneToMany(mappedBy = "silla")
     private List<ReservaSilla> reservasSilla;
 
-    public Silla(Integer codigo, String posicion, double precio, Boolean disponible) {
+    public Silla(Integer codigo, String posicion, double precio) {
         this.codigo = codigo;
         this.posicion = posicion;
         this.precio = precio;
-        this.disponible=true;
+
     }
 }
