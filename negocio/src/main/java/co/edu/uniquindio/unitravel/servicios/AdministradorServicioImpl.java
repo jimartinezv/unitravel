@@ -28,20 +28,22 @@ public class AdministradorServicioImpl implements AdministradorServicio{
 
     private CiudadRepo ciudadRepo;
 
+    private CaracteristicaRepo caracteristicaRepo;
+
     @Autowired
     private SillaRepo sillaRepo;
 
     @Autowired HabitacionRepo habitacionRepo;
     public AdministradorServicioImpl(AdministradorRepo administradorRepo, VueloRepo vueloRepo, AdministradorHotelRepo administradorHotelRepo,
                                 HotelRepo hotelRepo,CodigoDescuentoRepo codigoDescuentoRepo,
-                                     CiudadRepo ciudadRepo){
+                                     CiudadRepo ciudadRepo, CaracteristicaRepo caracteristicaRepo){
         this.administradorRepo=administradorRepo;
         this.vueloRepo=vueloRepo;
         this.administradorHotelRepo=administradorHotelRepo;
         this.hotelRepo=hotelRepo;
         this.codigoDescuentoRepo=codigoDescuentoRepo;
         this.ciudadRepo= ciudadRepo;
-
+        this.caracteristicaRepo=caracteristicaRepo;
     }
     /**
      * Busca la existencia del administrador
@@ -111,6 +113,10 @@ public class AdministradorServicioImpl implements AdministradorServicio{
         return codigoDescuentoRepo.getByCodigo(codigo);
     }
 
+    @Override
+    public Caracteristica crearCaracteristica(Caracteristica caracteristica) {
+        return caracteristicaRepo.save(caracteristica);
+    }
     /**
      * Un administrador puede crear otros administradores
      * @param administrador
@@ -157,7 +163,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
 
     @Override
     public Administrador loginAdmin(String correo, String password) throws Exception {
-        Administrador loginAdmin= administradorRepo.findByEmailAndPassword(correo,password);
+        Administrador loginAdmin= administradorRepo.findByEmailAndPassword(correo,password).orElse(null);
         if(loginAdmin==null){
             throw new Exception("Datos incorrectos");
         }

@@ -138,10 +138,7 @@ public class AdministradorHotelServicioImpl implements AdministradorHotelServici
         return caracteristicaRepo.findAll();
     }
 
-    @Override
-    public Caracteristica crearCaracteristica(Caracteristica caracteristica) {
-        return caracteristicaRepo.save(caracteristica);
-    }
+
 
     @Override
     public Habitacion crearHabitacion(Habitacion habitacion) throws Exception {

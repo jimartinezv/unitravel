@@ -91,12 +91,7 @@ public interface AdministradorHotelServicio {
      */
     List<Caracteristica> listarCaracteristicasByHabitacion(Habitacion habitacion);
 
-    /**
-     * Crea caracteristicas
-     * @param caracteristica
-     * @return
-     */
-    Caracteristica crearCaracteristica(Caracteristica caracteristica);
+
 
     /**
      * Metodo para crear habitaciones

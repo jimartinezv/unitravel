@@ -7,12 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdministradorRepo extends JpaRepository<Administrador, String> {
 
     Administrador findByEmail(String correo);
 
-    Administrador findByEmailAndPassword(String correo, String password);
+    Optional<Administrador> findByEmailAndPassword(String correo, String password);
 
 
 

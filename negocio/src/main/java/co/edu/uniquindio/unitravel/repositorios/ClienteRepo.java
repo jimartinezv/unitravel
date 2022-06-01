@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unitravel.repositorios;
 
 import co.edu.uniquindio.unitravel.entidades.Cliente;
+import co.edu.uniquindio.unitravel.entidades.Persona;
 import co.edu.uniquindio.unitravel.entidades.Reserva;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -348,7 +348,7 @@ public class ClienteServicioTest {
 
         try {
             clienteServicio.registrarUsuario(c);
-            Cliente login=clienteServicio.login(c.getEmail(),c.getPassword());
+            Cliente login=(Cliente) serviciosGenerales.login(c.getEmail(),c.getPassword());
             Assertions.assertEquals(login.getNombre(),"Jorge Iván");
         } catch (Exception e) {
             e.printStackTrace();

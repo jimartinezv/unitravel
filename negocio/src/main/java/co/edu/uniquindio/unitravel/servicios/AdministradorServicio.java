@@ -7,6 +7,15 @@ import java.util.List;
 public interface AdministradorServicio {
 
     /**
+     * Crea caracteristicas
+     * @param caracteristica
+     * @return
+     */
+    Caracteristica crearCaracteristica(Caracteristica caracteristica);
+
+
+
+    /**
      * Un administrador puede registrar otros administradores
      * @param administrador
      * @return

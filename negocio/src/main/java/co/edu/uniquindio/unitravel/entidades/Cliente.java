@@ -2,6 +2,8 @@ package co.edu.uniquindio.unitravel.entidades;
 
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
@@ -16,6 +18,7 @@ import java.util.Map;
 @NoArgsConstructor
 public class Cliente extends Persona implements Serializable {
     @ElementCollection //Crear una entidad de muchos a muchos
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Map<String, String> telefono;
 
 

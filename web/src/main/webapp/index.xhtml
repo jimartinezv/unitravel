@@ -6,57 +6,97 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Página de Inicio</title>
-</h:head>
-<h:body>
-    <h:form>
-    <p:dataView id="lista_h" value="#{inicioBean.hotelList}" var="hotel" listIcon="pi pi-bars" gridIcon="pi pi-th-large">
-        <p:dataViewListItem>
-            <p:card style="width: 25em">
-                <f:facet name="header">
-                    <img alt="user header" src="/uploads/#{hotel.imagenPrincipal}" id="imagen-hotel-index"/>
-                    <p>#{hotel.imagenPrincipal} la imagen principal</p>
-                </f:facet>
-                <f:facet name="title">
-                    #{hotel.nombre}
-                </f:facet>
-                <f:facet name="subtitle">
+<ui:composition template="/WEB-INF/template.xhtml">
+<ui:define name="title">Bienvenido a unitravel</ui:define>
 
-                    <div class="p-d-flex p-ai-center p-flex-wrap">
-                <p:repeat value="#{hotel.caracteristicas}" var="car" >
-                        <p:chip label="#{car.descripcion}" styleClass="mr-2"/>
-                </p:repeat>
-                    </div>
+<ui:define name="content">
 
 
-                </f:facet>
+        <div class="container">
 
-                <p>#{hotel.descripcion}</p>
+            <p:carousel value="#{inicioBean.ciudadList}" var="ciudad" numVisible="3" numScroll="1">
+                <div class="card m-2 item-ciudad">
+                    <a href="hoteles_destino.xhtml?ciudad=#{ciudad.codigo}">
+                        <div class="img-ciudad">
+                            <img src="#{ciudad.urlImagen}" alt="Imagen ciudad"/>
+                        </div>
+                        <p>#{ciudad.nombre}</p>
+                    </a>
+                </div>
+            </p:carousel>
 
-                <f:facet name="footer">
-                    <p:commandButton icon="pi pi-check" update="@form " value="Ver detalle ->" action="#{inicioBean.irDetalleHotel(hotel.codigo)}"/>
-                    <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
-                </f:facet>
-            </p:card>
-        </p:dataViewListItem>
-        <p:dataViewGridItem>
-            <div>
-                <h1>#{hotel.nombre}</h1>
-            </div>
-        </p:dataViewGridItem>
-    </p:dataView>
-    </h:form>
-    <h:form>
-    <div class="input-search ui-inputgroup">
-        <p:inputText placeholder="¿Qué Hotel está buscando?"
-                     required="true" value="#{busquedaBean.busqueda}" />
-        <p:commandButton update="@form" icon="pi pi-search"
-                         action="#{busquedaBean.buscar}" />
-    </div>
-</h:form>
+            <h:form>
+                <p:dataView id="lista_h"  value="#{inicioBean.hotelList}" var="hotel" listIcon="pi pi-bars" gridIcon="pi pi-th-large" >
+                    <f:facet name="header">
+                        Hoteles disponibles
+                    </f:facet>
+                    <p:dataViewListItem >
+                       <div class="row d-flex">
+                           <div class="col-lg-2 col-md-1" style="text-align: center">
+                               <img alt="user header" src="/uploads/#{hotel.imagenPrincipal}" class="imagen-hotel"/>
 
-</h:body>
+                           </div>
+                           <div class="col-lg-8 col-md-1 align-self-center">
+                               <p:outputPanel>
+                                   <h:panelGrid columns="2" cellpadding="6">
+                                       <h:outputText value="Nombre:"/>
+                                       <h:outputText value="#{hotel.nombre}"/>
+                                       <h:outputText value="Ciudad:"/>
+                                       <h:outputText value="#{hotel.direccion.ciudad.nombre}"/>
+                                       <h:outputText value="Caracteristicas:"/>
+                                       <p:repeat value="#{hotel.caracteristicas}" var="car">
+
+
+                                           <a href="hoteles_destino.xhtml?desc=#{car.codigo}">
+
+                                                   <p:chip label="#{car.descripcion}" styleClass="me-2"/>
+
+                                           </a>
+
+                                       </p:repeat>
+                                       <p:rating readonly="true" value="#{hotel.numEstrellas}"/>
+                                   </h:panelGrid>
+                               </p:outputPanel>
+                           </div>
+                           <div class="col-lg-2 col-md-1 align-self-center">
+                               <p:commandButton value="Ver detalle" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" action="#{inicioBean.irDetalleHotel(hotel.codigo)}"/>
+                           </div>
+                       </div>
+                    </p:dataViewListItem>
+                    <p:dataViewGridItem id="lista_m">
+                            <div>
+                            <p:card style="width: 20em" >
+                                <f:facet name="header" >
+                                    <img alt="user header" src="/uploads/#{hotel.imagenPrincipal}" id="imagen-hotel-index-1"/>
+                                    <p>#{hotel.imagenPrincipal} la imagen principal</p>
+                                </f:facet>
+                                <f:facet name="title">
+                                    #{hotel.nombre}<h1>Hola</h1>
+                                </f:facet>
+                                <f:facet name="subtitle">
+
+                                    <div class="p-d-flex p-ai-center p-flex-wrap">
+                                        <p:repeat value="#{hotel.caracteristicas}" var="car" >
+                                            <p:chip label="#{car.descripcion}" styleClass="mr-2"/>
+                                        </p:repeat>
+                                    </div>
+
+
+                                </f:facet>
+
+                                <p>#{hotel.descripcion}</p>
+
+                                <f:facet name="footer">
+                                    <p:commandButton icon="pi pi-check" update="@form " value="Ver detalle ->" action="#{inicioBean.irDetalleHotel(hotel.codigo)}"/>
+                                    <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
+                                </f:facet>
+                            </p:card>
+                            </div>
+                    </p:dataViewGridItem>
+                </p:dataView>
+            </h:form>
+        </div>
+
+</ui:define>
+</ui:composition>
 </html>

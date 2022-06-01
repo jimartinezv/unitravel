@@ -276,6 +276,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         if(hotelBuscar==null){
             throw new Exception("No existe el hotel");
         }
+        comentario.setFecha(LocalDateTime.now());
         return comentarioRepo.save(comentario);
     }
 
@@ -311,14 +312,7 @@ public class ClienteServicioImpl implements ClienteServicio{
 
     }
 
-    @Override
-    public Cliente login(String email, String password) throws Exception {
-        Optional<Cliente> cliente= usuarioRepo.findByEmailAndPassword(email, password);
-        if (cliente.isEmpty()){
-            throw new Exception("Los datos de autenticación son incorrectos");
-        }
-        return cliente.get();
-    }
+
 
     @Override
     public List<Hotel> buscarHotelesByCiudad(Ciudad ciudad) {

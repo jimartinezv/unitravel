@@ -3,6 +3,8 @@ package co.edu.uniquindio.unitravel.servicios;
 
 import co.edu.uniquindio.unitravel.entidades.Caracteristica;
 import co.edu.uniquindio.unitravel.entidades.Ciudad;
+import co.edu.uniquindio.unitravel.entidades.Cliente;
+import co.edu.uniquindio.unitravel.entidades.Persona;
 
 import java.util.List;
 
@@ -21,6 +23,15 @@ public interface ServiciosGenerales {
      * @return
      */
     List<Ciudad> listarCiudades();
+
+    /**
+     * Login del cliente
+     * @param email
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    Persona login(String email, String password) throws Exception;
 
     /**
      * Busca caracteristica por codigo

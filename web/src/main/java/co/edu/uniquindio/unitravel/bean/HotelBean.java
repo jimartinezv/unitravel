@@ -82,7 +82,7 @@ public class HotelBean implements Serializable {
             if(imagenesHab.size()>0) {
 
                 habitacion.setFotos(imagenesHab);
-                administradorHotelServicio.crearHabitacion(habitacion);
+                //administradorHotelServicio.crearHabitacion(habitacion);
                 habitaciones.add(habitacion);
                 habitacion= new Habitacion();
                 imagenesHab= new ArrayList<>();

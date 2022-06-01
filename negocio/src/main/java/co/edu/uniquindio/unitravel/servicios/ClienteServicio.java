@@ -7,14 +7,7 @@ import java.util.List;
 
 public interface ClienteServicio {
 
-    /**
-     * Login del cliente
-     * @param email
-     * @param password
-     * @return
-     * @throws Exception
-     */
-    Cliente login(String email, String password) throws Exception;
+
 
     /**
      * Metodo para recuperar contraseña utilizando el correo electronico del usuario

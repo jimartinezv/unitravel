@@ -37,8 +37,12 @@ public class Ciudad implements Serializable {
     @OneToMany(mappedBy = "ciudad")
     private List<Direccion> direccion;
 
-    public Ciudad(String nombre) {
-        this.nombre = nombre;
+    @ToString.Include
+    @Column(nullable = false)
+    private String urlImagen;
+
+    public Ciudad(String nombre, String urlImagen) {
+        this.nombre = nombre;this.urlImagen=urlImagen;
     }
 
 

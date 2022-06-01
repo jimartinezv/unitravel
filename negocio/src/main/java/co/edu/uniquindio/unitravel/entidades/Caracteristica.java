@@ -26,6 +26,9 @@ public class Caracteristica implements Serializable {
     @ToString.Include
     private String descripcion;
 
+    @ToString.Include
+    private String tipo;
+
     @ManyToMany
     private List<Habitacion> habitacion;
 
@@ -34,4 +37,8 @@ public class Caracteristica implements Serializable {
     private List<Hotel> hotel;
 
 
+    public Caracteristica(String descripcion, String tipo) {
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+    }
 }

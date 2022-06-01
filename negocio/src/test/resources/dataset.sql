@@ -1,15 +1,15 @@
-INSERT INTO ciudad (codigo, nombre)
+INSERT INTO ciudad (codigo, nombre, url_imagen)
 VALUES
-       (1,'Armenia'),
-       (2,'Bogotá'),
-       (3,'Medellín'),
-       (4,'Miami'),
-       (5,'Pereira'),
-       (6,'Pasto'),
-       (7,'Cali'),
-       (8,'Ibagué'),
-       (9,'Cartagena'),
-       (10,'Panamá');
+       (1,'Armenia','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (2,'Bogotá','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (3,'Medellín','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (4,'Miami','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (5,'Pereira','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (6,'Pasto','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (7,'Cali','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (8,'Ibagué','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (9,'Cartagena','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
+       (10,'Panamá','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg');
 
 INSERT INTO cliente (cedula, apellidos, email, nombre, password, genero, ciudad_codigo)
 VALUES
@@ -177,15 +177,15 @@ VALUES
 (5,120000,3,5),
 (6,120000,3,6);
 
-INSERT INTO caracteristica(codigo, descripcion)
+INSERT INTO caracteristica(codigo, descripcion, tipo)
 VALUES
-(1,"Habitacion doble"),
-(2,"Habitacion con television"),
-(3,"Habitacion con caja fuerte"),
-(4,"Habitacion con cama doble"),
-(5,"Hotel con piscina"),
-(6,"Hotel con desayuno"),
-(7,"Hotel con alimentos incluidos");
+(1,"Habitacion doble","HABITACION"),
+(2,"Habitacion con television","HABITACION"),
+(3,"Habitacion con caja fuerte", "HABITACION"),
+(4,"Habitacion con cama doble","HABITACION"),
+(5,"Hotel con piscina","HOTEL"),
+(6,"Hotel con desayuno","HOTEL"),
+(7,"Hotel con alimentos incluidos","HOTEL");
 
 INSERT INTO caracteristica_habitacion(caracteristicas_habitacion_codigo, habitacion_codigo)
 VALUES

@@ -2,6 +2,7 @@ package co.edu.uniquindio.unitravel;
 
 import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.servicios.AdministradorHotelServicio;
+import co.edu.uniquindio.unitravel.servicios.AdministradorServicio;
 import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ public class AdministradorHotelServicioTest {
     @Autowired
     private AdministradorHotelServicio adminHotelSer;
 
+    @Autowired
+    private AdministradorServicio administradorServicio;
     @Autowired
     private ServiciosGenerales serviciosGenerales;
 
@@ -139,7 +142,7 @@ public class AdministradorHotelServicioTest {
     public void crearCaracteristica(){
         Caracteristica c= new Caracteristica();
         c.setDescripcion("Hotel muy bonito");
-        adminHotelSer.crearCaracteristica(c);
+        administradorServicio.crearCaracteristica(c);
         adminHotelSer.listarCaracteristicas().forEach(System.out::println);
         Assertions.assertEquals(6, adminHotelSer.listarCaracteristicas().size());
     }
