@@ -77,8 +77,8 @@ public class DetalleHotelBean implements Serializable {
         try {
             Habitacion h=clienteServicio.buscarHabitacion(Integer.parseInt(codigoHotel));
             if(capacidad>h.getCapacidad()){
-                FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Se supera la capacidad de la habitación");
-                FacesContext.getCurrentInstance().addMessage("inputid",msj);
+                FacesMessage fm= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Las personas superan la capacidad de la habitacion");
+                FacesContext.getCurrentInstance().addMessage("login-bean", fm);
 
                 return null;
             }

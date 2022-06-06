@@ -33,21 +33,21 @@
               </a>
             </li>
             <li jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol==3}">
-              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+              <a href="/admin_hotel/hotel.xhtml" class="nav-link text-white">
                 <i class="pi pi-plus-circle d-block mx-auto mb-1 icon-menu"></i>
                 Crear Hotel
               </a>
             </li>
 
             <li>
-              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+              <a href="/resultado_busqueda.xhtml" class="nav-link text-white">
                 <i class="pi pi-map d-block mx-auto mb-1 icon-menu"></i>
                 Hoteles
               </a>
             </li>
 
             <li jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol==1}">
-              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+              <a href="/usuario/hotel.xhtml" class="nav-link text-white">
                 <i class="pi pi-book d-block mx-auto mb-1 icon-menu"></i>
                 Mis reservas
               </a>

@@ -46,5 +46,7 @@ public interface ServiciosGenerales {
      */
     List<Caracteristica> listarCaracteristicasHoteles();
 
+    List<Caracteristica> listarCaracteristicasHabitacion();
+
 
 }

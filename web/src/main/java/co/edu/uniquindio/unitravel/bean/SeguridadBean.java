@@ -29,10 +29,10 @@ public class SeguridadBean implements Serializable {
     private String password;
 
     @Getter @Setter
-    private Boolean autenticado;
+    private Boolean autenticado=false;
 
     @Getter @Setter
-    private int rol;
+    private int rol=0;
 
     @Autowired
     private ServiciosGenerales serviciosGenerales;

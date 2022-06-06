@@ -75,8 +75,7 @@
 
 
     <p:panel header="Habitaciones" styleClass="mt-3" >
-        <h:inputText id="inputid" />
-        <h:message for="inputid" />
+
 
         <div class="d-flex" >
 
@@ -96,7 +95,9 @@
 
                         </h:panelGrid>
                         <p:commandButton value="Aceptar" update="@form" action="#{detalleHotelBean.irDetalleReserva(hab.codigo)}" onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
+                        <p:growl for="login-bean" showDetail="true" />
                     </h:form>
+
                 </p:dialog>
 
                 <div class="card border-top m-1" >

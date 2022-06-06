@@ -56,7 +56,7 @@ public class HotelBean implements Serializable {
     private List<Ciudad> ciudadList;
 
     @Getter @Setter
-    private List<Caracteristica> caracteristicas;
+    private List<Caracteristica> caracteristicas, car;
 
     @PostConstruct
     public void inicio(){
@@ -64,6 +64,7 @@ public class HotelBean implements Serializable {
         habitacion= new Habitacion();
         ciudadList= serviciosGenerales.listarCiudades();
         caracteristicas=serviciosGenerales.listarCaracteristicasHoteles();
+        car=serviciosGenerales.listarCaracteristicasHabitacion();
         direccion= new Direccion();
         imagenes= new ArrayList<>();
         this.imagenesHab= new ArrayList<>();

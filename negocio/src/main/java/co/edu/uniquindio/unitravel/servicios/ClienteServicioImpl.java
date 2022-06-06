@@ -64,6 +64,7 @@ public class ClienteServicioImpl implements ClienteServicio{
         if(buscadoEmail!=null){
             throw new Exception("El correo del usuario ya está registrado");
         }
+        
 
         return usuarioRepo.save(u);
 

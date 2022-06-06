@@ -57,7 +57,12 @@ public class ServiciosGeneralesImpl implements ServiciosGenerales{
 
     @Override
     public List<Caracteristica> listarCaracteristicasHoteles() {
-        return caracteristicaRepo.findAll();
+        return caracteristicaRepo.findAllByTipo("HOTEL");
+    }
+
+    @Override
+    public List<Caracteristica> listarCaracteristicasHabitacion() {
+        return caracteristicaRepo.findAllByTipo("HABITACION");
     }
 
 
