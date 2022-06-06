@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -159,8 +160,19 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public List<ReservaHabitacion> reservasByHabitacion(Habitacion habitacion) {
+        return reservaHabitacionRepo.reservasByHabitacion(habitacion.getCodigo());
+    }
+
+    @Override
     public Habitacion buscarHabitacion(Integer codigo) throws Exception {
+
         return habitacionRepo.findById(codigo).orElse(null);
+    }
+
+    @Override
+    public Hotel buscarHotelByHabitacion(Integer codigo) throws Exception {
+        return habitacionRepo.buscarHotelHabitacion(codigo);
     }
 
 
@@ -191,7 +203,7 @@ public class ClienteServicioImpl implements ClienteServicio{
     public Reserva crearReserva(Reserva reserva) throws Exception {
 
         for (ReservaHabitacion rh:reserva.getReservaHabitacions()) {
-            habitacionDisponible(rh.getHabitacion(),reserva);
+            habitacionDisponible(rh.getHabitacion(),reserva.getFechaInicio(),reserva.getFechaFin());
         }
         //vuelosDisponibles(reserva.getVueloIda());
         //vuelosDisponibles(reserva.getVueloRegreso());
@@ -208,8 +220,8 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
-    public boolean habitacionDisponible(Habitacion h, Reserva r) throws Exception {
-        if(reservaHabitacionRepo.habitaciones(h.getCodigo(),r.getFechaInicio(),r.getFechaFin())!=null){
+    public boolean habitacionDisponible(Habitacion h, LocalDate checkin, LocalDate checkout) throws Exception {
+        if(reservaHabitacionRepo.habitaciones(h.getCodigo(),checkin,checkout)!=null){
             throw new Exception("La habitación no está disponible para la fecha seleccionada");
         };
         return true;
@@ -315,8 +327,8 @@ public class ClienteServicioImpl implements ClienteServicio{
 
 
     @Override
-    public List<Hotel> buscarHotelesByCiudad(Ciudad ciudad) {
-        return hotelRepo.obtenerHotelByCodigoCiudad(ciudad.getCodigo());
+    public List<Hotel> buscarHotelesByCiudad(Integer ciudad) {
+        return hotelRepo.obtenerHotelByCodigoCiudad(ciudad);
 
     }
 
@@ -351,6 +363,12 @@ public class ClienteServicioImpl implements ClienteServicio{
     public List<Hotel> buscarHotelesPorNombre(String nombre) {
        return hotelRepo.obtenerHotelesByNombre("%"+nombre+"%");
 
+    }
+
+    @Override
+    public List<Hotel> buscarHotelesByCaracteristicas(Integer cat) {
+
+        return hotelRepo.obtenerHotelesByCaracteristicas(cat);
     }
 
     @Override

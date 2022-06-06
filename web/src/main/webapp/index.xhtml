@@ -16,7 +16,7 @@
 
             <p:carousel value="#{inicioBean.ciudadList}" var="ciudad" numVisible="3" numScroll="1">
                 <div class="card m-2 item-ciudad">
-                    <a href="hoteles_destino.xhtml?ciudad=#{ciudad.codigo}">
+                    <a href="#{busquedaBean.buscarByCiudad(ciudad.codigo)}">
                         <div class="img-ciudad">
                             <img src="#{ciudad.urlImagen}" alt="Imagen ciudad"/>
                         </div>
@@ -47,7 +47,7 @@
                                        <p:repeat value="#{hotel.caracteristicas}" var="car">
 
 
-                                           <a href="hoteles_destino.xhtml?desc=#{car.codigo}">
+                                           <a href="#{busquedaBean.buscarCar(car.codigo)}">
 
                                                    <p:chip label="#{car.descripcion}" styleClass="me-2"/>
 

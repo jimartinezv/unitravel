@@ -22,27 +22,50 @@ public class BusquedaBean implements Serializable {
     @Getter @Setter
     private String busqueda;
 
+    @Getter @Setter
+    private String tipo;
+
     @Autowired
     private ClienteServicio clienteServicio;
 
     @Value("#{param['busqueda']}")
     private String busquedaParam;
 
+    @Value("#{param['tipo']}")
+    private String tipoParam;
+
     @Getter @Setter
     private List<Hotel> hotels;
 
     @PostConstruct
     public void inicio(){
+
         if(busquedaParam!=null && !busquedaParam.isEmpty()){
-            hotels=clienteServicio.buscarHotelesPorNombre(busquedaParam);
+            if (tipoParam.equals("nombre")){
+                hotels=clienteServicio.buscarHotelesPorNombre(busquedaParam);
+            }else if (tipoParam.equals("car")){
+                hotels=clienteServicio.buscarHotelesByCaracteristicas(Integer.parseInt(busquedaParam));
+            }else if (tipoParam.equals("ciudad")){
+                hotels=clienteServicio.buscarHotelesByCiudad(Integer.parseInt(busquedaParam));
+            }
+
         }else{
             hotels=new ArrayList<>();
         }
 
     }
 
+    public String buscarCar(String car) {
+
+        return "resultado_busqueda.xhtml?tipo=car&busqueda="+car;
+    }
+
+    public String buscarByCiudad(Integer ciudad){
+        return "resultado_busqueda.xhtml?tipo=ciudad&busqueda="+ciudad;
+    }
+
     public String buscar() {
 
-        return "resultado_busqueda?faces-redirect=true&amp;busqueda="+busqueda;
+        return "resultado_busqueda?faces-redirect=true&amp;busqueda="+busqueda+"&amp;tipo=nombre";
     }
 }

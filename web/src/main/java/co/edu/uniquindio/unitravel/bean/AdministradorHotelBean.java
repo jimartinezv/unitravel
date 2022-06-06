@@ -13,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @ViewScoped
@@ -27,9 +29,14 @@ public class AdministradorHotelBean {
     @Getter @Setter
     private AdministradorHotel administradorHotel;
 
+    @Getter @Setter
+    private List<AdministradorHotel> administradorHotelList;
+
     @PostConstruct
     public void inicio(){
+
         administradorHotel= new AdministradorHotel();
+        administradorHotelList= administradorServicio.listarAdminHotels();
     }
 
     public void crearAdminHotel(){

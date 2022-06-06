@@ -3,7 +3,9 @@ package co.edu.uniquindio.unitravel.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -21,6 +23,10 @@ public class Vuelo implements Serializable {
     @Column(nullable = false, length = 25)
     private String aerolinea;
 
+    @Future
+    @Column(nullable = false)
+    private LocalDate fecha;
+
     @ManyToOne
     private Ciudad ciudadOrigen;
 
@@ -37,8 +43,9 @@ public class Vuelo implements Serializable {
     //@ManyToOne
     //private CodigoDescuento codigoDescuento;
 
-    public Vuelo(String codigo, String aerolinea) {
+    public Vuelo(String codigo, String aerolinea, LocalDate fecha) {
         this.codigo = codigo;
         this.aerolinea = aerolinea;
+        this.fecha=fecha;
     }
 }

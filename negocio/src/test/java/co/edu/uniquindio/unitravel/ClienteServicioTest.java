@@ -377,7 +377,7 @@ public class ClienteServicioTest {
     public void buscarHotelesByCiudadTest(){
         try {
             Ciudad c= serviciosGenerales.buscarCiudad(66);
-            List<Hotel> hotels= clienteServicio.buscarHotelesByCiudad(c);
+            List<Hotel> hotels= clienteServicio.buscarHotelesByCiudad(c.getCodigo());
             Assertions.assertEquals(hotels.size(), 4);
         }catch (Exception e){
             System.out.println(e.getMessage()+"error");

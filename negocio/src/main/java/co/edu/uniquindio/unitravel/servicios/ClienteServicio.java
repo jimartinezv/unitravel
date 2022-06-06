@@ -3,6 +3,7 @@ package co.edu.uniquindio.unitravel.servicios;
 import co.edu.uniquindio.unitravel.entidades.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface ClienteServicio {
@@ -39,6 +40,8 @@ public interface ClienteServicio {
 
     Habitacion buscarHabitacion(Integer codigo) throws Exception;
 
+    Hotel buscarHotelByHabitacion(Integer codigo) throws Exception;
+
     /**
      * Elimina usuario por su cedula
      *
@@ -65,7 +68,7 @@ public interface ClienteServicio {
      * @param ciudad
      * @return
      */
-    List<Hotel> buscarHotelesByCiudad(Ciudad ciudad);
+    List<Hotel> buscarHotelesByCiudad(Integer ciudad);
 
     List<Hotel> listarHoteles();
 
@@ -77,6 +80,8 @@ public interface ClienteServicio {
      * @throws Exception
      */
     List<Hotel> buscarHotelesPorNombre(String nombre);
+
+    List<Hotel> buscarHotelesByCaracteristicas(Integer cat);
 
     /**
      * Encuentra el hotel por su codigo
@@ -93,6 +98,8 @@ public interface ClienteServicio {
      * @throws Exception
      */
     ReservaHabitacion buscarReservaHabitacion(Integer codigo) throws Exception;
+
+    List<ReservaHabitacion> reservasByHabitacion(Habitacion habitacion);
 
 
     /**
@@ -176,7 +183,7 @@ public interface ClienteServicio {
      */
     Reserva crearReserva(Reserva reserva) throws Exception;
 
-    boolean habitacionDisponible(Habitacion h, Reserva r)throws Exception;
+    boolean habitacionDisponible(Habitacion h, LocalDate checkin, LocalDate checkOut)throws Exception;
 
     /**
      * Se modifica reserva por su codigo

@@ -13,6 +13,9 @@ public interface AdministradorServicio {
      */
     Caracteristica crearCaracteristica(Caracteristica caracteristica);
 
+    Cama crearCama(Cama cam);
+
+    List<Cama> listarCamas();
 
 
     /**
@@ -43,6 +46,8 @@ public interface AdministradorServicio {
      * @return
      */
     List<Administrador> listarAdministradores();
+
+    List<AdministradorHotel> listarAdminHotels();
 
     /**
      * Para logearse necesita diligenciar correctamente formulario de login

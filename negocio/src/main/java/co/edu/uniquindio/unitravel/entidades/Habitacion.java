@@ -7,7 +7,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 @NoArgsConstructor
@@ -40,8 +42,11 @@ public class Habitacion implements Serializable {
     @Column(nullable = false)
     private double precio;
 
-    @ManyToMany(mappedBy = "habitacion")
-    private List<Caracteristica> caracteristicasHabitacion;
+    @ManyToMany
+    private List<Caracteristica> caracteristicas;
+
+    @ManyToMany
+    private List<Cama> camas;
 
     @ElementCollection
     private List<String> fotos;
@@ -57,7 +62,21 @@ public class Habitacion implements Serializable {
         this.hotel = hotel;
         this.capacidad = capacidad;
         this.precio = precio;
-        this.caracteristicasHabitacion = caracteristicasHabitacion;
+        this.caracteristicas = caracteristicasHabitacion;
         this.fotos = fotos;
+    }
+
+    public String getImagenPrincipal(){
+        if(fotos!=null){
+            if (!fotos.isEmpty())
+                return fotos.get(0);
+        }
+        return "default.png";
+    }
+
+    public String formatearDinero(){
+        Locale locale=new Locale("es", "CO");
+        NumberFormat formato= NumberFormat.getNumberInstance(locale);
+        return formato.format(precio);
     }
 }

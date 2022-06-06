@@ -13,6 +13,9 @@ public interface HabitacionRepo extends JpaRepository<Habitacion, Integer> {
 
     List<Habitacion> findByHotel(Hotel hotel);
 
+    @Query("select h from Habitacion ha join ha.hotel h where ha.codigo=:codigo")
+    Hotel buscarHotelHabitacion(Integer codigo);
+
 
     //@Query("select h from Habitacion h join h.hotel ho where ho.codigo=:codigo ")
     //List<Habitacion>

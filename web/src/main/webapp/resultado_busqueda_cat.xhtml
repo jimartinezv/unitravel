@@ -12,14 +12,14 @@
 
     <ui:define name="content">
 
-
         <div class="container">
+
 
 
             <h:form>
                 <p:dataView id="lista_h"  value="#{busquedaBean.hotels}" var="hotel" listIcon="pi pi-bars" gridIcon="pi pi-th-large" >
                     <f:facet name="header">
-                        Resultado de busqueda
+                        Hoteles disponibles
                     </f:facet>
                     <p:dataViewListItem >
                         <div class="row d-flex">
@@ -38,7 +38,7 @@
                                         <p:repeat value="#{hotel.caracteristicas}" var="car">
 
 
-                                            <a href="#{busquedaBean.buscarCar(car.codigo)}">
+                                            <a href="hoteles_destino.xhtml?desc=#{car.codigo}">
 
                                                 <p:chip label="#{car.descripcion}" styleClass="me-2"/>
 
@@ -87,9 +87,6 @@
                 </p:dataView>
             </h:form>
         </div>
-
-
-
 
     </ui:define></ui:composition>
 </html>

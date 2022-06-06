@@ -25,6 +25,9 @@ public class DetallesBean implements Serializable {
     @Getter @Setter
     private Cama cama;
 
+    @Getter
+    private List<Cama> camaList;
+
     @Getter @Setter
     private String tipo;
 
@@ -39,10 +42,23 @@ public class DetallesBean implements Serializable {
         caracteristica= new Caracteristica();
         cama= new Cama();
         caracteristicaList= serviciosGenerales.listarCaracteristicasHoteles();
+        camaList= administradorServicio.listarCamas();
     }
     public void registrarCaracteristicaHotel(){
-        caracteristica.setTipo(tipo);
-        administradorServicio.crearCaracteristica(caracteristica);
-        caracteristica= new Caracteristica();
+        if(tipo.equals("CAMA")){
+            cama.setTipo(caracteristica.getDescripcion());
+            administradorServicio.crearCama(cama);
+            camaList=administradorServicio.listarCamas();
+            cama= new Cama();
+            caracteristica=new Caracteristica();
+        }else {
+            caracteristica.setTipo(tipo);
+            administradorServicio.crearCaracteristica(caracteristica);
+            caracteristicaList= serviciosGenerales.listarCaracteristicasHoteles();
+            caracteristica= new Caracteristica();
+        }
+
     }
+
+
 }

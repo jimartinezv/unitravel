@@ -28,4 +28,6 @@ public interface ReservaRepo extends JpaRepository<Reserva, Integer> {
 
     @Query("select r from Reserva r join r.cliente c where c.email=:correo")
     List<Reserva> reservasByCliente(String correo);
+
+
 }

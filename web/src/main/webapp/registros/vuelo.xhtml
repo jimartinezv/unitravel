@@ -11,22 +11,51 @@
 
     <ui:define name="content">
         <div class="container mt-4">
-            <p:panel header="Registrar Departamento">
+            <p:panel header="Registrar vuelo">
                 <h:form>
-                    <h:panelGrid cellpadding="5" columns="2">
+                    <h:panelGrid cellpadding="6" columns="2">
                         <p:outputLabel value="Código vuelo" for="codigo_v"/>
                         <p:inputText id="codigo_v" value="#{vueloBean.v.codigo}" required="true"/>
                         <p:outputLabel value="Aerolinea" for="aerolinea"/>
                         <p:inputText id="aerolinea" value="#{vueloBean.v.aerolinea}" required="true"/>
-                        <p:outputLabel value="Ciudad de origen" for="ciudadO_v"/>
-                        <p:inputText id="ciudadO_v" value="" required="true" disabled="true"/>
+                        <p:outputLabel value="Ciudad de origen" for="origen"/>
+                        <p:selectOneMenu id="origen" value="#{vueloBean.v.ciudadOrigen}" converter="#{ciudadConverter}"
+                                              required="true" requiredMessage="La ciudad es obligatoria" >
+                            <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true"/>
+                            <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                           value="#{hotelBean.ciudadList}" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="Ciudad de destino" for="destino"/>
-                        <p:inputText id="destino" value="" required="true" disabled="true"/>
+                        <p:selectOneMenu id="destino" value="#{vueloBean.v.ciudadDestino}" converter="#{ciudadConverter}"
+                                         required="true" requiredMessage="La ciudad es obligatoria" >
+                            <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true"/>
+                            <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                           value="#{hotelBean.ciudadList}" />
+                        </p:selectOneMenu>
+
+                            <p:outputLabel for="basic" value="Fecha"/>
+                            <p:datePicker id="basic" value="#{vueloBean.v.fecha}" required="true" />
+
+
                     </h:panelGrid>
+                    <p:commandButton value="Registrar silla" onclick="PF('crear_silla').show()" icon="pi pi-check"/>
                     <p:commandButton value="Registrar vuelo" action="#{vueloBean.crearVuelo}" update="@form"/>
                     <p:messages showDetail="true"/>
                 </h:form>
             </p:panel>
+
+            <p:dialog header="Agregar silla" widgetVar="crear_silla" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
+                <h:form>
+                    <h:panelGrid cellpadding="4" columns="2">
+                        <p:outputLabel value="Ubicación" for="ubicacion_s"/>
+                        <p:inputText id="ubicacion_s" value="#{vueloBean.silla.posicion}" required="true"/>
+                        <p:outputLabel value="Precio" for="precio_s"/>
+                        <p:inputText id="precio_s" value="#{vueloBean.silla.precio}" required="true" />
+                    </h:panelGrid>
+                    <p:commandButton value="Registrar silla" update="@form" action="#{vueloBean.anadirSilla}" onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
+
+                </h:form>
+            </p:dialog>
 
 
         </div>

@@ -106,6 +106,7 @@ public class HotelBean implements Serializable {
             administradorHotelServicio.crearDireccion(direccion);
             hotel.setDireccion(direccion);
             hotel.setFotos(imagenes);
+            hotel.setAdministradorHotel(administradorHotelServicio.obtenerAdminHotel("10037788"));
             administradorHotelServicio.crearHotel(hotel);
             direccion.setHotel(hotel);
             administradorHotelServicio.actualizarDireccion(direccion);

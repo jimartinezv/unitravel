@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,6 +34,13 @@ public class ReservaHabitacion implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Habitacion habitacion;
+
+    @Future
+    private Date fechaInicio;
+
+    @Future
+    private Date fechaFin;
+
 
 
 

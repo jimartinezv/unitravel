@@ -4,6 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,37 +17,74 @@
 <h:body>
   <div id="header">
     <ui:insert name="header"> <div class="p-3 bg-dark-degradado text-black">
-      <p>persona: #{seguridadBean.persona}</p>
+
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <p:outputLabel><a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-            <img alt="." src="primefaces-luna-blue"/>
-          </a></p:outputLabel>
+          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <h:graphicImage library="img" name="icono.png" styleClass="icono-p"/>
+            <span class="fs-4"> Unitravel</span>
+          </a>
 
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 ">
+            <li>
+              <a href="/" class="nav-link text-active">
+                <i class="pi pi-home d-block mx-auto mb-1 icon-menu"></i>
+                Inicio
+              </a>
+            </li>
+            <li jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol==3}">
+              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+                <i class="pi pi-plus-circle d-block mx-auto mb-1 icon-menu"></i>
+                Crear Hotel
+              </a>
+            </li>
 
+            <li>
+              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+                <i class="pi pi-map d-block mx-auto mb-1 icon-menu"></i>
+                Hoteles
+              </a>
+            </li>
 
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ui-menu-mio">
-            <li><a href="#" class="nav-link px-2 text-secondary">INICIO</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">HOTELES</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">VUELOS</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">TOURS</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">NOSOTROS</a></li>
+            <li jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol==1}">
+              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+                <i class="pi pi-book d-block mx-auto mb-1 icon-menu"></i>
+                Mis reservas
+              </a>
+            </li>
+
+            <li jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol==3}">
+              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+                <i class="pi pi-list d-block mx-auto mb-1 icon-menu"></i>
+                Mis hoteles
+              </a>
+            </li>
+
           </ul>
-
-
 
           <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
             <p:inputText  type="search" class="form-control form-control-dark text-black bg-white" placeholder="Buscar Hotel" aria-label="Search"
-            value="#{busquedaBean.busqueda}"/>
+                          value="#{busquedaBean.busqueda}"/>
+
             <p:commandButton id="submit" style="display: none;" action="#{busquedaBean.buscar}"/>
 
 
           </h:form>
 
           <div class="text-end">
-            <p:commandButton onclick="PF('login').show()" type="button" value="Login" styleClass="ui-button-secondary mr-2" />
-            <p:linkButton outcome="/registros/usuario" value="Registrarse" style="margin-right:20px;"/>
+            <h:form rendered="#{!seguridadBean.autenticado}">
+              <p:commandButton onclick="PF('login').show()" type="button" value="Login" styleClass="ui-button-secondary m-lg-1" />
+              <p:linkButton outcome="/registros/usuario" value="Registrarse" style="margin-right:20px;"/>
+            </h:form>
           </div>
+
+          <div class="text-end">
+            <h:form rendered="#{seguridadBean.autenticado}">
+
+              <p:commandButton action="#{seguridadBean.cerrarSesion}" update="@form" value="Cerrar sesion" style="margin-right:20px;"/>
+            </h:form>
+          </div>
+
 
         </div>
       </div>

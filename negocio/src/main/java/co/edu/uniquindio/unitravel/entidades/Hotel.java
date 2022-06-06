@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Entity
 @Getter
@@ -38,7 +39,12 @@ public class Hotel implements Serializable {
 
     @OneToMany(mappedBy = "hotel") //forma de construir la llave foranea en sql
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Habitacion> habitaciones;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private AdministradorHotel administradorHotel;
 
     @ManyToMany
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -76,5 +82,16 @@ public class Hotel implements Serializable {
                 return fotos.get(0);
         }
         return "default.png";
+    }
+
+    public int promedioComentarios(){
+        int prom=0;
+        if(comentarios.size()==0)
+            return 0;
+        for (Comentario c:
+             comentarios) {
+            prom+=c.getCalificacion();
+        }
+        return prom/comentarios.size();
     }
 }

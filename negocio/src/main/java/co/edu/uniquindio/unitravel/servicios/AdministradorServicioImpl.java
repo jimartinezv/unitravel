@@ -31,6 +31,9 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     private CaracteristicaRepo caracteristicaRepo;
 
     @Autowired
+    private CamaRepo camaRepo;
+
+    @Autowired
     private SillaRepo sillaRepo;
 
     @Autowired HabitacionRepo habitacionRepo;
@@ -117,6 +120,17 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     public Caracteristica crearCaracteristica(Caracteristica caracteristica) {
         return caracteristicaRepo.save(caracteristica);
     }
+
+    @Override
+    public Cama crearCama(Cama cam) {
+        return camaRepo.save(cam);
+    }
+
+    @Override
+    public List<Cama> listarCamas() {
+        return camaRepo.findAll();
+    }
+
     /**
      * Un administrador puede crear otros administradores
      * @param administrador
@@ -159,6 +173,11 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     @Override
     public List<Administrador> listarAdministradores() {
         return administradorRepo.findAll();
+    }
+
+    @Override
+    public List<AdministradorHotel> listarAdminHotels() {
+        return administradorHotelRepo.findAll();
     }
 
     @Override

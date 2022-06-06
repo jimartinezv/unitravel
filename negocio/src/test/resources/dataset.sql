@@ -38,11 +38,11 @@ VALUES
 
 INSERT INTO administrador_hotel (cedula, apellidos, email, nombre, password)
 VALUES
-    ("10887", "Martinez", "jimv9200@gmail.com", "Jorge Iván", "019992"),
-    ("109927", "Morales", "sebasmorales@gmail.com", "Sebastian", "iisio"),
-    ("12887", "Martinez", "santiagomari112@gmail.com", "Santiago", "Kjjsh8!"),
-    ("1000", "Betancour", "betan@gmail.com", "Mariano", "poq@jqu"),
-    ("733", "Alzate", "csalz@gmail.com", "Olga", "berto92");
+    ("10039938", "Pastrana", "pasti@gmail.com", "Andrés", "019992"),
+    ("10037788", "Petro", "petrosky@gmail.com", "Tavito", "iisio"),
+    ("1020293", "Muñoz", "luisito@gmail.com", "Luis", "Kjjsh8!"),
+    ("129938", "Alzate", "papa@gmail.com", "Carlos", "poq@jqu"),
+    ("291928", "Bride", "brtist@gmail.com", "Gene", "berto92");
 
 INSERT INTO codigo_descuento (id, estado, cantidad_disponible, codigo, descripcion, descuento, fecha_creacion, fecha_vencimiento )
 VALUES
@@ -59,12 +59,12 @@ VALUES
     (3,"Calle 3 8-32", 3,null),
     (4,"Calle 7 #38-13", 4,null);
 
-INSERT INTO hotel (codigo, descripcion,direccion_codigo, nombre, estrellas)
+INSERT INTO hotel (codigo, descripcion,direccion_codigo, nombre, estrellas, administrador_hotel_cedula)
 VALUES
-    (1,"El hotel mas lujoso de armenia", 1, "Hotel Armenia", 5),
-    (2,"El único hotel pa descansar", 2, "Hotel El descanso", 5),
-    (3,"Aquí se duerme sabroso", 3, "Hotel Duerme bueno", 3),
-    (4,"Hotel pa descansar", 4, "Hotel Descansa en paz", 1);
+    (1,"El hotel mas lujoso de armenia", 1, "Hotel Armenia", 5,'10039938'),
+    (2,"El único hotel pa descansar", 2, "Hotel El descanso", 5,'10037788'),
+    (3,"Aquí se duerme sabroso", 3, "Hotel Duerme bueno", 3,'1020293'),
+    (4,"Hotel pa descansar", 4, "Hotel Descansa en paz", 1,'129938');
 
 UPDATE direccion
 SET hotel_codigo=1
@@ -98,6 +98,7 @@ VALUES
 INSERT INTO habitacion(codigo, capacidad,nombre, precio, hotel_codigo)
 VALUES
 (1, 3, "209",320000, 1),
+(4,2,"Presidencial",1500000,2),
 (2, 2, "Swit presidencial", 100000, 2),
 (3, 4, "901", 40000, 3);
 
@@ -187,7 +188,7 @@ VALUES
 (6,"Hotel con desayuno","HOTEL"),
 (7,"Hotel con alimentos incluidos","HOTEL");
 
-INSERT INTO caracteristica_habitacion(caracteristicas_habitacion_codigo, habitacion_codigo)
+INSERT INTO habitacion_caracteristicas(caracteristicas_codigo, habitacion_codigo)
 VALUES
     (1,1),
     (2,1),
@@ -214,3 +215,16 @@ VALUES
 (2, "Sencilla"),
 (3, "Queen"),
 (4, "triple");
+
+
+INSERT INTO habitacion_camas(habitacion_codigo, camas_codigo)
+VALUES
+
+    (1,3),
+    (1,4),
+    (2,4),
+    (3,2),
+    (3,4),
+    (4,3);
+
+

@@ -1,5 +1,7 @@
 package co.edu.uniquindio.unitravel.bean;
 
+import co.edu.uniquindio.unitravel.entidades.Administrador;
+import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
 import co.edu.uniquindio.unitravel.entidades.Cliente;
 import co.edu.uniquindio.unitravel.entidades.Persona;
 import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
@@ -26,11 +28,25 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private String password;
 
+    @Getter @Setter
+    private Boolean autenticado;
+
+    @Getter @Setter
+    private int rol;
+
     @Autowired
     private ServiciosGenerales serviciosGenerales;
     public String login(){
         try {
             persona=serviciosGenerales.login(email,password);
+            autenticado=true;
+            if(persona instanceof Cliente){
+                rol=1;
+            }else if(persona instanceof Administrador){
+                rol=2;
+            }else if(persona instanceof AdministradorHotel){
+                rol=3;
+            }
             return "index?faces-redirect=true";
         } catch (Exception e) {
             FacesMessage fm= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
@@ -39,5 +55,11 @@ public class SeguridadBean implements Serializable {
 
         }
         return null;
+    }
+
+    public String cerrarSesion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        rol=0;
+        return "/index?faces-redirect=true";
     }
 }

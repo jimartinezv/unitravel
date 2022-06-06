@@ -5,58 +5,165 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition template="/WEB-INF/template.xhtml">
-<ui:define name="title">Bienvenido a unitravel</ui:define>
+<ui:define name="title">#{detalleHotelBean.hotel.nombre}</ui:define>
 
 <ui:define name="content">
 
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="/uploads/uno.png" alt="First slide"/>
+    <div class="row mt-4">
+        <div class="col-lg-7 col-md-1">
 
+            <div class="card p-3 text-center d-block">
+
+                <p:galleria rendered="#{detalleHotelBean.hotel.fotos.size()>0}" value="#{detalleHotelBean.hotel.fotos}" var="photo" numVisible="5"
+                            showItemNavigators="true" circular="true" showItemNavigatorsOnHover="true" showThumbnails="false" showIndicators="true" style="max-width: 640px">
+                    <p:graphicImage  alt="#{photo}" style="width: 100%; display: block;" url="/uploads/#{photo}" />
+                </p:galleria>
+                <p:graphicImage styleClass="w-100" rendered="#{detalleHotelBean.hotel.fotos.size()==0}" url="/uploads/#{detalleHotelBean.hotel.imagenPrincipal}" alt="" title=""/>
             </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="/uploads/dos.png" alt="Second slide"/>
+
+
+        </div>
+        <div class="col-lg-5 col-md-1">
+            <div class="card p-3">
+                <p:rating value="#{detalleHotelBean.hotel.numEstrellas}" readonly="true"/>
+                <h2 class="mt-4 mb-8">#{detalleHotelBean.hotel.nombre}</h2>
+                <hr/>
+
+                <p class="mb-0"><b>Ciudad: </b> #{detalleHotelBean.hotel.direccion.ciudad.nombre}</p>
+                <p class="mt-1 mb-8"><b>Administrador: </b> #{detalleHotelBean.hotel.administradorHotel.nombre}</p>
+                <hr/>
+
+                <div>
+                    <p><i class="pi pi-exclamation-circle me-1"></i> Características: </p>
+                    <p:repeat value="#{detalleHotelBean.hotel.caracteristicas}" var="car">
+                        <p:chip styleClass="me-2 mt-1" label="#{car.descripcion}"/>
+                    </p:repeat>
+                </div>
             </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="/uploads/#{detalleHotelBean.hotel.imagenPrincipal}" alt="Third slide"/>
-            </div>
+                <div class="card p-3 mt-4">
+                    <div>
+                        <p><i class="pi pi-book me-1"></i>Contacto: </p>
+                        <p class="mb-0"><b> <p:repeat value="#{detalleHotelBean.hotel.telefonos}" var="tel">#{tel}</p:repeat></b></p>
+                        <p class="mt-1 mb-0"><b>Dirección: </b>#{detalleHotelBean.hotel.direccion.direccion}</p>
+                        <hr/>
+                        <div class="btn-redes">
+                            <p><i class="pi pi-share-alt me-1"></i> Compartenos en redes </p>
+                            <ul class="nav col-md-4 list-unstyled d-flex">
+                                <li class="me-3"><a class="text-muted" href="#"><i class="pi pi-twitter icon-menu"></i> </a> </li>
+                                <li><a class="text-muted" href="#"><i class="pi pi-facebook icon-menu"></i> </a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
         </div>
     </div>
 
-
-    <h3>    <p>#{detalleHotelBean.hotel.nombre}</p></h3>
-    <img alt="user header" src="/uploads/#{detalleHotelBean.hotel.imagenPrincipal}" class="imagen-hotel"/>
-    <h4><p>#{detalleHotelBean.hotel.descripcion}</p></h4>
-    <p:repeat value="#{detalleHotelBean.hotel.caracteristicas}" var="car">
+    <p:panel header="Descripción" styleClass="mt-3 mb-4">
+        <h:outputText value="#{detalleHotelBean.hotel.descripcion}" escape="false"/>
+    </p:panel>
 
 
-        <a href="hoteles_destino.xhtml?desc=#{car.codigo}">
-
-            <p:chip label="#{car.descripcion}" styleClass="me-2"/>
-
-        </a>
-
-    </p:repeat>
 
 
+
+
+
+    <p:panel header="Habitaciones" styleClass="mt-3" >
+
+
+
+        <div class="d-flex" >
+
+
+            <p:repeat value="#{detalleHotelBean.hotel.habitaciones}" var="hab" >
+                <div class="card border-top m-1" >
+                    <div class="d-block text-center img-hab mt-2" >
+                        <img src="/uploads/#{hab.imagenPrincipal}" alt="Habitación"/>
+                    </div>
+                    <hr class="m-0 mt-3"/>
+                    <div class="card-body">
+                        <p class="card-text"><b>Capacidad: </b>${hab.capacidad}<i class="pi pi-users"></i></p>
+                        <p class="card-text"><b>Precio: </b>${hab.formatearDinero()}</p>
+                        <div class="d-flex">
+                            <p class="card-text mb-0 me-2"><b>Camas: </b></p>
+                            <p:repeat value="#{hab.camas}" var="camas">
+                                <p:tag styleClass="me-2 ml-2" value="#{camas.tipo}"/>
+                            </p:repeat>
+                        </div>
+                    </div>
+                    <hr class="m-0"/>
+                    <div class="card-body">
+                        <p>Carasterísticas</p>
+                        <p:repeat value="#{hab.caracteristicas}" var="cat">
+                            <p:chip styleClass="me-2 mr-2" label="#{cat.descripcion}"/>
+                        </p:repeat>
+                    </div>
+                    <div class="col-lg-2 col-md-1 align-self-lg-start mb-2 ms-2">
+
+                        <p:commandButton value="Reservar" styleClass="ui-button-raised" rendered="#{seguridadBean.rol==1}" onclick="PF('crear_habitacion').show()"/>
+                    </div>
+                </div>
+
+            </p:repeat>
+        </div>
+    </p:panel>
+
+    <p:dialog header="Crear Habitación" widgetVar="crear_habitacion" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
+        <h:form>
+            <h:panelGrid cellpadding="2" columns="2">
+
+                <p:outputLabel for="range" value="Range Selection"/>
+                <p:datePicker id="range" selectionMode="range" value="#{detalleHotelBean.rango}"
+                              readonlyInput="true"/>
+
+                <p:outputLabel value="Cantidad de personas" for="personas" />
+                <p:inputText id="personas" value="#{hotelBean.habitacion.capacidad}" required="true" type="numeric" />
+
+
+            </h:panelGrid>
+            <p:commandButton value="Aceptar" update="@form" action="#{detalleHotelBean.irDetalleReserva(2)}" onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
+        </h:form>
+    </p:dialog>
 
 
     <div class="container">
-    <p:panel header="Hacer un comentario" styleClass="mt-3">
+    <p:panel header="" styleClass="mt-3">
+
+        <f:facet name="header">
+            <p>Reseñas <p:rating readonly="true" value="#{detalleHotelBean.hotel.promedioComentarios()}"/> </p>
+
+        </f:facet>
         <p:dataList id="lista-c" value="#{detalleHotelBean.comentarios}" var="com">
-        <p:panel header="#{com.cliente.nombre} - #{com.fecha}" styleClass="mt-3">
-                <p>#{com.comentario} <br></br>
-                    <p:rating readonly="true" value="#{com.calificacion}"/></p>
-            </p:panel>
+
+
+
+            <div class="card p-3 mt-4">
+                <div>
+                    <p><i class="pi pi-user me-1"></i> #{com.cliente.nombre} #{com.fecha} </p>
+
+                    <p class="mt-1 mb-0"><b></b>#{com.comentario}</p>
+                    <p:rating readonly="true" value="#{com.calificacion}"/>
+                    <hr/>
+                    <div class="btn-redes">
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
 
         </p:dataList>
     </p:panel>
 
-    <p:panel header="Comentar" styleClass="mt-3">
+    <p:panel header="Comentar" styleClass="mt-3" rendered="#{seguridadBean.autenticado}">
         <h:form id="crear-comentario">
             <h:panelGrid columns="2" cellpadding="3">
                 <p:inputTextarea value="#{detalleHotelBean.comentario.comentario}" required="true" styleClass="comentario-usuario"/>

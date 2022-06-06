@@ -29,7 +29,7 @@ public class Caracteristica implements Serializable {
     @ToString.Include
     private String tipo;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "caracteristicas")
     private List<Habitacion> habitacion;
 
 

@@ -11,7 +11,7 @@
 
     <ui:define name="content">
         <div class="container mt-4">
-            <p:panel header="Registrar nuevo hotel">
+            <p:panel header="Registrar nuevo hotel" rendered="#{seguridadBean.autenticado and seguridadBean.rol==3}">
                 <h:form>
                     <h:panelGrid cellpadding="6" columns="2">
                         <p:outputLabel value="Nombre" for="nombre"/>

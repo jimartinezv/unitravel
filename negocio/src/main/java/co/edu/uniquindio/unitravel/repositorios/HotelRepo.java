@@ -21,6 +21,9 @@ public interface HotelRepo extends JpaRepository<Hotel, Integer> {
     @Query("select h from Hotel h where lower( h.nombre) like lower( :nombre)")
     List<Hotel> obtenerHotelesByNombre(String nombre);
 
+    @Query("select h from Hotel h join h.caracteristicas c where c.codigo=:cat")
+    List<Hotel> obtenerHotelesByCaracteristicas(Integer cat);
+
     List<Hotel> findAllByNombreContainsIgnoreCase(String nombre);
 
 
