@@ -1,5 +1,6 @@
 co.edu.uniquindio.unitravel.converter.CaracteristicaConverter
 co.edu.uniquindio.unitravel.converter.CiudadConverter
+co.edu.uniquindio.unitravel.converter.VueloConverter
 com.sun.faces.cdi.CdiConverter
 com.sun.faces.cdi.CdiValidator
 com.sun.faces.component.ComponentResourceContainer

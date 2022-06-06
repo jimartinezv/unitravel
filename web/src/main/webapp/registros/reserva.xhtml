@@ -16,11 +16,74 @@
 
         <div class="row mt-4">
             <div class="col-lg-12 col-md-1">
-        <p:panel header="Crear Reserva">
+        <p:panel header="Elija vuelo de ida">
             <div class="habitaciones">
-            <p>#{detalleHotelBean.rango.get(0)}</p>
+
+
+
+                        <h:form>
+                            <h:panelGrid cellpadding="2" columns="2">
+
+                                <p:outputLabel for="ciudad_o" value="Seleccione ciudad de origen"/>
+                                <p:selectOneMenu id="ciudad_o" value="#{reservaBean.origenIda}" converter="#{ciudadConverter}"
+                                                 required="true" requiredMessage="La ciudad es obligatoria" >
+                                    <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true"/>
+                                    <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                                   value="#{reservaBean.ciudadList}" />
+                                </p:selectOneMenu>
+
+
+
+                                <p:outputLabel for="ciudad_d" value="Seleccione ciudad de destino"/>
+                                <p:selectOneMenu id="ciudad_d" value="#{reservaBean.destinoIda}" converter="#{ciudadConverter}"
+                                                 required="true" requiredMessage="La ciudad es obligatoria" >
+                                    <f:selectItem itemLabel="Seleccione la ciudad" noSelectionOption="true"/>
+                                    <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                                   value="#{reservaBean.ciudadList}" />
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+
+                            <p:commandButton action="#{reservaBean.buscarVuelos}" value="Buscar vuelo" update="@form vuelos_e"  onclick="PF('crear_habitacion').show()" icon="pi pi-check"/>
+                        </h:form>
+
+                <p:dialog header="Seleccionar vuelo" widgetVar="crear_habitacion" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
+                    <h:form id="vuelos_e">
+                        <h:panelGrid cellpadding="4" columns="2">
+
+                            <p:outputLabel for="vuelo_i" value="Vuelo de ida"/>
+                            <p:inputText value="No hay vuelos disponibles" rendered="#{reservaBean.vueloList.size()==0}"/>
+                            <p:selectOneMenu id="vuelo_i" value="#{reservaBean.vueloI}" converter="#{vueloConverter}"
+                                             required="true" requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
+
+                                <f:selectItems var="vu" itemLabel="#{vu.codigo}  #{vu.aerolinea}"
+                                               value="#{reservaBean.vueloList}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="vuelo_r" value="Vuelo de regreso"/>
+                            <p:inputText value="No hay vuelos disponibles" rendered="#{reservaBean.vueloList.size()==0}"/>
+                            <p:selectOneMenu id="vuelo_r" value="#{reservaBean.vueloR}" converter="#{vueloConverter}"
+                                             required="true" requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
+
+                                <f:selectItems var="vu" itemLabel="#{vu.codigo}  #{vu.aerolinea}"
+                                               value="#{reservaBean.vueloListR}" />
+                            </p:selectOneMenu>
+
+
+
+
+                        </h:panelGrid>
+                        <p:commandButton value="Aceptar"  update="@form"  onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
+                    </h:form>
+                </p:dialog>
+
+
+
+
             </div>
         </p:panel>
+
+
             </div>
         </div>
 

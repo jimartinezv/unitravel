@@ -58,9 +58,12 @@ public interface ClienteServicio {
      */
     Cliente obtenerUsuario(String cedula) throws Exception;
 
+    List<Vuelo> listarVuelos();
+
+    List<Vuelo> vueloByCiudadandFecha(Integer ciudadO, Integer ciudadD, LocalDate fecha) throws Exception;
 
 
-
+    Vuelo buscarVuelo(String codigo) throws Exception;
 
     /**
      * El cliente podrá buscar hoteles y vuelos por determinado destino

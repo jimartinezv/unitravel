@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Reserva Hotel</ui:define>
+
+    <ui:define name="content">
+
+
+
+        <div class="row mt-4">
+            <div class="col-lg-12 col-md-1">
+                <p:panel header="Crear Reserva">
+                    <div class="habitaciones">
+
+
+
+
+
+                            <h:form>
+                                <h:panelGrid cellpadding="2" columns="2">
+
+                                    <p:outputLabel for="vuelo_i" value="Vuelo de ida"/>
+                                    <p:selectOneMenu id="vuelo_i" value="#{reservaBean.vueloI}"
+                                                     required="true" requiredMessage="Seleccione vuelo" >
+                                        <f:selectItem itemLabel="Seleccione el vuelo" noSelectionOption="true"/>
+                                        <f:selectItems var="vu" itemLabel="#{vu.codigo}  #{vu.aerolinea}"
+                                                       value="#{reservaBean.vueloList}" />
+                                    </p:selectOneMenu>
+
+
+                                    <p:inputText id="personas" value="#{detalleHotelBean.capacidad}" required="true" type="numeric" />
+
+
+                                </h:panelGrid>
+                                <p:commandButton value="Aceptar" update="@form" action="#{reservaBean.buscarVuelos()}" icon="pi pi-check"/>
+                            </h:form>
+
+
+
+
+
+                    </div>
+                </p:panel>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </ui:define></ui:composition>
+</html>

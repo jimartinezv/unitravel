@@ -89,6 +89,27 @@ public class ClienteServicioImpl implements ClienteServicio{
     }
 
     @Override
+    public List<Vuelo> listarVuelos() {
+        return vueloRepo.findAll();
+    }
+
+    @Override
+    public List<Vuelo> vueloByCiudadandFecha(Integer ciudadO, Integer ciudadD, LocalDate fecha) throws Exception{
+
+        List<Vuelo> v= vueloRepo.vueloByCiudadAndDate(ciudadO, ciudadD,fecha);
+        if(v.isEmpty()){
+            throw new Exception("No se encontraron vuelos");
+        }
+        return v;
+        //return vueloRepo.vueloByCiudadAndDate(ciudadO, ciudadD,fecha);
+    }
+
+    @Override
+    public Vuelo buscarVuelo(String codigo) throws Exception {
+        return vueloRepo.findById(codigo).orElse(null);
+    }
+
+    @Override
     public ReservaHabitacion crearReservaHabitacion(ReservaHabitacion rh) {
         return reservaHabitacionRepo.save(rh);
     }
@@ -221,6 +242,7 @@ public class ClienteServicioImpl implements ClienteServicio{
 
     @Override
     public boolean habitacionDisponible(Habitacion h, LocalDate checkin, LocalDate checkout) throws Exception {
+
         if(reservaHabitacionRepo.habitaciones(h.getCodigo(),checkin,checkout)!=null){
             throw new Exception("La habitación no está disponible para la fecha seleccionada");
         };

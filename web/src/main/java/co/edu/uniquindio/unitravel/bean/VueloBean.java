@@ -66,7 +66,7 @@ public class VueloBean implements Serializable {
             administradorServicio.crearVuelo(v);
             sillaList.forEach(s-> { s.setVuelo(v); administradorServicio.crearSilla(s);        });
             v=new Vuelo();
-            FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El usuario ha sido creado");
+            FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El vuelo ha sido creado");
             FacesContext.getCurrentInstance().addMessage(null,msj);
         }catch (Exception e){
             FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());

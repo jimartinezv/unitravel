@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unitravel.bean;
 
-import co.edu.uniquindio.unitravel.entidades.Cliente;
-import co.edu.uniquindio.unitravel.entidades.Comentario;
-import co.edu.uniquindio.unitravel.entidades.Hotel;
-import co.edu.uniquindio.unitravel.entidades.Persona;
+import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
 import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import lombok.Getter;
@@ -13,7 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-@SessionScoped
+@ViewScoped
 public class DetalleHotelBean implements Serializable {
 
     @Value("#{param['hotel']}")
@@ -45,6 +44,9 @@ public class DetalleHotelBean implements Serializable {
 
     @Getter @Setter
     private List<LocalDate> rango;
+
+    @Getter @Setter
+    private byte capacidad;
 
     @Autowired
     private ServiciosGenerales serviciosGenerales;
@@ -71,10 +73,18 @@ public class DetalleHotelBean implements Serializable {
     }
 
     public String irDetalleReserva(String codigoHotel) {
-        System.out.println(rango.get(0));
+        System.out.println(capacidad);
         try {
-            if (clienteServicio.habitacionDisponible(clienteServicio.buscarHabitacion(Integer.parseInt(codigoHotel)), rango.get(0), rango.get(rango.size()))) {
-                return "/registros/reserva?faces-redirect=true&amp;habitacion=" + codigoHotel;
+            Habitacion h=clienteServicio.buscarHabitacion(Integer.parseInt(codigoHotel));
+            if(capacidad>h.getCapacidad()){
+                FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Se supera la capacidad de la habitación");
+                FacesContext.getCurrentInstance().addMessage("inputid",msj);
+
+                return null;
+            }
+            System.out.println(h.getNombre()+ rango.get(0)+ rango.get(rango.size()-1)+"esto fue lo que el encontro");
+            if (clienteServicio.habitacionDisponible(h, rango.get(0), rango.get(rango.size()-1))) {
+                return "/registros/reserva?faces-redirect=true&amp;habitacion=" + codigoHotel+"&amp;fechai="+ rango.get(0)+"&amp;fechaf="+ rango.get(rango.size()-1) ;
             }else{
 
             }
@@ -86,8 +96,11 @@ public class DetalleHotelBean implements Serializable {
         return null;
     }
 
+    public void actualiza(byte cap){
+        this.capacidad=cap;
+    }
+
     public String buscarHabitaciones(String codigo){
-        System.out.println("porque");
         return "reserva?faces-redirect=true&amp;habitacion="+codigo;
     }
 

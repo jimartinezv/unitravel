@@ -75,13 +75,30 @@
 
 
     <p:panel header="Habitaciones" styleClass="mt-3" >
-
-
+        <h:inputText id="inputid" />
+        <h:message for="inputid" />
 
         <div class="d-flex" >
 
 
             <p:repeat value="#{detalleHotelBean.hotel.habitaciones}" var="hab" >
+                <p:dialog header="Crear reserva" widgetVar="crear_habitacion" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
+                    <h:form>
+                        <h:panelGrid cellpadding="2" columns="2">
+
+                            <p:outputLabel for="range" value="Seleccione fecha de reserva"/>
+                            <p:datePicker id="range" selectionMode="range" value="#{detalleHotelBean.rango}"
+                                          readonlyInput="true"/>
+
+                            <p:outputLabel value="Cantidad de personas" for="personas" />
+                            <p:inputText id="personas" value="#{detalleHotelBean.capacidad}" required="true" type="numeric" />
+
+
+                        </h:panelGrid>
+                        <p:commandButton value="Aceptar" update="@form" action="#{detalleHotelBean.irDetalleReserva(hab.codigo)}" onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
+                    </h:form>
+                </p:dialog>
+
                 <div class="card border-top m-1" >
                     <div class="d-block text-center img-hab mt-2" >
                         <img src="/uploads/#{hab.imagenPrincipal}" alt="Habitación"/>
@@ -106,7 +123,7 @@
                     </div>
                     <div class="col-lg-2 col-md-1 align-self-lg-start mb-2 ms-2">
 
-                        <p:commandButton value="Reservar" styleClass="ui-button-raised" rendered="#{seguridadBean.rol==1}" onclick="PF('crear_habitacion').show()"/>
+                        <p:commandButton action="#{detalleHotelBean.actualiza(hab.capacidad)}" value="Reservar" styleClass="ui-button-raised" rendered="#{seguridadBean.rol==1}" onclick="PF('crear_habitacion').show()"/>
                     </div>
                 </div>
 
@@ -114,22 +131,6 @@
         </div>
     </p:panel>
 
-    <p:dialog header="Crear Habitación" widgetVar="crear_habitacion" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
-        <h:form>
-            <h:panelGrid cellpadding="2" columns="2">
-
-                <p:outputLabel for="range" value="Range Selection"/>
-                <p:datePicker id="range" selectionMode="range" value="#{detalleHotelBean.rango}"
-                              readonlyInput="true"/>
-
-                <p:outputLabel value="Cantidad de personas" for="personas" />
-                <p:inputText id="personas" value="#{hotelBean.habitacion.capacidad}" required="true" type="numeric" />
-
-
-            </h:panelGrid>
-            <p:commandButton value="Aceptar" update="@form" action="#{detalleHotelBean.irDetalleReserva(2)}" onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
-        </h:form>
-    </p:dialog>
 
 
     <div class="container">

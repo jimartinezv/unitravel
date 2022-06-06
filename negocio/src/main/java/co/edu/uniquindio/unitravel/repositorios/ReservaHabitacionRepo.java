@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface ReservaHabitacionRepo extends JpaRepository<ReservaHabitacion, Integer> {
 
     @Query("select h from Habitacion h join h.reservaHabitaciones rs join rs.reserva r where h.codigo=:codigo and ((r.fechaInicio <=:fecha) and (r.fechaFin>=:fecha2))  ")
-    List<Habitacion> habitaciones(Integer codigo,LocalDate fecha, LocalDate fecha2);
+    Habitacion habitaciones(Integer codigo,LocalDate fecha, LocalDate fecha2);
 
     @Query("select rh from ReservaHabitacion rh join rh.habitacion h where h.codigo=:codigo")
     List<ReservaHabitacion> reservasByHabitacion(Integer codigo);
