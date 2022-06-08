@@ -68,7 +68,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
      * @return
      */
     public Vuelo buscarVuelo(String codigo){
-        return vueloRepo.findById(codigo).orElse(null);
+        return vueloRepo.vueloByCodigo(codigo);
     }
 
     /**
@@ -236,10 +236,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     @Override
     public Vuelo crearVuelo(Vuelo vuelo) throws Exception {
 
-        Vuelo vueloBuscado = buscarVuelo(vuelo.getCodigo());
-        if(vueloBuscado!=null){
-            throw new Exception("El vuelo ya existe");
-        }
+
         return vueloRepo.save(vuelo);
     }
 
@@ -250,7 +247,7 @@ public class AdministradorServicioImpl implements AdministradorServicio{
 
     @Override
     public Vuelo actualizarVuelo(Vuelo vuelo) throws Exception {
-        Vuelo vueloBuscado= buscarVuelo(vuelo.getCodigo());
+        Vuelo vueloBuscado= buscarVuelo(vuelo.getId());
         if(vueloBuscado==null){
             throw new Exception("El vuelo no existe");
         }
@@ -258,13 +255,18 @@ public class AdministradorServicioImpl implements AdministradorServicio{
     }
 
     @Override
-    public void eliminarVuelo(String codigo) throws Exception {
+    public void eliminarVuelo(Integer codigo) throws Exception {
         Vuelo buscarVuelo= buscarVuelo(codigo);
         if(buscarVuelo== null){
             throw new Exception("El vuelo no existe");
         }
         vueloRepo.delete(buscarVuelo);
 
+    }
+
+    @Override
+    public Vuelo buscarVuelo(Integer id) {
+        return vueloRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -322,6 +324,6 @@ public class AdministradorServicioImpl implements AdministradorServicio{
             throw new Exception("Codigo de descuento ya existe");
         }
 
-        return codigoDescuento;
+        return codigoDescuentoRepo.save(codigoDescuento);
     }
 }

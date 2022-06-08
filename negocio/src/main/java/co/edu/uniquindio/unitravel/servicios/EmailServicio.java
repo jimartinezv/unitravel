@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailServicio {
 
-    //@Autowired
+    @Autowired
     private JavaMailSender sender;
 
     public Boolean enviarEmail(String asunto, String contenido, String destinatario){

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Reserva Hotel</ui:define>
+
+    <ui:define name="content">
+
+
+
+        <div class="row mt-4">
+            <div class="col-lg-12 col-md-1">
+                <p:panel header="Elija vuelo de ida">
+                    <div class="habitaciones">
+
+
+
+
+
+                        <h:form id="vuelos_e" >
+                            <h:panelGrid cellpadding="4" columns="3" >
+
+                                <p:outputLabel for="vuelo_i" value="Vuelo de ida"/>
+
+                                <p:selectOneMenu id="vuelo_i" value="#{reservaBean.vueloI}" converter="#{vueloConverter}"
+                                                 requiredMessage="Seleccione vuelo" >
+                                    <f:selectItem itemLabel="Seleccione el vuelo" noSelectionOption="true"/>
+                                    <f:selectItems var="vu" itemLabel="#{vu.codigo}"
+                                                   value="#{reservaBean.vp}" />
+                                </p:selectOneMenu>
+
+
+                                <p:message for="vuelo_i" />
+
+                                <p:outputLabel for="vuelo_r" value="Vuelo de regreso"/>
+
+                                <p:selectOneMenu id="vuelo_r" value="#{reservaBean.vueloR}" converter="#{vueloConverter}"
+                                                 requiredMessage="Seleccione vuelo" >
+                                    <f:selectItem itemLabel="Seleccione el vuelo" noSelectionOption="true"/>
+                                    <f:selectItems var="vu" itemLabel="#{vu.codigo}"
+                                                   value="#{reservaBean.vp}" />
+                                </p:selectOneMenu>
+                                <p:message for="vuelo_r" />
+
+
+
+                            </h:panelGrid>
+                            <p:commandButton value="Aceptar" update="vuelos_e"  icon="pi pi-check" action="#{reservaBean.asignarSillas}"/>
+                        </h:form>
+
+
+
+
+
+                    </div>
+                </p:panel>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </ui:define></ui:composition>
+</html>
+

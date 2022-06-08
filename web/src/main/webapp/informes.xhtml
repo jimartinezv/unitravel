@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Reserva Hotel</ui:define>
+
+    <ui:define name="content">
+
+
+
+
+        <div class="row mt-4">
+            <div class="col-lg-12 d-flex">
+                <div class="col-lg-6">
+                <p:panel header="Informe Hotel">
+                    <h:panelGrid cellpadding="3" columns="2">
+                        <p:outputLabel value="Ciudad" for="ciudad3"/>
+                        <p:inputText value="Ciudad" id="ciudad3"/>
+                        <p:outputLabel value="Fecha" for="fecha3"/>
+                        <p:inputText value="fecha" id="fecha3"/>
+                        <p:commandButton value="Ir Informe"/>
+                    </h:panelGrid>
+
+
+
+                </p:panel></div>
+
+                <div class="col-lg-6 ms-3">
+                    <p:panel header="Informe Aerolinea">
+                        <h:panelGrid cellpadding="3" columns="2">
+                            <p:outputLabel value="Aerolinea" for="ciudad1"/>
+                            <p:inputText value="Aerolinea" id="ciudad1"/>
+                            <p:outputLabel value="Fecha" for="fecha1"/>
+                            <p:inputText value="fecha" id="fecha1"/>
+                            <p:commandButton value="Ir Informe"/>
+                        </h:panelGrid>
+
+
+
+                    </p:panel></div>
+
+            </div></div>
+
+
+        <div class="row mt-4">
+            <div class="col-lg-12 d-flex">
+                <div class="col-lg-6">
+                    <p:panel header="Informe Cliente">
+                        <h:panelGrid cellpadding="3" columns="2">
+
+                            <p:outputLabel value="Fecha" for="fecha4"/>
+                            <p:inputText value="fecha" id="fecha4"/>
+                            <p:commandButton value="Ir Informe"/>
+                        </h:panelGrid>
+
+
+
+                    </p:panel></div>
+
+                <div class="col-lg-6 ms-3">
+                    <p:panel header="Informe PQR">
+                        <h:panelGrid cellpadding="3" columns="2">
+                            <p:outputLabel value="Estado" for="ciudad7"/>
+                            <p:inputText value="Estado" id="ciudad7"/>
+                            <p:outputLabel value="Fecha" for="fecha10"/>
+                            <p:inputText value="fecha" id="fecha10"/>
+                            <p:commandButton value="Ir Informe"/>
+                        </h:panelGrid>
+
+
+
+                    </p:panel></div>
+
+            </div></div>
+
+
+    </ui:define></ui:composition>
+</html>
+
+

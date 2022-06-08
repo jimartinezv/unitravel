@@ -24,6 +24,9 @@ public interface HotelRepo extends JpaRepository<Hotel, Integer> {
     @Query("select h from Hotel h join h.caracteristicas c where c.codigo=:cat")
     List<Hotel> obtenerHotelesByCaracteristicas(Integer cat);
 
+    @Query("select h from Hotel h join h.administradorHotel ah where ah.cedula=:codigo")
+    List<Hotel> obtenerHotelesAdmin(String codigo);
+
     List<Hotel> findAllByNombreContainsIgnoreCase(String nombre);
 
 

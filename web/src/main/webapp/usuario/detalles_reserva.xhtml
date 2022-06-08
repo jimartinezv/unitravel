@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Reserva Hotel</ui:define>
+
+    <ui:define name="content">
+
+
+
+        <div class="row mt-4">
+            <div class="col-lg-12 col-md-1">
+                <p:panel header="Detalles de reserva">
+                    <div class="card border-top m-1 col-lg-12">
+                        <div class="d-block text-right ms-2 img-hab mt-2" >
+                            <p class="text-center fw-bold"> Vuelo de ida</p>
+                            <p>Ciudad origen: #{reservaBean.nuevaReserva.reservaSillas.get(0).silla.vuelo.ciudadOrigen.nombre}</p>
+                            <p>Ciudad destino: #{reservaBean.nuevaReserva.reservaSillas.get(0).silla.vuelo.ciudadDestino.nombre}</p>
+                            <p>Fecha de vuelo: #{reservaBean.nuevaReserva.reservaSillas.get(0).silla.vuelo.fecha}</p>
+                        </div>
+                        <hr/>
+                        <div class="d-block text-right ms-2 img-hab mt-2" >
+                            <p class="text-center fw-bold"> Vuelo de regreso</p>
+                            <p>Ciudad origen: #{reservaBean.nuevaReserva.reservaSillas.get(reservaBean.nuevaReserva.reservaSillas.size()-1).silla.vuelo.ciudadOrigen.nombre}</p>
+                            <p>Ciudad origen: #{reservaBean.nuevaReserva.reservaSillas.get(reservaBean.nuevaReserva.reservaSillas.size()-1).silla.vuelo.ciudadDestino.nombre}</p>
+                            <p>Fecha de vuelo: #{reservaBean.nuevaReserva.reservaSillas.get(0).silla.vuelo.fecha}</p>
+                        </div>
+                        <hr/>
+                        <div class="d-block text-right ms-2 img-hab mt-2" >
+                            <p class="text-center fw-bold"> Detalle hotel</p>
+                            <p>Hotel: #{reservaBean.nuevaReserva.reservaHabitacions.get(0).habitacion.hotel.nombre}</p>
+                            <p>CheckIn: #{reservaBean.nuevaReserva.reservaHabitacions.get(0).fechaInicio}</p>
+                            <p>ChecOut: #{reservaBean.nuevaReserva.reservaHabitacions.get(0).fechaFin}</p>
+                            <p>Habitacion: #{reservaBean.nuevaReserva.reservaHabitacions.get(0).habitacion.nombre}</p>
+                        </div>
+                        <hr/>
+                        <div class="d-block text-right ms-2 img-hab mt-2" >
+                            <p class="text-center fw-bold"> Detalle reserva</p>
+                            <p>Cantidad de personas: #{reservaBean.nuevaReserva.cantidadPersonas}</p>
+                            <p jsf:rendered="#{reservaBean.nuevaReserva.codigoDescuento!=null}">Codigo de descuento: #{reservaBean.nuevaReserva.codigoDescuento.codigo}</p>
+                            <p>Precio total: #{reservaBean.nuevaReserva.precioTotal}</p>
+
+                        </div>
+
+                            <p:commandButton  action="#{reservaBean.pagarReserva}" value="Finalizar" styleClass="ui-button-raised col-lg-3 "  />
+
+
+                    </div>
+
+                </p:panel>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </ui:define></ui:composition>
+</html>

@@ -1,11 +1,9 @@
 package co.edu.uniquindio.unitravel.servicios;
 
 
-import co.edu.uniquindio.unitravel.entidades.Caracteristica;
-import co.edu.uniquindio.unitravel.entidades.Ciudad;
-import co.edu.uniquindio.unitravel.entidades.Cliente;
-import co.edu.uniquindio.unitravel.entidades.Persona;
+import co.edu.uniquindio.unitravel.entidades.*;
 import co.edu.uniquindio.unitravel.repositorios.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +11,10 @@ import java.util.Optional;
 
 @Service
 public class ServiciosGeneralesImpl implements ServiciosGenerales{
+
+    @Autowired
+    private CamaRepo camaRepo;
+
     private CiudadRepo ciudadRepo;
     private CaracteristicaRepo caracteristicaRepo;
 
@@ -63,6 +65,11 @@ public class ServiciosGeneralesImpl implements ServiciosGenerales{
     @Override
     public List<Caracteristica> listarCaracteristicasHabitacion() {
         return caracteristicaRepo.findAllByTipo("HABITACION");
+    }
+
+    @Override
+    public List<Cama> listarCamas() {
+        return camaRepo.findAll();
     }
 
 

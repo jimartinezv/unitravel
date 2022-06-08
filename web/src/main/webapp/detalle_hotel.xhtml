@@ -77,7 +77,7 @@
     <p:panel header="Habitaciones" styleClass="mt-3" >
 
 
-        <div class="d-flex" >
+        <div class="d-flex col-lg-12 row-cols-auto" >
 
 
             <p:repeat value="#{detalleHotelBean.hotel.habitaciones}" var="hab" >
@@ -100,33 +100,35 @@
 
                 </p:dialog>
 
-                <div class="card border-top m-1" >
-                    <div class="d-block text-center img-hab mt-2" >
-                        <img src="/uploads/#{hab.imagenPrincipal}" alt="Habitación"/>
-                    </div>
-                    <hr class="m-0 mt-3"/>
-                    <div class="card-body">
-                        <p class="card-text"><b>Capacidad: </b>${hab.capacidad}<i class="pi pi-users"></i></p>
-                        <p class="card-text"><b>Precio: </b>${hab.formatearDinero()}</p>
-                        <div class="d-flex">
-                            <p class="card-text mb-0 me-2"><b>Camas: </b></p>
-                            <p:repeat value="#{hab.camas}" var="camas">
-                                <p:tag styleClass="me-2 ml-2" value="#{camas.tipo}"/>
+
+                    <div class="card border-top m-1 col-lg-6">
+                        <div class="d-block text-center img-hab mt-2" >
+                            <img src="/uploads/#{hab.imagenPrincipal}" alt="Habitación"/>
+                        </div>
+                        <hr class="m-0 mt-3"/>
+                        <div class="card-body">
+                            <p class="card-text"><b>Capacidad: </b>${hab.capacidad}<i class="pi pi-users"></i></p>
+                            <p class="card-text"><b>Precio: </b>${hab.formatearDinero()}</p>
+                            <div class="d-flex">
+                                <p class="card-text mb-0 me-2"><b>Camas: </b></p>
+                                <p:repeat value="#{hab.camas}" var="camas">
+                                    <p:tag styleClass="me-2 ml-2" value="#{camas.tipo}"/>
+                                </p:repeat>
+                            </div>
+                        </div>
+                        <hr class="m-0"/>
+                        <div class="card-body">
+                            <p>Carasterísticas</p>
+                            <p:repeat value="#{hab.caracteristicas}" var="cat">
+                                <p:chip styleClass="me-2 mr-2" label="#{cat.descripcion}"/>
                             </p:repeat>
                         </div>
-                    </div>
-                    <hr class="m-0"/>
-                    <div class="card-body">
-                        <p>Carasterísticas</p>
-                        <p:repeat value="#{hab.caracteristicas}" var="cat">
-                            <p:chip styleClass="me-2 mr-2" label="#{cat.descripcion}"/>
-                        </p:repeat>
-                    </div>
-                    <div class="col-lg-2 col-md-1 align-self-lg-start mb-2 ms-2">
+                        <div class="col-lg-2 col-md-1 align-self-lg-start mb-2 ms-2">
 
-                        <p:commandButton action="#{detalleHotelBean.actualiza(hab.capacidad)}" value="Reservar" styleClass="ui-button-raised" rendered="#{seguridadBean.rol==1}" onclick="PF('crear_habitacion').show()"/>
+                            <p:commandButton action="#{detalleHotelBean.actualiza(hab.capacidad)}" value="Reservar" styleClass="ui-button-raised" rendered="#{seguridadBean.rol==1}" onclick="PF('crear_habitacion').show()"/>
+
+                        </div>
                     </div>
-                </div>
 
             </p:repeat>
         </div>

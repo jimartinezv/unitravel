@@ -1,10 +1,7 @@
 package co.edu.uniquindio.unitravel.servicios;
 
 
-import co.edu.uniquindio.unitravel.entidades.Caracteristica;
-import co.edu.uniquindio.unitravel.entidades.Ciudad;
-import co.edu.uniquindio.unitravel.entidades.Cliente;
-import co.edu.uniquindio.unitravel.entidades.Persona;
+import co.edu.uniquindio.unitravel.entidades.*;
 
 import java.util.List;
 
@@ -47,6 +44,8 @@ public interface ServiciosGenerales {
     List<Caracteristica> listarCaracteristicasHoteles();
 
     List<Caracteristica> listarCaracteristicasHabitacion();
+
+    List<Cama> listarCamas();
 
 
 }

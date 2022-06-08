@@ -84,7 +84,7 @@ public class DetalleHotelBean implements Serializable {
             }
             System.out.println(h.getNombre()+ rango.get(0)+ rango.get(rango.size()-1)+"esto fue lo que el encontro");
             if (clienteServicio.habitacionDisponible(h, rango.get(0), rango.get(rango.size()-1))) {
-                return "/registros/reserva?faces-redirect=true&amp;habitacion=" + codigoHotel+"&amp;fechai="+ rango.get(0)+"&amp;fechaf="+ rango.get(rango.size()-1) ;
+                return "/usuario/reserva?faces-redirect=true&amp;habitacion=" + codigoHotel+"&amp;fechai="+ rango.get(0)+"&amp;fechaf="+ rango.get(rango.size()-1)+ "&amp;personas="+capacidad ;
             }else{
 
             }

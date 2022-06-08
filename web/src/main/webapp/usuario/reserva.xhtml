@@ -44,44 +44,52 @@
 
                             </h:panelGrid>
 
-                            <p:commandButton action="#{reservaBean.buscarVuelos}" value="Buscar vuelo" update="@form vuelos_e"  onclick="PF('crear_habitacion').show()" icon="pi pi-check"/>
+                            <p:commandButton action="#{reservaBean.buscarVuelos}" value="Buscar vuelo" update="@form, vuelos_e"  icon="pi pi-check"/>
                         </h:form>
 
-                <p:dialog header="Seleccionar vuelo" widgetVar="crear_habitacion" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
-                    <h:form id="vuelos_e">
-                        <h:panelGrid cellpadding="4" columns="2">
+
+                    <h:form id="vuelos_e" >
+                        <h:panelGrid cellpadding="4" columns="3" rendered="#{reservaBean.b}">
 
                             <p:outputLabel for="vuelo_i" value="Vuelo de ida"/>
                             <p:inputText value="No hay vuelos disponibles" rendered="#{reservaBean.vueloList.size()==0}"/>
                             <p:selectOneMenu id="vuelo_i" value="#{reservaBean.vueloI}" converter="#{vueloConverter}"
-                                             required="true" requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
-
-                                <f:selectItems var="vu" itemLabel="#{vu.codigo}  #{vu.aerolinea}"
+                                              requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
+                                <f:selectItem itemLabel="Seleccione el vuelo" noSelectionOption="true"/>
+                                <f:selectItems var="vu" itemLabel="#{vu.codigo}"
                                                value="#{reservaBean.vueloList}" />
                             </p:selectOneMenu>
+
+
+                            <p:message for="vuelo_i" />
 
                             <p:outputLabel for="vuelo_r" value="Vuelo de regreso"/>
                             <p:inputText value="No hay vuelos disponibles" rendered="#{reservaBean.vueloList.size()==0}"/>
                             <p:selectOneMenu id="vuelo_r" value="#{reservaBean.vueloR}" converter="#{vueloConverter}"
-                                             required="true" requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
-
-                                <f:selectItems var="vu" itemLabel="#{vu.codigo}  #{vu.aerolinea}"
+                                             requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
+                                <f:selectItem itemLabel="Seleccione el vuelo" noSelectionOption="true"/>
+                                <f:selectItems var="vu" itemLabel="#{vu.codigo}"
                                                value="#{reservaBean.vueloListR}" />
                             </p:selectOneMenu>
+                            <p:message for="vuelo_r" />
+                            <p:outputLabel for="descuento" value="Codigo descuento"/>
+                            <p:inputText id="descuento" value="#{reservaBean.codigo}" rendered="#{!reservaBean.codigoA}" />
+                            <p:outputLabel value="Codigo de descuento aprobado" rendered="#{reservaBean.codigoA}" id="codigo-m"  for="descuento"/>
+                            <p:commandButton value="Aplicar" action="#{reservaBean.buscarCodigo}" update="vuelos_e" rendered="#{!reservaBean.codigoA}"/>
 
 
-
-
+                        <p:growl id="msj" showDetail="true"/>
                         </h:panelGrid>
-                        <p:commandButton value="Aceptar"  update="@form"  onclick="PF('crear_habitacion').hide()" icon="pi pi-check"/>
+                        <p:commandButton value="Crear Reserva" update="@form"  icon="pi pi-check" action="#{reservaBean.asignarSillas}" rendered="#{reservaBean.b}"/>
                     </h:form>
-                </p:dialog>
+
 
 
 
 
             </div>
         </p:panel>
+
 
 
             </div>

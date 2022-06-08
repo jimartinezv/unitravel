@@ -123,6 +123,8 @@ public interface AdministradorHotelServicio {
      */
     Hotel buscarHotel(Integer codigo) throws Exception;
 
+    List<Hotel> buscarAdminHotel(String codigo);
+
     /**
      * Lista las carecteristicas del hotel y sus habitaciones
      * @return

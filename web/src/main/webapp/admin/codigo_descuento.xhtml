@@ -13,19 +13,14 @@
         <div class="container mt-4">
             <p:panel header="Registrar caracteristicas de hotel">
                 <h:form>
-                    <h:panelGrid cellpadding="5" columns="2">
-                        <p:outputLabel value="Id" for="cedula"/>
-                        <p:inputText id="Caracteristica" value="#{admi}" required="true"/>
-                        <p:outputLabel value="Nombre" for="nombre"/>
-                        <p:inputText id="nombre" value="#{administradorHotelBean.administradorHotel.nombre}" required="true"/>
-                        <p:outputLabel value="Apellido" for="apellido"/>
-                        <p:inputText id="apellido" value="#{administradorHotelBean.administradorHotel.apellidos}" required="true" />
-                        <p:outputLabel value="Email" for="email"/>
-                        <p:inputText id="email" value="#{administradorHotelBean.administradorHotel.email}" required="true" type="email"/>
-                        <p:outputLabel value="Password" for="password"/>
-                        <p:inputText id="password" value="#{administradorHotelBean.administradorHotel.password}" required="true" type="password"/>
-                    </h:panelGrid>
-                    <p:commandButton value="Registrar vuelo" action="#{administradorHotelBean.crearAdminHotel}" update="@form"/>
+                    <h:panelGrid cellpadding="2" columns="2">
+                        <p:outputLabel value="Codigo descuento" for="codigo"/>
+                        <p:inputText id="codigo" value="#{detallesBean.codigoDescuento.codigo}" required="true"/>
+                        <p:outputLabel value="Valor en numero" for="por"/>
+                        <p:inputNumber id="por" value="#{detallesBean.codigoDescuento.descuento}" symbol="%"
+                                       symbolPosition="s" emptyValue="always" />
+                       </h:panelGrid>
+                    <p:commandButton value="Registrar vuelo" action="#{detallesBean.registrarCodigoDescuento}" update="@form"/>
                     <p:messages showDetail="true"/>
                 </h:form>
             </p:panel>

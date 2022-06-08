@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Bienvenido a unitravel</ui:define>
+
+    <ui:define name="content">
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-lg-12 d-flex">
+                    <div class="col-lg-4 m-2">
+                        <p:panel header="Crear administrador de hotel">
+                        <h:panelGrid cellpadding="1" columns="2">
+                            <p:linkButton href="/admin/administrador_hotel.xhtml" value="Crear administrador de hotel"/>
+                        </h:panelGrid>
+                        </p:panel>
+                    </div>
+                    <div class="col-lg-4 m-2">
+                        <p:panel header="Crear ciudad">
+                            <h:panelGrid cellpadding="1" columns="2">
+                                <p:linkButton href="/admin/ciudad.xhtml" value="Crear ciudad"/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </div>
+                    <div class="col-lg-4 m-2">
+                        <p:panel header="Crear codigo de descuento">
+                            <h:panelGrid cellpadding="1" columns="2">
+                                <p:linkButton href="/admin/codigo_descuento.xhtml" value="Crear descuento"/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12 d-flex">
+                    <div class="col-lg-4 m-2">
+                        <p:panel header="Crear vuelo">
+                            <h:panelGrid cellpadding="1" columns="2">
+                                <p:linkButton href="/admin/vuelo.xhtml" value="Crear vuelo"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </div>
+                    <div class="col-lg-4 m-2">
+                        <p:panel header="Crear caracteristicas">
+                            <h:panelGrid cellpadding="1" columns="2">
+                                <p:linkButton href="/admin/caracteristicas.xhtml" value="Crear caracteristicas"/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </div>
+                    <div class="col-lg-4 m-2">
+                        <p:panel header="Crear metodo de pago">
+                            <h:panelGrid cellpadding="1" columns="2">
+                                <p:linkButton href="/admin/pago.xhtml" value="Crear metodo de pago"/>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,7 @@ public class ReservaSilla implements Serializable {
     @ManyToOne
     private Silla silla;
 
+    private LocalDate fecha;
 
     public ReservaSilla(Integer codigo, double precio) {
         this.codigo = codigo;

@@ -20,10 +20,13 @@ public class VueloConverter implements Converter<Vuelo>, Serializable {
     @Override
     public Vuelo getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            Vuelo v=clienteServicio.buscarVueloByCodigo(value);
+
+            //Vuelo v=clienteServicio.buscarVueloByCodigo(value);
+            Vuelo v= clienteServicio.buscarVuelo(Integer.parseInt(value));
 
             return v;
         } catch (Exception e) {
+
             e.printStackTrace();
         }
         return null;
@@ -32,7 +35,7 @@ public class VueloConverter implements Converter<Vuelo>, Serializable {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Vuelo value) {
         if(value!=null){
-            return value.getCodigo().toString();
+            return value.getId().toString();
         }
         return "";
     }

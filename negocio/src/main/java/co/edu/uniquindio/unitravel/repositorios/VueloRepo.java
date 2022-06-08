@@ -12,13 +12,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface VueloRepo extends JpaRepository<Vuelo, String> {
+public interface VueloRepo extends JpaRepository<Vuelo, Integer> {
 
     List<Vuelo> findByCiudadOrigen(Ciudad ciudad);
 
 
     @Query("select h from Vuelo h inner join h.ciudadOrigen co inner join h.ciudadDestino cd where h.fecha=:fecha and co.codigo=:ciudadO and cd.codigo=:ciudadD ")
     List<Vuelo> vueloByCiudadAndDate(Integer ciudadO, Integer ciudadD, LocalDate fecha);
+
+    @Query("select v from Vuelo v where v.codigo=:codigo")
+    Vuelo vueloByCodigo(String codigo);
 
 
     //@Query("select v from Vuelo v join v.ciudadOrigen co join v.ciudadDestino cd where v.fecha=:fecha")

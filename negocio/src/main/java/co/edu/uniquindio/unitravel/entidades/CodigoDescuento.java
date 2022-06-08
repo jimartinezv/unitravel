@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CodigoDescuento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

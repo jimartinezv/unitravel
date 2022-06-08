@@ -1,15 +1,15 @@
 INSERT INTO ciudad (codigo, nombre, url_imagen)
 VALUES
        (1,'Armenia','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (2,'Bogotá','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (3,'Medellín','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (4,'Miami','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (5,'Pereira','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (6,'Pasto','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (7,'Cali','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (8,'Ibagué','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (9,'Cartagena','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg'),
-       (10,'Panamá','https://www.cronicadelquindio.com/files/noticias/120200527083602.jpg');
+       (2,'Bogotá','https://la.network/wp-content/uploads/2021/07/Emprendimientos-en-Bogota%CC%81.jpg'),
+       (3,'Medellín','https://img.theculturetrip.com/x/wp-content/uploads/2020/03/shutterstock_1263058732_medellin.jpg'),
+       (4,'Miami','https://pic.le-cdn.com/thumbs/520x390/04/1/properties/Property-2b15000000000775000d626935ea-125113643.jpg'),
+       (5,'Pereira','https://cdn.colombia.com/sdi/2022/01/13/turismo-pereira-top-25-987237.jpg'),
+       (6,'Pasto','https://upload.wikimedia.org/wikipedia/commons/8/83/San_Juan_de_Pasto_de_noche.jpg'),
+       (7,'Cali','https://mediaim.expedia.com/destination/1/8ff2783243cbc874078b54438cdc8785.jpg'),
+       (8,'Ibagué','https://habitatdelosandes.com/wp-content/uploads/2021/07/1539443144_482426_1539443293_noticia_normal.jpg'),
+       (9,'Cartagena','https://cdn.colombia.com/images/v2/turismo/sitios-turisticos/cartagena/ciudad-cartagena-800.jpg'),
+       (10,'Panamá','https://www.caf.com/media/3682081/panama-1.jpg');
 
 INSERT INTO cliente (cedula, apellidos, email, nombre, password, genero, ciudad_codigo)
 VALUES
@@ -52,55 +52,13 @@ VALUES
 
 
 
-INSERT INTO direccion (codigo, direccion, ciudad_codigo, hotel_codigo)
-VALUES
-    (1,"Calle 36n 40-22", 1,null),
-    (2,"Cra 22 #9-00", 2,null),
-    (3,"Calle 3 8-32", 3,null),
-    (4,"Calle 7 #38-13", 4,null);
-
-INSERT INTO hotel (codigo, descripcion,direccion_codigo, nombre, estrellas, administrador_hotel_cedula)
-VALUES
-    (1,"El hotel mas lujoso de armenia", 1, "Hotel Armenia", 5,'10039938'),
-    (2,"El único hotel pa descansar", 2, "Hotel El descanso", 5,'10037788'),
-    (3,"Aquí se duerme sabroso", 3, "Hotel Duerme bueno", 3,'1020293'),
-    (4,"Hotel pa descansar", 4, "Hotel Descansa en paz", 1,'129938');
-
-UPDATE direccion
-SET hotel_codigo=1
-    WHERE codigo=1;
-UPDATE direccion
-SET hotel_codigo=2
-WHERE codigo=2;
-UPDATE direccion
-SET hotel_codigo=3
-WHERE codigo=3;
-UPDATE direccion
-SET hotel_codigo=4
-WHERE codigo=4;
-
-
-INSERT INTO hotel_telefonos ( hotel_codigo, telefonos, telefonos_key)
-VALUES
-(1,"7495589","RECEPCION"),
-(1,"7495230","GERENCIA"),
-(2,"3217389900","CELULAR"),
-(3,"737567","RECEPCION"),
-(3,"7495230","OFICINA"),
-(4,"3290001199","RECEPCION");
-
 INSERT INTO metodo_pago (codigo, descripcion)
 VALUES
 (1, "PSE"),
 (2,"Tarjeta de credito"),
 (3, "Tarjeta debito");
 
-INSERT INTO habitacion(codigo, capacidad,nombre, precio, hotel_codigo)
-VALUES
-(1, 3, "209",320000, 1),
-(4,2,"Presidencial",1500000,2),
-(2, 2, "Swit presidencial", 100000, 2),
-(3, 4, "901", 40000, 3);
+
 
 
 INSERT INTO vuelo(codigo, aerolinea, ciudad_destino_codigo, ciudad_origen_codigo)
@@ -118,21 +76,9 @@ VALUES
 (3,4,"COMPLETO", 2200000,"109778"),
 (4,2,"COMPLETO", 899000,"10949");
 
-INSERT INTO comentario (codigo, calificacion, comentario, fecha, cliente_cedula, hotel_codigo )
-VALUES
-(1,5, "El hotel es muy bonito", CURTIME(), "10949", 1),
-(2,1, "Que hotel tan horrible", CURTIME(), "10949", 3),
-(3,4, "Buen servicio del hotel", CURTIME(), "109778", 2),
-(4,2, "No tiene agua caliente", CURTIME(), "10209", 3),
-(5,3, "En el hotel espantan", CURTIME(), "1094299", 1);
 
-INSERT INTO reserva_habitacion (codigo, precio, codigo_descuento_id, habitacion_codigo, reserva_codigo)
-VALUES
-    (1,960000, null, 1,1),
-    (2,320000, null, 1,2),
-    (3,200000, null, 2,3),
-    (4,200000, null, 2,3),
-    (5,80000, null, 3,4);
+
+
 
 INSERT INTO silla(codigo, posicion, precio, vuelo_codigo)
 VALUES
@@ -188,22 +134,8 @@ VALUES
 (6,"Hotel con desayuno","HOTEL"),
 (7,"Hotel con alimentos incluidos","HOTEL");
 
-INSERT INTO habitacion_caracteristicas(caracteristicas_codigo, habitacion_codigo)
-VALUES
-    (1,1),
-    (2,1),
-    (1,2),
-    (3,2),
-    (4,3);
 
 
-INSERT INTO hotel_caracteristicas( hotel_codigo, caracteristicas_codigo)
-VALUES
-    (1,5),
-    (2,5),
-    (1,6),
-    (3,7),
-    (3,5);
 
 
 
@@ -215,16 +147,5 @@ VALUES
 (2, "Sencilla"),
 (3, "Queen"),
 (4, "triple");
-
-
-INSERT INTO habitacion_camas(habitacion_codigo, camas_codigo)
-VALUES
-
-    (1,3),
-    (1,4),
-    (2,4),
-    (3,2),
-    (3,4),
-    (4,3);
 
 

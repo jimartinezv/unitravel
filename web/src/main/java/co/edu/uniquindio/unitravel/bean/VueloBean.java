@@ -53,6 +53,7 @@ public class VueloBean implements Serializable {
     }
 
     public void anadirSilla(){
+        silla.setDisponible(true);
         sillaList.add(silla);
         silla=new Silla();
 
@@ -64,7 +65,7 @@ public class VueloBean implements Serializable {
         try {
 
             administradorServicio.crearVuelo(v);
-            sillaList.forEach(s-> { s.setVuelo(v); administradorServicio.crearSilla(s);        });
+            sillaList.forEach(s-> { s.setVuelo(v); administradorServicio.crearSilla(s);});
             v=new Vuelo();
             FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El vuelo ha sido creado");
             FacesContext.getCurrentInstance().addMessage(null,msj);

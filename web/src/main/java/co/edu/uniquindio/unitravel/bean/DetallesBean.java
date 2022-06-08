@@ -2,6 +2,7 @@ package co.edu.uniquindio.unitravel.bean;
 
 import co.edu.uniquindio.unitravel.entidades.Cama;
 import co.edu.uniquindio.unitravel.entidades.Caracteristica;
+import co.edu.uniquindio.unitravel.entidades.CodigoDescuento;
 import co.edu.uniquindio.unitravel.servicios.AdministradorServicio;
 import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import lombok.Getter;
@@ -15,6 +16,9 @@ import java.util.List;
 
 @Component
 public class DetallesBean implements Serializable {
+
+    @Getter @Setter
+    private CodigoDescuento codigoDescuento;
 
     @Getter @Setter
     private Caracteristica caracteristica;
@@ -39,10 +43,19 @@ public class DetallesBean implements Serializable {
 
     @PostConstruct
     public void inicio(){
+        codigoDescuento=new CodigoDescuento();
         caracteristica= new Caracteristica();
         cama= new Cama();
         caracteristicaList= serviciosGenerales.listarCaracteristicasHoteles();
         camaList= administradorServicio.listarCamas();
+    }
+
+    public void registrarCodigoDescuento(){
+        try {
+            administradorServicio.crearCodigoDescuento(codigoDescuento);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void registrarCaracteristicaHotel(){
         if(tipo.equals("CAMA")){

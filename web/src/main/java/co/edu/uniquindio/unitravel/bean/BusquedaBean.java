@@ -1,6 +1,9 @@
 package co.edu.uniquindio.unitravel.bean;
 
+import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
 import co.edu.uniquindio.unitravel.entidades.Hotel;
+import co.edu.uniquindio.unitravel.entidades.Persona;
+import co.edu.uniquindio.unitravel.servicios.AdministradorHotelServicio;
 import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.Getter;
@@ -28,11 +31,17 @@ public class BusquedaBean implements Serializable {
     @Autowired
     private ClienteServicio clienteServicio;
 
+    @Autowired
+    private AdministradorHotelServicio adminHS;
+
     @Value("#{param['busqueda']}")
     private String busquedaParam;
 
     @Value("#{param['tipo']}")
     private String tipoParam;
+
+    @Value(value = "#{seguridadBean.persona}")
+    private Persona adminSesion;
 
     @Getter @Setter
     private List<Hotel> hotels;
@@ -40,17 +49,23 @@ public class BusquedaBean implements Serializable {
     @PostConstruct
     public void inicio(){
 
-        if(busquedaParam!=null && !busquedaParam.isEmpty()){
-            if (tipoParam.equals("nombre")){
-                hotels=clienteServicio.buscarHotelesPorNombre(busquedaParam);
-            }else if (tipoParam.equals("car")){
-                hotels=clienteServicio.buscarHotelesByCaracteristicas(Integer.parseInt(busquedaParam));
-            }else if (tipoParam.equals("ciudad")){
-                hotels=clienteServicio.buscarHotelesByCiudad(Integer.parseInt(busquedaParam));
-            }
+        if (tipoParam!=null && tipoParam.equals("admin") && !adminSesion.getEmail().equals(null)){
 
-        }else{
-            hotels=new ArrayList<>();
+            hotels=adminHS.buscarAdminHotel(adminSesion.getCedula());
+            System.out.println("Aqui se entró"+" admin: "+ adminSesion.getCedula()+ " hoteles: " + hotels.get(0).getNombre());
+        }else {
+            if (busquedaParam != null && !busquedaParam.isEmpty()) {
+                if (tipoParam.equals("nombre")) {
+                    hotels = clienteServicio.buscarHotelesPorNombre(busquedaParam);
+                } else if (tipoParam.equals("car")) {
+                    hotels = clienteServicio.buscarHotelesByCaracteristicas(Integer.parseInt(busquedaParam));
+                } else if (tipoParam.equals("ciudad")) {
+                    hotels = clienteServicio.buscarHotelesByCiudad(Integer.parseInt(busquedaParam));
+                }
+
+            } else {
+                hotels = new ArrayList<>();
+            }
         }
 
     }

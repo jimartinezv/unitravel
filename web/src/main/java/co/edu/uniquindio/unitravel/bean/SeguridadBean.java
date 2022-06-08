@@ -4,6 +4,7 @@ import co.edu.uniquindio.unitravel.entidades.Administrador;
 import co.edu.uniquindio.unitravel.entidades.AdministradorHotel;
 import co.edu.uniquindio.unitravel.entidades.Cliente;
 import co.edu.uniquindio.unitravel.entidades.Persona;
+import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
 import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,9 @@ public class SeguridadBean implements Serializable {
     private int rol=0;
 
     @Autowired
+    private ClienteServicio clienteServicio;
+
+    @Autowired
     private ServiciosGenerales serviciosGenerales;
     public String login(){
         try {
@@ -42,12 +46,15 @@ public class SeguridadBean implements Serializable {
             autenticado=true;
             if(persona instanceof Cliente){
                 rol=1;
+                return "/index?faces-redirect=true";
             }else if(persona instanceof Administrador){
                 rol=2;
+                return "/admin/index?faces-redirect=true";
             }else if(persona instanceof AdministradorHotel){
                 rol=3;
+                return "/admin_hotel/index?faces-redirect=true";
             }
-            return "index?faces-redirect=true";
+
         } catch (Exception e) {
             FacesMessage fm= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("login-bean", fm);
@@ -55,6 +62,22 @@ public class SeguridadBean implements Serializable {
 
         }
         return null;
+    }
+
+    public String recuperarContraseña(){
+        if(email==null){
+            FacesMessage fm= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "El email no puede ser nulo");
+            FacesContext.getCurrentInstance().addMessage("rc", fm);
+            return "/index?faces-redirect=true";
+        }else {
+            try {
+                System.out.println("se va a recuperar de email"+email);
+                clienteServicio.recuperarContrasena(email);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "/index?faces-redirect=true";
     }
 
     public String cerrarSesion() {

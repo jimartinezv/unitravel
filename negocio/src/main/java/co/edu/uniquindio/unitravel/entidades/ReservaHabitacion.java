@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +37,10 @@ public class ReservaHabitacion implements Serializable {
     private Habitacion habitacion;
 
     @Future
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
 
     @Future
-    private Date fechaFin;
+    private LocalDate fechaFin;
 
 
 

@@ -88,6 +88,7 @@ public class ClienteServicioTest {
         }
 
         //rh.setHabitacion(crearHabitacion());
+
         rh.setPrecio(rh.getHabitacion().getPrecio());
 
         //clienteServicio.habitacionDisponible(rh.getHabitacion(),r)

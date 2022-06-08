@@ -27,6 +27,9 @@ public class Silla implements Serializable {
     @Positive
     private double precio;
 
+    @Column(nullable = false)
+    private boolean disponible;
+
 
     @ManyToOne
     private Vuelo vuelo;
@@ -38,6 +41,7 @@ public class Silla implements Serializable {
         this.codigo = codigo;
         this.posicion = posicion;
         this.precio = precio;
+        this.disponible=true;
 
     }
 }

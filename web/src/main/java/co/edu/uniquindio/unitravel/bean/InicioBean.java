@@ -39,8 +39,11 @@ public class InicioBean implements Serializable {
 
 
 
+    public String irEditarHoterl(String codigoHotel){
+        return "/admin_hotel/editar-hotel.xhtml?faces-redirect=true&amp;hotel=2";
+    }
     public String irDetalleHotel(String codigoHotel){
-        return "detalle_hotel?faces-redirect=true&amp;hotel="+codigoHotel;
+        return "/detalle_hotel?faces-redirect=true&amp;hotel="+codigoHotel;
     }
 
 }

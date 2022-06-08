@@ -233,3 +233,6 @@ body .ui-dataview .ui-dataview-header, .ui-dataview-row.ui-g{
 .ui-linkbutton a{
     text-decoration: none;
 }
+.codigo-m{
+    --text-color: green;
+}

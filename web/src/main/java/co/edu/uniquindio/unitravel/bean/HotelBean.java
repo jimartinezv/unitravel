@@ -58,10 +58,35 @@ public class HotelBean implements Serializable {
     @Getter @Setter
     private List<Caracteristica> caracteristicas, car;
 
+    @Getter @Setter
+    private List<Cama> camas;
+
+    @Value("#{param['hotel']}")
+    private String tipoParam;
+
+    @Value(value = "#{seguridadBean.persona}")
+    private Persona persona;
+
+
+
     @PostConstruct
     public void inicio(){
-        hotel= new Hotel();
+
+
+        if (tipoParam!=null && !tipoParam.isEmpty()){
+            try {
+                hotel= administradorHotelServicio.buscarHotel(Integer.parseInt(tipoParam));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            hotel= new Hotel();
+
+
+        }
         habitacion= new Habitacion();
+        camas= serviciosGenerales.listarCamas();
         ciudadList= serviciosGenerales.listarCiudades();
         caracteristicas=serviciosGenerales.listarCaracteristicasHoteles();
         car=serviciosGenerales.listarCaracteristicasHabitacion();
@@ -98,8 +123,49 @@ public class HotelBean implements Serializable {
         }
 
     }
+
+    public String editrarHotel(){
+        try{
+            if(imagenes.size()>0){
+
+
+                administradorHotelServicio.crearDireccion(direccion);
+                hotel.setDireccion(direccion);
+                hotel.setFotos(imagenes);
+
+                administradorHotelServicio.modificarHotel(hotel);
+                direccion.setHotel(hotel);
+                administradorHotelServicio.actualizarDireccion(direccion);
+                habitaciones.forEach(p-> {
+                    p.setHotel(hotel);
+
+                    try {
+                        administradorHotelServicio.crearHabitacion(p);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                //FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El Hotel ha sido creado");
+                //FacesContext.getCurrentInstance().addMessage(null,msj);
+                return "registro_exitoso?faces-redirect=true";
+            }else {
+                FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Para la creación de el hotel debe tener imagenes");
+                FacesContext.getCurrentInstance().addMessage(null,msj);
+            }
+        }catch (Exception e){
+            try {
+                administradorHotelServicio.eliminarDireccion(direccion.getCodigo());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null,msj);
+        }
+        return null;
+
+    }
     public String crearHotel(){
-        System.out.println("carac");
+
         try{
             if(imagenes.size()>0){
 
@@ -107,7 +173,7 @@ public class HotelBean implements Serializable {
             administradorHotelServicio.crearDireccion(direccion);
             hotel.setDireccion(direccion);
             hotel.setFotos(imagenes);
-            hotel.setAdministradorHotel(administradorHotelServicio.obtenerAdminHotel("10037788"));
+            hotel.setAdministradorHotel(administradorHotelServicio.obtenerAdminHotel(persona.getCedula()));
             administradorHotelServicio.crearHotel(hotel);
             direccion.setHotel(hotel);
             administradorHotelServicio.actualizarDireccion(direccion);
@@ -120,8 +186,9 @@ public class HotelBean implements Serializable {
                     e.printStackTrace();
                 }
             });
-            //FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El Hotel ha sido creado");
-            //FacesContext.getCurrentInstance().addMessage(null,msj);
+            FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El Hotel ha sido creado");
+            FacesContext.getCurrentInstance().addMessage(null,msj);
+                hotel= new Hotel();
             return "registro_exitoso?faces-redirect=true";
             }else {
                 FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Para la creación de el hotel debe tener imagenes");

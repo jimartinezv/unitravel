@@ -163,6 +163,11 @@ public class AdministradorHotelServicioImpl implements AdministradorHotelServici
     }
 
     @Override
+    public List<Hotel> buscarAdminHotel(String codigo) {
+        return hotelRepo.obtenerHotelesAdmin(codigo);
+    }
+
+    @Override
     public List<Caracteristica> listarCaracteristicas() {
         return caracteristicaRepo.findAll();
     }

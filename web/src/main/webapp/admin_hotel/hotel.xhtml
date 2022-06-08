@@ -52,7 +52,7 @@
             </p:panel>
             <p:dialog header="Crear Habitación" widgetVar="crear_habitacion" modal="true" showEffect="explode" hideEffect="bounce" draggable="false">
                 <h:form>
-                    <h:panelGrid cellpadding="5" columns="2">
+                    <h:panelGrid cellpadding="6" columns="2">
                         <p:outputLabel value="Numero o Nombre" for="nombre_h"/>
                         <p:inputText id="nombre_h" value="#{hotelBean.habitacion.nombre}" required="true"/>
                         <p:outputLabel value="Capacidad" for="capacidad_h"/>
@@ -62,6 +62,11 @@
                         <p:outputLabel value="Caracteristicas" for="caracteristica_ha"/>
                         <p:selectManyCheckbox id="caracteristica_ha" value="#{hotelBean.habitacion.caracteristicas}" layout="grid" columns="3" styleClass="grid-checkbox">
                             <f:selectItems value="#{hotelBean.car}" var="car" itemLabel="#{car.descripcion}" itemValue="#{car}"  />
+                        </p:selectManyCheckbox>
+
+                        <p:outputLabel value="Cama" for="cama"/>
+                        <p:selectManyCheckbox id="cama" value="#{hotelBean.habitacion.camas}" layout="grid" columns="3" styleClass="grid-checkbox">
+                            <f:selectItems value="#{hotelBean.camas}" var="cama" itemLabel="#{cama.tipo}" itemValue="#{cama}"  />
                         </p:selectManyCheckbox>
 
                         <p:outputLabel for="imagenes_habitacion" value="Imágenes: " />

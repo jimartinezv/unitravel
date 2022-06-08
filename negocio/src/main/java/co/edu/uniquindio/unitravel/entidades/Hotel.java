@@ -31,6 +31,7 @@ public class Hotel implements Serializable {
     private String nombre;
 
     @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Map<String, String> telefonos;
 
     @Column(name = "estrellas", nullable = false)
@@ -48,6 +49,7 @@ public class Hotel implements Serializable {
 
     @ManyToMany
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Caracteristica> caracteristicas;
 
     @ElementCollection

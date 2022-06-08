@@ -129,9 +129,9 @@ public interface AdministradorServicio {
      * @param codigo
      * @throws Exception
      */
-    void eliminarVuelo(String codigo) throws Exception;
+    void eliminarVuelo(Integer codigo) throws Exception;
 
-    Vuelo buscarVuelo(String codigo);
+    Vuelo buscarVuelo(Integer id);
 
     /**
      * Lista todos los vuelos

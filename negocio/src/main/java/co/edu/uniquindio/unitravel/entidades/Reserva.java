@@ -1,6 +1,8 @@
 package co.edu.uniquindio.unitravel.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -15,8 +17,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Reserva implements Serializable {
 
     @Id
@@ -42,6 +45,7 @@ public class Reserva implements Serializable {
     private byte cantidadPersonas;
 
     @OneToMany(mappedBy = "reserva")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ReservaSilla> reservaSillas;
 
     @ManyToOne

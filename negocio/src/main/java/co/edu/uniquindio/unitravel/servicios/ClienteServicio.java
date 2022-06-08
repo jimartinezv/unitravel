@@ -63,7 +63,7 @@ public interface ClienteServicio {
     List<Vuelo> vueloByCiudadandFecha(Integer ciudadO, Integer ciudadD, LocalDate fecha) throws Exception;
 
 
-    Vuelo buscarVuelo(String codigo) throws Exception;
+    Vuelo buscarVuelo(Integer codigo) throws Exception;
 
     /**
      * El cliente podrá buscar hoteles y vuelos por determinado destino
@@ -134,7 +134,9 @@ public interface ClienteServicio {
      * @param codigo
      * @return
      */
-    Vuelo buscarVueloByCodigo(String codigo);
+    Vuelo buscarVueloByCodigo(Integer codigo);
+
+
 
     /**
      * Discrimina si el vuelo existe o no
@@ -186,6 +188,8 @@ public interface ClienteServicio {
      */
     Reserva crearReserva(Reserva reserva) throws Exception;
 
+    Reserva guardarReserva(Reserva reserva) throws Exception;
+
     boolean habitacionDisponible(Habitacion h, LocalDate checkin, LocalDate checkOut)throws Exception;
 
     /**
@@ -229,6 +233,8 @@ public interface ClienteServicio {
      */
     double aplicarCodigoDescuento(CodigoDescuento codigoDescuento) throws Exception;
 
+    CodigoDescuento findCodigo(String codigo) throws Exception;
+
     /**
      * Envia correo con detalles de reserva
      * @param reserva
@@ -236,7 +242,7 @@ public interface ClienteServicio {
      */
     Reserva enviarCorreoReserva(Reserva reserva)throws Exception;
 
-
+    void enviarCorreo(String email) throws Exception;
     /**
      * Lista todos los clientes
      *

@@ -54,7 +54,7 @@
             </li>
 
             <li jsf:rendered="#{seguridadBean.autenticado and seguridadBean.rol==3}">
-              <a href="/registros/hotel.xhtml" class="nav-link text-white">
+              <a href="/admin_hotel/mis-hoteles.xhtml?tipo=admin" class="nav-link text-white">
                 <i class="pi pi-list d-block mx-auto mb-1 icon-menu"></i>
                 Mis hoteles
               </a>
@@ -88,6 +88,22 @@
 
         </div>
       </div>
+
+      <p:dialog header="Recuperar contraseña" showEffect="fade" widgetVar="recoveri" modal="true">
+        <h:form >
+          <h:panelGrid columns="3" cellpadding="5">
+            <p:outputLabel for="email_recoveri" value="Email:" />
+            <p:inputText id="email_recoveri" value="#{seguridadBean.email}" required="true" />
+            <p:message for="email_recoveri" />
+
+
+
+          </h:panelGrid>
+          <p:commandButton value="Recuperar correo" action="#{seguridadBean.recuperarContraseña}"
+                           styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left" />
+
+        </h:form></p:dialog>
+
       <p:dialog header="Iniciar sesión" showEffect="fade" widgetVar="login" modal="true">
       <h:form >
         <h:panelGrid columns="3" cellpadding="5">
@@ -98,6 +114,9 @@
           <p:password id="password_login" value="#{seguridadBean.password}" required="true"
           />
           <p:message for="password_login" />
+          <p:outputLabel value=" " for="rc"/>
+          <p:commandLink id="rcc" value="Recuperar contraseña." onclick="PF('recoveri').show()"/>
+          <p:growl id="rc" showDetail="true" />
         </h:panelGrid>
         <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.login}"
                          styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left" />

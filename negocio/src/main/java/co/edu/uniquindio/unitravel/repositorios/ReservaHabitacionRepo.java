@@ -19,6 +19,8 @@ public interface ReservaHabitacionRepo extends JpaRepository<ReservaHabitacion, 
     @Query("select rh from ReservaHabitacion rh join rh.habitacion h where h.codigo=:codigo")
     List<ReservaHabitacion> reservasByHabitacion(Integer codigo);
 
+    @Query("select sum(h.precio) from ReservaHabitacion rh join rh.habitacion h join rh.reserva r where r.codigo=:codigo ")
+    Double calcularCostoReserva(Integer codigo);
     //List<ReservaHabitacion> findByCodigoAndAndPrecio();
 
     //@Query("select h.codigo from Reserva r inner join r.reservaHabitacions rs inner join rs.habitacion h where r.fechaInicio <= :fechaI and r.fechaFin>=:fechaF")
