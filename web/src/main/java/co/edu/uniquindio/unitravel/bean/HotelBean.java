@@ -189,6 +189,7 @@ public class HotelBean implements Serializable {
             FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "El Hotel ha sido creado");
             FacesContext.getCurrentInstance().addMessage(null,msj);
                 hotel= new Hotel();
+                direccion= new Direccion();
             return "registro_exitoso?faces-redirect=true";
             }else {
                 FacesMessage msj= new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Para la creación de el hotel debe tener imagenes");

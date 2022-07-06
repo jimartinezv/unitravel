@@ -229,6 +229,7 @@ public class ReservaBean implements Serializable {
         try {
             nuevaReserva.setEstado("FINALIZADO");
             clienteServicio.guardarReserva(nuevaReserva);
+            return "/usuario/finalizado?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@ import co.edu.uniquindio.unitravel.servicios.ClienteServicio;
 import co.edu.uniquindio.unitravel.servicios.ServiciosGenerales;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -77,8 +78,9 @@ public class DetalleHotelBean implements Serializable {
         try {
             Habitacion h=clienteServicio.buscarHabitacion(Integer.parseInt(codigoHotel));
             if(capacidad>h.getCapacidad()){
-                FacesMessage fm= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Las personas superan la capacidad de la habitacion");
-                FacesContext.getCurrentInstance().addMessage("login-bean", fm);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "La habitacion no cuenta capacidad seleccionada");
+
+                PrimeFaces.current().dialog().showMessageDynamic(message);
 
                 return null;
             }
@@ -86,7 +88,9 @@ public class DetalleHotelBean implements Serializable {
             if (clienteServicio.habitacionDisponible(h, rango.get(0), rango.get(rango.size()-1))) {
                 return "/usuario/reserva?faces-redirect=true&amp;habitacion=" + codigoHotel+"&amp;fechai="+ rango.get(0)+"&amp;fechaf="+ rango.get(rango.size()-1)+ "&amp;personas="+capacidad ;
             }else{
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", " La habitación no está disponible");
 
+                PrimeFaces.current().dialog().showMessageDynamic(message);
             }
 
 

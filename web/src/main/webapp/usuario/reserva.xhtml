@@ -53,6 +53,7 @@
 
                             <p:outputLabel for="vuelo_i" value="Vuelo de ida"/>
                             <p:inputText value="No hay vuelos disponibles" rendered="#{reservaBean.vueloList.size()==0}"/>
+
                             <p:selectOneMenu id="vuelo_i" value="#{reservaBean.vueloI}" converter="#{vueloConverter}"
                                               requiredMessage="Seleccione vuelo" rendered="#{reservaBean.vueloList.size()>0}">
                                 <f:selectItem itemLabel="Seleccione el vuelo" noSelectionOption="true"/>

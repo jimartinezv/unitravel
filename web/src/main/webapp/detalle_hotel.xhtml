@@ -172,6 +172,13 @@
             <h:panelGrid columns="2" cellpadding="3">
                 <p:inputTextarea value="#{detalleHotelBean.comentario.comentario}" required="true" styleClass="comentario-usuario"/>
                 <p:rating value="#{detalleHotelBean.comentario.calificacion}" required="true"/>
+                <p:outputLabel value="Seleccione tipo de hotel" for="ciudad_hotel"/>
+                <p:selectOneMenu id="ciudad_hotel"
+                                 required="true" requiredMessage="La ciudad es obligatoria" >
+                    <f:selectItem itemLabel="Seleccione tipo de petición" noSelectionOption="true"/>
+                    <f:selectItems var="ciudad"
+                                   value="Queja" />
+                </p:selectOneMenu>
             </h:panelGrid>
             <p:commandButton value="Comentar" icon="pi pi-comment" iconPos="left" update="@form, lista-c" styleClass="mt-4" action="#{detalleHotelBean.comentar}"/>
             <p:growl for="msj-pregunta" showDetail="true"/>
